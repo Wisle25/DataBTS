@@ -10,6 +10,8 @@ class Pengguna extends Authenticable
 {
     use HasFactory;
 
+    protected $table = "pengguna";
+
     // Mass assignable attributes
     protected $fillable = [
         'nama',

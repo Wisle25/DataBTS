@@ -9,7 +9,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+    <link href="https`://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
 </head>
 
 <body class="flex justify-center items-center h-screen text-center">
@@ -17,18 +17,28 @@
         <div class="mb-4 text-center 2xl:mt-12">
             <h3 class="text-3xl font-bold mt-2  py-6 2xl:text-4xl">Register</h3> 
         </div>
-        <div class="">
-            <form action="" method="post">
+        <div>
+            <form action="user" method="POST">
+                @csrf
                 <div class="mb-4 mx-10 text-sm sm:text-base 2xl:mt-10">
-                    <input type="name" placeholder="Enter Name:" name="name"
-                        class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
+                    <input type="text" placeholder="Enter Username:" name="username"
+                        class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("username") }}">
+                    @error('username')
+                        <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
+                    @enderror
                     <input type="email" placeholder="Enter Email:" name="email"
-                        class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
+                        class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("email") }}">
+                    @error('email')
+                        <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
+                    @enderror
                     <input type="password" placeholder="Enter Password:" name="password"
-                        class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
-                    <input type="password" placeholder="Enter Confirm Password:" name="confirm-password"
-                        class="w-full mb-5 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
-                        <button class="text-center p-2 bg-violet-600 w-full rounded-lg text-white font-semibold hover:bg-violet-700">Register</button> 
+                        class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
+                    @error('password')
+                        <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
+                    @enderror
+                    <input type="password" placeholder="Enter Confirm Password:" name="password_confirmation"
+                        class="w-full mt-3 mb-5 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
+                    <input type="submit" class="text-center p-2 bg-violet-600 w-full rounded-lg text-white font-semibold hover:bg-violet-700" value="Register" />
                     </div>
             </form>
             <div class="mt-5 text-center text-sm md:text-base">
@@ -39,5 +49,4 @@
     </div>
     
 </body>
-
 </html>

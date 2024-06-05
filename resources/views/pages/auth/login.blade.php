@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-violet-100">
 
-<head class="h-full">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -17,7 +17,7 @@
         <div class="mb-6 text-center 2xl:mt-10">
             <h3 class="text-3xl font-bold mt-4 py-4 2xl:text-4xl">Login</h3>
         </div>
-        <div class="">
+        <div>
             <form action="" method="post">
                 <div class="mb-4 mx-10 text-sm sm:text-base 2xl:mt-14">
                     <input type="email" placeholder="Enter Email:" name="email"

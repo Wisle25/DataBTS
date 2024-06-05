@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function showRegisterForm() {
-        return view("auth.register");
-    }
-
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
+            "username" => "required|string|min:5|regex:/^[a-zA-Z0-9]+$/|unique:pengguna",
             "email" => "required|string|email|max:255|unique:pengguna",
-            "password" => "required|string|min:8"
+            "password" => "required|string|min:8|confirmed"
         ]);
 
         if ($validator->fails()) {
@@ -24,16 +21,12 @@ class UserController extends Controller
         }
 
         Pengguna::create([
-            "email"=> $request->email,
+            "username" => $request->username,
+            "email" => $request->email,
             "password" => Hash::make($request->password)
         ]);
 
-        return redirect()->route("login")->with("success","");
-    }
-
-    public function showLoginForm()
-    {
-        return view('auth.login');
+        return redirect()->route("login")->with("success", "Berhasil membuat akun!");
     }
 
     public function login(Request $request)

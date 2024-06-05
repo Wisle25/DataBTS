@@ -10,11 +10,11 @@ return new class extends Migration
     {
         Schema::create('pengguna', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama')->nullable();
             $table->string('username');
             $table->string('password');
             $table->string('email');
-            $table->string('peran')->default('special guest');
+            $table->string('peran')->default('guest');
             $table->string('status')->default('active');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();
