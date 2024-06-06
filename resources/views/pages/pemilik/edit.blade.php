@@ -15,14 +15,13 @@
 <body class="bg-gray-100 py-10">
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
-            @csrf
-            @method('PUT')
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data Pemilik</h1>
-            {{-- <form action='{{ url('bts/'.$data->id) }}' method='post'> --}}
-            <form action='{{ url('/pemilik/edit') }}' method='post'>
-                <x-form.form-input id="nama" label="Nama" name="nama" value="{{ old('nama') }}" />
-                <x-form.form-input id="alamat" label="Alamat" name="alamat" value="{{ old('alamat') }}" />
-                <x-form.form-input id="telepon" label="Telepon" name="telepon" step="any" value="{{ old('telepon') }}" />
+            <form action='{{ route("pemilik.update", $pemilik->id) }}' method="GET">
+                @csrf
+                @method("PUT")
+                <x-form.form-input id="nama" label="Nama" name="name" value="{{ old('name', $pemilik->name) }}" />
+                <x-form.form-input id="alamat" label="Alamat" name="alamat" value="{{ old('alamat', $pemilik->alamat) }}" />
+                <x-form.form-input id="telepon" label="Telepon" name="telepon" step="any" value="{{ old('telepon', $pemilik->telepon) }}" />
 
                 <button type="submit" name="submit"
                     class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>

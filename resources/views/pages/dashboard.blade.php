@@ -10,33 +10,19 @@
             {{-- DASHBOARD - PEMILIK --}}
             <div class="items-center px-5 py-6 bg-violet-200 rounded-md shadow-sm">
                 <h5>Pemilik</h5>
+                <button 
+                    class="bg-blue-500 text-white p-2 rounded-md" 
+                    onclick="location.href='{{ route('pemilik.create') }}'">
+                >
+                    Tambahkan pemilik
+                </button>
                 @component('components.table.index', [
                     'columns' => ['No', 'Nama', 'Alamat', 'Telepon']
                 ])
-                @php
-                    $btsData = [
-                        [
-                            'nama' => 'Pemilik 1',
-                            'alamat' => 'Alamat 1',
-                            'telepon' => '00000000000'
-                        ],
-                        [
-                            'nama' => 'Pemilik 2',
-                            'alamat' => 'Alamat 2',
-                            'telepon' => '00000000000'
-                        ],
-                        [
-                            'nama' => 'Pemilik 3',
-                            'alamat' => 'Alamat 3',
-                            'telepon' => '00000000000'
-                        ]
-                        // Tambahkan data lainnya di sini
-                        ];
-                    @endphp
-                    @foreach ($btsData as $index => $bts)
+                    @foreach ($pemilik as $index => $bts)
                         <tr>
                             <td class="px-5 py-2 text-center">{{ $index + 1 }}</td>
-                            <td class="px-4 py-2 text-center">{{ $bts['nama'] }}</td>
+                            <td class="px-4 py-2 text-center">{{ $bts['name'] }}</td>
                             <td class="px-4 py-2 text-center">{{ $bts['alamat'] }}</td>
                             <td class="px-4 py-2 text-center">{{ $bts['telepon'] }}</td>
                             <td class="px-4 py-2 text-center">
@@ -44,9 +30,9 @@
                                 {{-- <form onsubmit="return confirm('Yakin akan menghapus data?')" class='d-inline' action="{{ url('bts/'.$item->id) }}" method="post"> --}}
             
                                 <x-button.btn-action 
-                                    edit-url="/pemilik/edit"
+                                    edit-url="{{ route('pemilik.edit', $bts->id) }}"
                                     {{-- delete-url="{{ url('bts', $bts['id']) }}" delete-message="Yakin akan menghapus data?" /> --}}
-                                    delete-url="" delete-message="Yakin akan menghapus data?" />
+                                    delete-url="{{ route("pemilik.destroy", $bts->id)}}" delete-message="Yakin akan menghapus data?" />
                                 </div>
                             </td>
                         </tr>

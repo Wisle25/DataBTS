@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id()->primary();
             $table->string('nama');
             $table->text('alamat');
-            $table->unsignedBigInteger('id_jenis_bts');
+            $table->unsignedBigInteger('id_jenis_bts')->nullable();
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
             $table->integer('tinggi_tower');
@@ -21,16 +21,16 @@ return new class extends Migration
             $table->integer('lebar_tanah');
             $table->boolean('ada_genset');
             $table->boolean('ada_tembok_batas');
-            $table->unsignedBigInteger('id_user_pic');
-            $table->unsignedBigInteger('id_pemilik');
-            $table->unsignedBigInteger('id_wilayah');
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by');
+            $table->unsignedBigInteger('id_user_pic')->nullable();
+            $table->unsignedBigInteger('id_pemilik')->nullable();
+            $table->unsignedBigInteger('id_wilayah')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamp("edited_at")->default(now());
             $table->timestamps();
 
-            $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
-            $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
+            // $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
+            // $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
         });
     }
 

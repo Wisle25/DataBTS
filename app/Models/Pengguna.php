@@ -36,13 +36,13 @@ class Pengguna extends Authenticable
     ];
 
     // Relationships
-    public function creator()
-    {
-        return $this->belongsTo(Pengguna::class, 'created_by');
-    }
+    // public function creator()
+    // {
+    //     return $this->belongsTo(Pengguna::class, 'created_by');
+    // }
 
-    public function editor()
-    {
-        return $this->belongsTo(Pengguna::class, 'edited_by');
-    }
+    // public function editor()
+    // {
+    //     return $this->belongsTo(Pengguna::class, 'edited_by');
+    // }
 }

@@ -13,8 +13,8 @@
     @component('components.table.index', [
         'columns' => ['No', 'Nama', 'Alamat', 'Telepon'],
     ])
-        @php
-        $btsData = [
+        <!-- @php
+        $pemilik = [
             [
                 'nama' => 'Pemilik 1',
                 'alamat' => 'Alamat 1',
@@ -44,8 +44,8 @@
             ]
             // Tambahkan data lainnya di sini
             ];
-        @endphp
-        @foreach ($btsData as $index => $bts)
+        @endphp -->
+        @foreach ($pemilik as $index => $bts)
         <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($bts) }})">
             <td class="px-5 py-2 text-center">{{ $index + 1 }}</td>
             <td class="px-4 py-2 text-center">{{ $bts['nama'] }}</td>
@@ -68,7 +68,6 @@
         @component('components.allert.modal')
         Data Pemilik
         @endcomponent
-
 
         <script>
             function showDetails(data) {

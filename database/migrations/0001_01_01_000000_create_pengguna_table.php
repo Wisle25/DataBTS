@@ -14,15 +14,15 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('email');
-            $table->string('peran')->default('guest');
+            $table->string('peran')->default('Administrator');
             $table->string('status')->default('active');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamp("edited_at")->default(now());
             $table->timestamps();
     
-            $table->foreign('created_by')->references('id')->on('pengguna');
-            $table->foreign('edited_by')->references('id')->on('pengguna');
+            // $table->foreign('created_by')->references('id')->on('pengguna');
+            // $table->foreign('edited_by')->references('id')->on('pengguna');
         });
     }
 

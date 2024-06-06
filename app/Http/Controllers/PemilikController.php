@@ -13,8 +13,8 @@ class PemilikController extends Controller
      */
     public function index()
     {
-        $pemiliks = Pemilik::all();
-        return view('pemilik.index', compact('pemiliks'));
+        $pemilik = Pemilik::all();
+        return view('pages.pemilik.index', compact('pemilik'));
     }
 
     /**
@@ -22,7 +22,7 @@ class PemilikController extends Controller
      */
     public function create()
     {
-        return view('pemilik.create');
+        return view('pages.pemilik.create');
     }
 
     /**
@@ -40,11 +40,11 @@ class PemilikController extends Controller
             'name' => $request->name,
             'alamat' => $request->alamat,
             'telepon' => $request->telepon,
-            'created_by' => Auth::id(),
-            'edited_by' => Auth::id(),
+            // 'created_by' => /* Auth::id() */ 1,
+            // 'edited_by' => /* Auth::id() */ 1,
         ]);
 
-        return redirect()->route('pemilik.index')->with('success', 'Pemilik created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Pemilik created successfully.');
     }
 
     /**
@@ -52,7 +52,7 @@ class PemilikController extends Controller
      */
     public function edit(Pemilik $pemilik)
     {
-        return view('pemilik.edit', compact('pemilik'));
+        return view('pages.pemilik.edit', compact('pemilik'));
     }
 
     /**
@@ -60,20 +60,19 @@ class PemilikController extends Controller
      */
     public function update(Request $request, Pemilik $pemilik)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:pemilik,name,' . $pemilik->id,
-            'alamat' => 'required|string',
-            'telepon' => 'required|string|max:15',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|string|max:255|unique:pemilik,name,' . $pemilik->id,
+        //     'alamat' => 'required|string',
+        //     'telepon' => 'required|string|max:15',
+        // ]);
 
         $pemilik->update([
             'name' => $request->name,
             'alamat' => $request->alamat,
-            'telepon' => $request->telepon,
-            'edited_by' => Auth::id(),
+            'telepon' => $request->telepon
         ]);
 
-        return redirect()->route('pemilik.index')->with('success', 'Pemilik updated successfully.');
+        return redirect()->route('dashboard')->with('success', 'Pemilik updated successfully.');
     }
 
     /**

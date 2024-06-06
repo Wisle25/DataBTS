@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string("name")->unique();
             $table->text("alamat");
             $table->string("telepon");
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamp("edited_at")->default(now());
             $table->timestamps();
 
-            $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
-            $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
+            // $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
+            // $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
         });
     }
 
