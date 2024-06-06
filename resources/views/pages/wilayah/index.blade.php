@@ -6,7 +6,7 @@
     @endcomponent
 
     {{-- Tombol tambah data --}}
-    @component('components.button.btn-tambah', ['url' => url('bts/create')])
+    @component('components.button.btn-tambah', ['url' => url('wilayah/create')])
     @endcomponent
 
 
@@ -42,10 +42,10 @@
                 <td class="px-4 py-2 text-center">{{ $index + 1 }}</td>
                 <td class="px-4 py-2 text-center">{{ $wilayah['nama'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $wilayah['level'] }}</td>
-                <td class="px-4 py-2 text-center">
+                <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center">
 
-                        <a href='{{ url('bts/edit') }}' class="text-teal-700 hover:text-white hover:bg-teal-600 p-1">
+                        <a href='{{ url('wilayah/edit') }}' class="text-teal-700 hover:text-white hover:bg-teal-600 p-1">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -53,7 +53,7 @@
                             </svg>
                         </a>
                         <form onsubmit="return confirm('Yakin akan menghapus data?')" class='d-inline ml-1 mr-2'
-                            action="{{ url('mahasiswa/') }}" method="post">
+                            action="{{ url('wilayah/') }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="submit" class="text-rose-700 hover:text-white hover:bg-rose-600 p-1">
@@ -88,6 +88,10 @@
                 <td class="px-14 py-1">${data.nama}</td>
             </tr>
             <tr>
+                <td class="px-6 py-1">ID Parent</td>
+                <td class="px-14 py-1">${data.id_parent}</td>
+            </tr>
+            <tr>
                 <td class="px-6 py-1">Level</td>
                 <td class="px-14 py-1">${data.level}</td>
             </tr>
@@ -100,12 +104,12 @@
                 <td class="px-14 py-1">${data.edited_by}</td>
             </tr>
             <tr>
-                <td class="px-6 py-1 text-xs text-blue-500">Created At</td>
-                <td class="px-14 py-1 text-xs text-blue-500">${data.created_at}</td>
+                <td class="px-6 py-1">Created At</td>
+                <td class="px-14 py-1">${data.created_at}</td>
             </tr>
             <tr>
-                <td class="px-6 py-1 text-xs text-blue-500">Edited At</td>
-                <td class="px-14 py-1 text-xs text-blue-500">${data.edited_at}</td>
+                <td class="px-6 py-1">Edited At</td>
+                <td class="px-14 py-1">${data.edited_at}</td>
             </tr>
         </table>
             `;

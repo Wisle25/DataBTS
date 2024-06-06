@@ -1,8 +1,10 @@
-@props(['id', 'label', 'name', 'type' => 'text', 'step' => null, 'value' => ''])
+<!-- resources/views/components/form-input.blade.php -->
+@props(['id', 'label', 'name', 'type' => 'text', 'value' => ''])
 
 <div class="mb-4">
-    <label for="{{ $id }}" class="block mb-2 text-sm text-gray-700">{{ $label }}</label>
-    <input type="{{ $type }}" step="{{ $step }}" id="{{ $id }}" name="{{ $name }}" value="{{ $value }}"
-        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-        required>
+    <label for="{{ $id }}" class="block text-gray-700 font-bold mb-2">{{ $label }}</label>
+    <input id="{{ $id }}" name="{{ $name }}" type="{{ $type }}" value="{{ $value }}" {{ $attributes->merge(['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) }}>
+    @error($name)
+        <p class="text-red-500 text-xs italic mt-2">{{ $message }}</p>
+    @enderror
 </div>

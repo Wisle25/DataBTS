@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-50">
+<html lang="en" >
 
 <head class="h-full">
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@
                 <x-form.form-input id="longitude" label="Longitude" name="longitude" type="number" step="any"  />
                 <x-form.form-input id="tinggi_tower" label="Tinggi Tower" name="tinggi_tower" type="number" step="any" />
                 <x-form.form-input id="panjang_tanah" label="Panjang Tanah" name="panjang_tanah" type="number" step="any" />
-                <x-form.form-input id="lebar_tanah" label="Lebar Tanah" name="lebar_tanah" type="number" step="any" '>
+                <x-form.form-input id="lebar_tanah" label="Lebar Tanah" name="lebar_tanah" type="number" step="any" >
 
                 <x-form.form-select id="ada_genset" label="Ada Genset" name="ada_genset" :options="['yes' => 'Yes', 'no' => 'No']" />
                 <x-form.form-select id="ada_tembok_batas" label="Ada Tembok Batas" name="ada_tembok_batas" :options="['yes' => 'Yes', 'no' => 'No']" />
