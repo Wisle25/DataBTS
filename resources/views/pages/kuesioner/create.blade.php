@@ -17,12 +17,10 @@
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
             @csrf
             @method('PUT')
-            <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data Wilayah</h1>
+            <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Tambah Data Kuesioner</h1>
             {{-- <form action='{{ url('bts/'.$data->id) }}' method='post'> --}}
-            <form action='{{ url('/wilayah/edit') }}' method='post'>
-                <x-form.form-input id="nama" label="Nama" name="tahun"  type="text" value="{{ old('tahun') }}" />
-                <x-form.form-input id="id_parent" label="ID Parent" name="id_parent"  type="number" step="any" value="{{ old('id_parent') }}" />
-                <x-form.form-input id="level" label="Level" name=""  type="number" step="any" value="{{ old('level') }}" />
+            <form action='{{ url('/kuesioner') }}' method='post'>
+                <x-form.form-input id="pertanyaan" label="Pertanyaan" name="pertanyaan" type="text" />
 
                 <button type="submit" name="submit"
                     class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>

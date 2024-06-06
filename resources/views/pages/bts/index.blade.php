@@ -34,8 +34,6 @@
                     'created_by' => 'Admin',
                     'edited_by' => 'Admin',
                     'created_at' => '2023-01-01',
-                    
-
                 ],
                 [
                     'nama' => 'BTS 2',
@@ -462,13 +460,12 @@
                 <td class="px-4 py-2 text-center">{{ $bts['alamat'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['jenis_bts_id'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['pemilik_id'] }}</td>
-                <td class="px-4 py-2 text-center">
+                <td class="px-4 py-2 text-center " onclick="event.stopPropagation();">
                     {{-- <a href='{{ url('bts/'.$item->id.'/edit') }}' class="btn btn-warning btn-sm">Edit</a> --}}
                     {{-- <form onsubmit="return confirm('Yakin akan menghapus data?')" class='d-inline' action="{{ url('bts/'.$item->id) }}" method="post"> --}}
 
-                    <x-button.btn-action edit-url=""
-                        {{-- delete-url="{{ url('bts', $bts['id']) }}" delete-message="Yakin akan menghapus data?" /> --}}
-                        delete-url="" delete-message="Yakin akan menghapus data?" />
+                    <x-button.btn-action edit-url="/bts/edit" {{-- delete-url="{{ url('bts', $bts['id']) }}" delete-message="Yakin akan menghapus data?" /> --}} delete-url=""
+                        delete-message="Yakin akan menghapus data?" />
                     </div>
                 </td>
             </tr>
@@ -537,20 +534,20 @@
             </tr>
 
             <tr>
-                <td class="px-6 py-1 text-xs text-blue-500">Created By</td>
-                <td class="px-14 py-1 text-xs text-blue-500">${data.created_by}</td>
+                <td class="px-6 py-1">Created By</td>
+                <td class="px-14 py-1">${data.created_by}</td>
             </tr>
             <tr>
-                <td class="px-6 py-1 text-xs text-blue-500">Edited By</td>
-                <td class="px-14 py-1 text-xs text-blue-500">${data.edited_by}</td>
+                <td class="px-6 py-1">Edited By</td>
+                <td class="px-14 py-1">${data.edited_by}</td>
             </tr>
             <tr>
-                <td class="px-6 py-1 text-xs text-blue-500">Created At</td>
-                <td class="px-14 py-1 text-xs text-blue-500">${data.created_at}</td>
+                <td class="px-6 py-1">Created At</td>
+                <td class="px-14 py-1">${data.created_at}</td>
             </tr>
             <tr>
-                <td class="px-6 py-1 text-xs text-blue-500">Edited At</td>
-                <td class="px-14 py-1 text-xs text-blue-500">${data.edited_at}</td>
+                <td class="px-6 py-1">Edited At</td>
+                <td class="px-14 py-1">${data.edited_at}</td>
             </tr>
         </table>
             `;
