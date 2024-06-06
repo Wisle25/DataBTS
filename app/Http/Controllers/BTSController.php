@@ -12,7 +12,10 @@ class BTSController extends Controller
      */
     public function index()
     {
-        //
+        // Getting Data
+        $data = BTS::get();
+
+        return view("pages.bts.index", compact("data"));
     }
 
     // to create

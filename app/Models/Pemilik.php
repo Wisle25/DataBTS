@@ -4,29 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticable;
 
-class Pengguna extends Authenticable
+class Pemilik extends Model
 {
     use HasFactory;
 
-    protected $table = "pengguna";
+    protected $table = 'pemilik'; // Specify the table name
 
     // Mass assignable attributes
     protected $fillable = [
-        'nama',
-        'username',
-        'password',
-        'email',
-        'peran',
-        'status',
+        'name',
+        'alamat',
+        'telepon',
         'created_by',
         'edited_by',
-    ];
-
-    // Hidden attributes
-    protected $hidden = [
-        'password',
     ];
 
     // Attribute casting

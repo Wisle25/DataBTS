@@ -10,7 +10,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bts', function (Blueprint $table) {
-            $table->id();
+            $table->id()->primary();
             $table->string('nama');
             $table->text('alamat');
             $table->unsignedBigInteger('id_jenis_bts');
@@ -26,7 +26,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_wilayah');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('edited_by');
+            $table->timestamp("edited_at")->default(now());
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
+            $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
         });
     }
 
