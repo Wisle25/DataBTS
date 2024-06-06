@@ -15,14 +15,14 @@
 <body class="bg-gray-100 py-10">
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
-            @csrf
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Tambah Data Monitoring</h1>
             <form action='{{ url('/monitoring') }}' method='post'>
+                @csrf
                 <x-form.form-input id="tahun" label="Pilih Tahun" name="tahun" type="number" step="any" />
-                <x-form.form-input id="id_bts" label="ID BTS" name="id_bts" type="number"  />
-                <x-form.form-input id="tgl_generate" label="Tanggal Generate" name="tgl_generate" type="date"/>
+                <x-form.form-input id="id_bts" label="ID BTS" name="id_bts" type="number" />
+                <x-form.form-input id="tgl_generate" label="Tanggal Generate" name="tgl_generate" type="date" />
                 <x-form.form-input id="tgl_kunjungan" label="Tanggal Kunjungan" name="tgl_kunjungan" type="date" />
-                <x-form.form-input id="id_kondisi_bts" label="ID Kondisi BTS" name="id_kondisi_bts" type="number" >
+                <x-form.form-input id="id_kondisi_bts" label="ID Kondisi BTS" name="id_kondisi_bts" type="number" />
                 <x-form.form-input id="id_user_surveyor" label="ID User Surveyor" name="id_user_surveyor" type="number" />
 
                 <button type="submit" name="submit"
