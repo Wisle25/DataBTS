@@ -3,6 +3,7 @@
 use App\Http\Controllers\BTSController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JenisBTSController;
+use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAdministrator;
@@ -64,6 +65,16 @@ Route::controller(JenisBTSController::class)->group(function () {
     Route::get("/jenis_bts/{jenis_bts}/edit", "edit")->name("jenis_bts.edit");
     Route::get("/jenis_bts/{jenis_bts}", "update")->name('jenis_bts.update');
     Route::delete("/jenis_bts/{jenis_bts}", "destroy")->name("jenis_bts.destroy");
+});
+
+// Kuesioner
+Route::controller(KuesionerController::class)->group(function () {
+    Route::get("/kuesioner", "index")->name("kuesioner.index");
+    Route::get("/kuesioner/create", "create")->name("kuesioner.create");
+    Route::post("/kuesioner", "store")->name("kuesioner.store");
+    Route::get("/kuesioner/{kuesioner}/edit", "edit")->name("kuesioner.edit");
+    Route::get("/kuesioner/{kuesioner}", "update")->name('kuesioner.update');
+    Route::delete("/kuesioner/{kuesioner}", "destroy")->name("kuesioner.destroy");
 });
 
 // // BTS

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisBTS;
+use App\Models\Kuesioner;
 use App\Models\Pemilik;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,8 @@ class DashboardController extends Controller
     public function index() {
         $pemilik = Pemilik::all();
         $jenis_bts = JenisBTS::all();
-        return view('pages.dashboard', compact("pemilik", "jenis_bts"));
+        $kuesioner = Kuesioner::all();
+
+        return view('pages.dashboard', compact("pemilik", "jenis_bts", "kuesioner"));
     }
 }
