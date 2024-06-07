@@ -11,12 +11,14 @@
     </div>
 
     <div class="flex items-center">
+        @if (Auth::check())
         <div x-data="{ dropdownOpen: false }" class="relative">
             <button @click="dropdownOpen = !dropdownOpen"
                 :class="dropdownOpen ? 'bg-violet-200 text-violet-600' :
                     'transition delay-150 hover:bg-violet-200 hover:text-violet-600'"
                 class="font-medium rounded-md text-sm md:text-base px-3 py-1 mx-1 sm:mx-6 transition delay-150">
-                Zasxy
+                <!-- Zasxy -->
+                {{ "Hello," . Auth::user()->username . "!" }}
             </button>
 
             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full"
@@ -30,7 +32,7 @@
                 x-transition:leave="transition ease-in duration-75"
                 x-transition:leave-start="transform opacity-100 scale-100"
                 x-transition:leave-end="transform opacity-0 scale-95">
-                <a href="#" class="flex px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white transition delay-50">
+                <a href="{{ route('profile') }}" class="flex px-4 py-1 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white transition delay-50">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,5 +54,11 @@
                 </a>
             </div>
         </div>
+        @else
+            <div class="flex items-center space-x-4">
+                <a href="{{ route('login') }}" class="text-gray-700 hover:text-gray-900">Login</a>
+                <a href="{{ route('register') }}" class="text-gray-700 hover:text-gray-900">Register</a>
+            </div>
+        @endif
     </div>
 </header>

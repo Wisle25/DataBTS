@@ -18,11 +18,12 @@
             <h3 class="text-3xl font-bold mt-4 py-4 2xl:text-4xl">Login</h3>
         </div>
         <div>
-            <form action="" method="post">
+            <form action="auth" method="post">
+                @csrf
                 <div class="mb-4 mx-10 text-sm sm:text-base 2xl:mt-14">
-                    <input type="email" placeholder="Enter Email:" name="email"
+                    <input type="email" placeholder="Enter Email" name="email"
                         class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
-                    <input type="password" placeholder="Enter Password:" name="password"
+                    <input type="password" placeholder="Enter Password" name="password"
                         class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
                     <button
                         class="text-center mt-3 p-2 bg-violet-600 w-full rounded-lg text-white font-semibold hover:bg-violet-700">Login</button>

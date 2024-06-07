@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
  * */
 Route::get("/", function () {
     return view("pages.home");
-});
+})->name("home");
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get("/dashboard", "index")->name("dashboard");
@@ -35,6 +35,10 @@ Route::controller(UserController::class)->group(function () {
 
     Route::post("/user", "register");
     Route::post("/auth", "login");
+    Route::get("/profile", "profile")->middleware("auth")->name("profile");
+    Route::get("/profile/edit", "editProfile")->name("profile.edit");
+    Route::put("/profile/update","updateProfile")->name("profile.update");
+    Route::delete("/profile","deleteProfile")->name("profile.delete");
 });
 
 // BTS
