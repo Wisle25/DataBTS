@@ -18,17 +18,12 @@ class BTSController extends Controller
         return view("pages.bts.index", compact("data"));
     }
 
-    // to create
-    public function insert(Request $request) {
-        
-    }
-
-    /**
+       /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('pages.bts.create');
     }
 
     /**
@@ -36,38 +31,100 @@ class BTSController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // $request->validate([
+        //     'nama' => 'required|string|max:255',
+        //     'alamat' => 'required|string',
+        //     // 'id_jenis_bts' => 'nullable|integer',
+        //     'latitude' => 'required|numeric|between:-90,90',
+        //     'longitude' => 'required|numeric|between:-180,180',
+        //     'tinggi_tower' => 'required|integer',
+        //     'panjang_tanah' => 'required|integer',
+        //     'lebar_tanah' => 'required|integer',
+        //     'ada_genset' => 'required|boolean',
+        //     'ada_tembok_batas' => 'required|boolean',
+        //     // 'id_user_pic' => 'nullable|integer',
+        //     // 'id_pemilik' => 'nullable|integer',
+        //     // 'id_wilayah' => 'nullable|integer',
+        // ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(BTS $bTS)
-    {
-        //
+        BTS::create([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            // 'id_jenis_bts' => $request->id_jenis_bts,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'tinggi_tower' => $request->tinggi_tower,
+            'panjang_tanah' => $request->panjang_tanah,
+            'lebar_tanah' => $request->lebar_tanah,
+            'ada_genset' => $request->ada_genset,
+            'ada_tembok_batas' => $request->ada_tembok_batas,
+            // 'id_user_pic' => $request->id_user_pic,
+            // 'id_pemilik' => $request->id_pemilik,
+            // 'id_wilayah' => $request->id_wilayah,
+            // 'created_by' => Auth::id(),
+            // 'edited_by' => Auth::id(),
+            'edited_at' => now()
+        ]);
+
+        return redirect()->route('bts.index')->with('success', 'BTS created successfully.');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BTS $bTS)
+    public function edit(BTS $bts)
     {
-        //
+        return view('pages.bts.edit', compact('bts'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BTS $bTS)
+    public function update(Request $request, BTS $bts)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            // 'id_jenis_bts' => 'nullable|integer',
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
+            'tinggi_tower' => 'required|integer',
+            'panjang_tanah' => 'required|integer',
+            'lebar_tanah' => 'required|integer',
+            'ada_genset' => 'required|boolean',
+            'ada_tembok_batas' => 'required|boolean',
+            // 'id_user_pic' => 'nullable|integer',
+            // 'id_pemilik' => 'nullable|integer',
+            // 'id_wilayah' => 'nullable|integer',
+        ]);
+
+        $bts->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            // 'id_jenis_bts' => $request->id_jenis_bts,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'tinggi_tower' => $request->tinggi_tower,
+            'panjang_tanah' => $request->panjang_tanah,
+            'lebar_tanah' => $request->lebar_tanah,
+            'ada_genset' => $request->ada_genset,
+            'ada_tembok_batas' => $request->ada_tembok_batas,
+            // 'id_user_pic' => $request->id_user_pic,
+            // 'id_pemilik' => $request->id_pemilik,
+            // 'id_wilayah' => $request->id_wilayah,
+            // 'edited_by' => Auth::id(),
+            // 'edited_at' => now()
+        ]);
+
+        return redirect()->route('bts.index')->with('success', 'BTS updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BTS $bTS)
+    public function destroy(BTS $bts)
     {
-        //
+        $bts->delete();
+        return redirect()->route('bts.index')->with('success', 'BTS deleted successfully.');
     }
 }

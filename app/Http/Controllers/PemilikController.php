@@ -81,6 +81,7 @@ class PemilikController extends Controller
     public function destroy(Pemilik $pemilik)
     {
         $pemilik->delete();
-        return redirect()->route('pemilik.index')->with('success', 'Pemilik deleted successfully.');
+        
+        return redirect()->route('dashboard')->with('success', 'Pemilik deleted successfully.');
     }
 }

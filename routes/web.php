@@ -36,7 +36,12 @@ Route::controller(UserController::class)->group(function () {
 
 // BTS
 Route::controller(BTSController::class)->group(function () {
-    Route::get("/bts", "index");
+    Route::get("/bts", "index")->name("bts.index");
+    Route::get("/bts/create", "create")->name("bts.create");
+    Route::post("/bts", "store")->name("bts.store");
+    Route::get("/bts/{bts}/edit", "edit")->name("bts.edit");
+    Route::get("/bts/{bts}", "update")->name('bts.update');
+    Route::delete("/bts/{bts}", "destroy")->name("bts.destroy");
 });
 
 // Route::middleware(['auth', 'checkadministrator'])->group(function () {

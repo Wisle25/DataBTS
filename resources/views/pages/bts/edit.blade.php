@@ -19,17 +19,17 @@
             @method('PUT')
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data BTS</h1>
             {{-- <form action='{{ url('bts/'.$data->id) }}' method='post'> --}}
-            <form action='{{ url('/bts/edit') }}' method='post'>
-                <x-form.form-input id="nama" label="Nama" name="nama" value="{{ old('nama') }}" />
-                <x-form.form-input id="alamat" label="Alamat" name="alamat" value="{{ old('alamat') }}" />
-                <x-form.form-input id="latitude" label="Latitude" name="latitude" type="number" step="any" value="{{ old('latitude') }}" />
-                <x-form.form-input id="longitude" label="Longitude" name="longitude" type="number" step="any" value="{{ old('longitude') }}" />
-                <x-form.form-input id="tinggi_tower" label="Tinggi Tower" name="tinggi_tower" type="number" step="any" value="{{ old('tinggi_tower') }}" />
-                <x-form.form-input id="panjang_tanah" label="Panjang Tanah" name="panjang_tanah" type="number" step="any" value="{{ old('panjang_tanah') }}" />
-                <x-form.form-input id="lebar_tanah" label="Lebar Tanah" name="lebar_tanah" type="number" step="any" value="{{ old('lebar_tanah') }}" />
+            <form action='{{ route("bts.update", $bts->id) }}' method="GET">
+                <x-form.form-input id="nama" label="Nama" name="nama" value="{{ old('nama', $bts->nama) }}" />
+                <x-form.form-input id="alamat" label="Alamat" name="alamat" value="{{ old('alamat', $bts->alamat) }}" />
+                <x-form.form-input id="latitude" label="Latitude" name="latitude" type="number" step="any" value="{{ old('latitude', $bts->latitude) }}" />
+                <x-form.form-input id="longitude" label="Longitude" name="longitude" type="number" step="any" value="{{ old('longitude', $bts->longitude) }}" />
+                <x-form.form-input id="tinggi_tower" label="Tinggi Tower" name="tinggi_tower" type="number" step="any" value="{{ old('tinggi_tower', $bts->tinggi_tower) }}" />
+                <x-form.form-input id="panjang_tanah" label="Panjang Tanah" name="panjang_tanah" type="number" step="any" value="{{ old('panjang_tanah', $bts->panjang_tanah) }}" />
+                <x-form.form-input id="lebar_tanah" label="Lebar Tanah" name="lebar_tanah" type="number" step="any" value="{{ old('lebar_tanah', $bts->lebar_tanah) }}" />
 
-                <x-form.form-select id="ada_genset" label="Ada Genset" name="ada_genset" :options="['yes' => 'Yes', 'no' => 'No']" />
-                <x-form.form-select id="ada_tembok_batas" label="Ada Tembok Batas" name="ada_tembok_batas" :options="['yes' => 'Yes', 'no' => 'No']" />
+                <x-form.form-select id="ada_genset" label="Ada Genset" name="ada_genset" :options="[1 => 'Yes', 0 => 'No']" />
+                <x-form.form-select id="ada_tembok_batas" label="Ada Tembok Batas" name="ada_tembok_batas" :options="[1 => 'Yes', 0 => 'No']" />
 
                 <button type="submit" name="submit"
                     class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>
