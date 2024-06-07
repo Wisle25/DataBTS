@@ -13,7 +13,7 @@ class JenisBTSController extends Controller
     public function index()
     {
         $jenisBTS = JenisBTS::all();
-        return view('jenis_bts.index', compact('jenisBTS'));
+        return view('pages.jenis_bts.index', compact('jenisBTS'));
     }
 
     /**
@@ -21,7 +21,7 @@ class JenisBTSController extends Controller
      */
     public function create()
     {
-        return view('jenis_bts.create');
+        return view('pages.jenis_bts.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class JenisBTSController extends Controller
      */
     public function edit(JenisBTS $jenisBTS)
     {
-        return view('jenis_bts.edit', compact('jenisBTS'));
+        return view('pages.jenis_bts.edit', compact('jenisBTS'));
     }
 
     /**

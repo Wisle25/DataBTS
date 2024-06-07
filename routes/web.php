@@ -4,6 +4,7 @@ use App\Http\Controllers\BTSController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JenisBTSController;
 use App\Http\Controllers\KuesionerController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAdministrator;
@@ -75,6 +76,16 @@ Route::controller(KuesionerController::class)->group(function () {
     Route::get("/kuesioner/{kuesioner}/edit", "edit")->name("kuesioner.edit");
     Route::get("/kuesioner/{kuesioner}", "update")->name('kuesioner.update');
     Route::delete("/kuesioner/{kuesioner}", "destroy")->name("kuesioner.destroy");
+});
+
+// Monitoring
+Route::controller(MonitoringController::class)->group(function () {
+    Route::get("/monitoring", "index")->name("monitoring.index");
+    Route::get("/monitoring/create", "create")->name("monitoring.create");
+    Route::post("/monitoring", "store")->name("monitoring.store");
+    Route::get("/monitoring/{monitoring}/edit", "edit")->name("monitoring.edit");
+    Route::get("/monitoring/{monitoring}", "update")->name('monitoring.update');
+    Route::delete("/monitoring/{monitoring}", "destroy")->name("monitoring.destroy");
 });
 
 // // BTS

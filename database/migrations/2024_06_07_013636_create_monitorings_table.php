@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kuesioner', function (Blueprint $table) {
+        Schema::create('monitoring', function (Blueprint $table) {
             $table->id()->primary();
-            $table->text('pertanyaan');
+            $table->integer('tahun');
+            $table->unsignedBigInteger('id_bts')->nullable();
+            $table->text('tisi_bts');
+            $table->unsignedBigInteger('id_user_surveyor')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamp('created_at')->useCurrent();
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kuesioner');
+        Schema::dropIfExists('monitoring');
     }
 };

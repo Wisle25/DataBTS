@@ -13,7 +13,7 @@ class KuesionerController extends Controller
     public function index()
     {
         $kuesioners = Kuesioner::all();
-        return view('kuesioner.index', compact('kuesioners'));
+        return view('pages.kuesioner.index', compact('kuesioners'));
     }
 
     /**
@@ -21,7 +21,7 @@ class KuesionerController extends Controller
      */
     public function create()
     {
-        return view('kuesioner.create');
+        return view('pages.kuesioner.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class KuesionerController extends Controller
      */
     public function edit(Kuesioner $kuesioner)
     {
-        return view('kuesioner.edit', compact('kuesioner'));
+        return view('pages.kuesioner.edit', compact('kuesioner'));
     }
 
     /**
