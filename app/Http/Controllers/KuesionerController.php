@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kuesioner;
+use Auth;
 use Illuminate\Http\Request;
 
 class KuesionerController extends Controller
@@ -29,14 +30,15 @@ class KuesionerController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'pertanyaan' => 'required|string',
-        // ]);
+        $request->validate([
+            'pertanyaan' => 'required|string',
+        ]);
 
         Kuesioner::create([
             'pertanyaan' => $request->pertanyaan,
             // 'created_by' => Auth::id(),
             // 'edited_by' => Auth::id(),
+            'updated_at' => now()
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Kuesioner created successfully.');

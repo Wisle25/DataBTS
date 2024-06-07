@@ -16,21 +16,11 @@ class Kuesioner extends Model
         'pertanyaan',
         'created_by',
         'edited_by',
-        'created_at',
-        'edited_at'
-    ];
-
-    // Hidden attributes
-    protected $hidden = [
-        'created_by',
-        'edited_by'
     ];
 
     // Attribute casting
     protected $casts = [
         'created_by' => 'integer',
         'edited_by' => 'integer',
-        'created_at' => 'datetime',
-        'edited_at' => 'datetime',
     ];
 }

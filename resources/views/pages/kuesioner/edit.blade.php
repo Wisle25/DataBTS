@@ -19,7 +19,7 @@
             @method('PUT')
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data Kuesioner</h1>
             {{-- <form action='{{ url('bts/'.$data->id) }}' method='post'> --}}
-            <form action='{{ url('/kuesioner/edit') }}' method='post'>
+            <form action='{{ route('kuesioner.update', $kuesioner->id) }}' method='get'>
                 <x-form.form-input id="pertanyaan" label="Pertanyaan" name="pertanyaan"  type="text" value="{{ old('pertanyaan') }}" />
 
                 <button type="submit" name="submit"
