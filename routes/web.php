@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BTSController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JenisBTSController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAdministrator;
@@ -45,15 +46,25 @@ Route::controller(BTSController::class)->group(function () {
 });
 
 // Route::middleware(['auth', 'checkadministrator'])->group(function () {
-    Route::controller(PemilikController::class)->group(function () {
-        Route::get("/pemilik", "index")->name('pemilik.index');
-        Route::get("/pemilik/create", "create")->name('pemilik.create');
-        Route::post("/pemilik", "store")->name('pemilik.store');
-        Route::get("/pemilik/{pemilik}/edit", "edit")->name('pemilik.edit');
-        Route::get("/pemilik/{pemilik}", "update")->name('pemilik.update');
-        Route::delete("/pemilik/{pemilik}", "destroy")->name('pemilik.destroy');
-    });
+Route::controller(PemilikController::class)->group(function () {
+    Route::get("/pemilik", "index")->name('pemilik.index');
+    Route::get("/pemilik/create", "create")->name('pemilik.create');
+    Route::post("/pemilik", "store")->name('pemilik.store');
+    Route::get("/pemilik/{pemilik}/edit", "edit")->name('pemilik.edit');
+    Route::get("/pemilik/{pemilik}", "update")->name('pemilik.update');
+    Route::delete("/pemilik/{pemilik}", "destroy")->name('pemilik.destroy');
+});
 // });
+
+// JenisBTS
+Route::controller(JenisBTSController::class)->group(function () {
+    Route::get("/jenis_bts", "index")->name("jenis_bts.index");
+    Route::get("/jenis_bts/create", "create")->name("jenis_bts.create");
+    Route::post("/jenis_bts", "store")->name("jenis_bts.store");
+    Route::get("/jenis_bts/{jenis_bts}/edit", "edit")->name("jenis_bts.edit");
+    Route::get("/jenis_bts/{jenis_bts}", "update")->name('jenis_bts.update');
+    Route::delete("/jenis_bts/{jenis_bts}", "destroy")->name("jenis_bts.destroy");
+});
 
 // // BTS
 // Route::controller(BTSController::class)->group(function () {
