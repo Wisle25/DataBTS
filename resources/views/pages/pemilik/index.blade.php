@@ -23,26 +23,7 @@
                 'edited_by' => 'Admin',
                 'created_at' => '2023-01-01',
                 'edited_at' => 'Klaten'
-            ],
-            [
-                'nama' => 'Pemilik 2',
-                'alamat' => 'Alamat 2',
-                'telepon' => '00000000000',
-                'created_by' => 'Admin',
-                'edited_by' => 'Admin',
-                'created_at' => '2023-01-01',
-                'edited_at' => 'Klaten'
-            ],
-            [
-                'nama' => 'Pemilik 3',
-                'alamat' => 'Alamat 3',
-                'telepon' => '00000000000',
-                'created_by' => 'Admin',
-                'edited_by' => 'Admin',
-                'created_at' => '2023-01-01',
-                'edited_at' => 'Klaten'
             ]
-            // Tambahkan data lainnya di sini
             ];
         @endphp -->
         @foreach ($pemilik as $index => $bts)
@@ -66,7 +47,7 @@
         @endforeach
 
         @component('components.allert.modal')
-        Data Pemilik
+            Data Pemilik
         @endcomponent
 
         <script>
