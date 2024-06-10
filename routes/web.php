@@ -47,7 +47,7 @@ Route::controller(BTSController::class)->group(function () {
     Route::get("/bts/create", "create")->name("bts.create");
     Route::post("/bts", "store")->name("bts.store");
     Route::get("/bts/{bts}/edit", "edit")->name("bts.edit");
-    Route::get("/bts/{bts}", "update")->name('bts.update');
+    Route::put("/bts/{bts}", "update")->name('bts.update');
     Route::delete("/bts/{bts}", "destroy")->name("bts.destroy");
 });
 
@@ -57,7 +57,7 @@ Route::controller(PemilikController::class)->group(function () {
     Route::get("/pemilik/create", "create")->name('pemilik.create');
     Route::post("/pemilik", "store")->name('pemilik.store');
     Route::get("/pemilik/{pemilik}/edit", "edit")->name('pemilik.edit');
-    Route::get("/pemilik/{pemilik}", "update")->name('pemilik.update');
+    Route::put("/pemilik/{pemilik}", "update")->name('pemilik.update');
     Route::delete("/pemilik/{pemilik}", "destroy")->name('pemilik.destroy');
 });
 // });
@@ -68,7 +68,7 @@ Route::controller(JenisBTSController::class)->group(function () {
     Route::get("/jenis_bts/create", "create")->name("jenis_bts.create");
     Route::post("/jenis_bts", "store")->name("jenis_bts.store");
     Route::get("/jenis_bts/{jenis_bts}/edit", "edit")->name("jenis_bts.edit");
-    Route::get("/jenis_bts/{jenis_bts}", "update")->name('jenis_bts.update');
+    Route::put("/jenis_bts/{jenis_bts}", "update")->name('jenis_bts.update');
     Route::delete("/jenis_bts/{jenis_bts}", "destroy")->name("jenis_bts.destroy");
 });
 
@@ -78,7 +78,7 @@ Route::controller(KuesionerController::class)->group(function () {
     Route::get("/kuesioner/create", "create")->name("kuesioner.create");
     Route::post("/kuesioner", "store")->name("kuesioner.store");
     Route::get("/kuesioner/{kuesioner}/edit", "edit")->name("kuesioner.edit");
-    Route::get("/kuesioner/{kuesioner}", "update")->name('kuesioner.update');
+    Route::put("/kuesioner/{kuesioner}", "update")->name('kuesioner.update');
     Route::delete("/kuesioner/{kuesioner}", "destroy")->name("kuesioner.destroy");
 });
 
@@ -88,7 +88,7 @@ Route::controller(MonitoringController::class)->group(function () {
     Route::get("/monitoring/create", "create")->name("monitoring.create");
     Route::post("/monitoring", "store")->name("monitoring.store");
     Route::get("/monitoring/{monitoring}/edit", "edit")->name("monitoring.edit");
-    Route::get("/monitoring/{monitoring}", "update")->name('monitoring.update');
+    Route::put("/monitoring/{monitoring}", "update")->name('monitoring.update');
     Route::delete("/monitoring/{monitoring}", "destroy")->name("monitoring.destroy");
 });
 
@@ -123,15 +123,15 @@ Route::controller(MonitoringController::class)->group(function () {
 // });
 
 
-// Route::get('/wilayah', function () {
-//     return view('pages.wilayah.index');
-// });
-// Route::get('/wilayah/edit', function () {
-//     return view('pages.wilayah.edit');
-// });
-// Route::get('/wilayah/create', function () {
-//     return view('pages.wilayah.create');
-// });
+Route::get('/wilayah', function () {
+    return view('pages.wilayah.index');
+});
+Route::get('/wilayah/edit', function () {
+    return view('pages.wilayah.edit');
+});
+Route::get('/wilayah/create', function () {
+    return view('pages.wilayah.create');
+});
 
 // Route::get('/monitoring', function () {
 //     return view('pages.monitoring.index');
