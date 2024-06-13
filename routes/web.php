@@ -9,6 +9,7 @@ use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAdministrator;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WilayahController;
 
 /* *
  * Main Pages 
@@ -51,6 +52,17 @@ Route::controller(BTSController::class)->group(function () {
     Route::delete("/bts/{bts}", "destroy")->name("bts.destroy");
 });
 
+// Wilayah
+Route::controller(WilayahController::class)->group(function () {
+    Route::get("/wilayah", "index")->name("wilayah.index");
+    Route::get("/wilayah/create", "create")->name("wilayah.create");
+    Route::post("/wilayah", "store")->name("wilayah.store");
+    Route::get("/wilayah/{wilayah}/edit", "edit")->name("wilayah.edit");
+    Route::get("/wilayah/{wilayah}", "update")->name('wilayah.update');
+    Route::delete("/wilayah/{wilayah}", "destroy")->name("wilayah.destroy");
+});
+
+
 // Route::middleware(['auth', 'checkadministrator'])->group(function () {
 Route::controller(PemilikController::class)->group(function () {
     Route::get("/pemilik", "index")->name('pemilik.index');
@@ -60,6 +72,13 @@ Route::controller(PemilikController::class)->group(function () {
     Route::get("/pemilik/{pemilik}", "update")->name('pemilik.update');
     Route::delete("/pemilik/{pemilik}", "destroy")->name('pemilik.destroy');
 });
+// Route::controller(JenisBTSController::class)->group(function () {
+//     Route::get('/jenis_bts', 'index')->name('jenis_bts.index');
+//     Route::get('/jenis_bts/create', 'create')->name('jenis_bts.create');
+//     Route::post('/jenis_bts', 'store')->name('jenis_bts.store');
+//     Route::get('/jenis_bts/{jenis_bts}/edit', 'edit')->name('jenis_bts.edit');
+//     Route::put('/jenis_bts/{jenis_bts}', 'update')->name('jenis_bts.update'); // Changed to PUT
+//     Route::delete('/jenis_bts/{jenis_bts}', 'destroy')->name('jenis_bts.destroy');
 // });
 
 // JenisBTS

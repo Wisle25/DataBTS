@@ -22,13 +22,16 @@ return new class extends Migration
             $table->boolean('ada_genset');
             $table->boolean('ada_tembok_batas');
             $table->unsignedBigInteger('id_user_pic')->nullable();
-            $table->unsignedBigInteger('id_pemilik')->nullable();
-            $table->unsignedBigInteger('id_wilayah')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('id_pemilik');
+            $table->unsignedBigInteger('id_wilayah');
+            $table->unsignedBigInteger('created_by')->nullable();;
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamp("edited_at")->default(now());
             $table->timestamps();
 
+            $table->foreign('id_jenis_bts')->references('id')->on('jenis_bts');
+            $table->foreign('id_pemilik')->references('id')->on('pemilik');
+            $table->foreign('id_wilayah')->references('id')->on('wilayah');
             // $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
             // $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
         });

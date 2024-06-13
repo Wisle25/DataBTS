@@ -33,4 +33,10 @@ class JenisBTS extends Model
         'created_at' => 'datetime',
         'edited_at' => 'datetime',
     ];
+
+    // Define relationships
+    public function bts()
+    {
+        return $this->belongsToMany(BTS::class);
+    }
 }

@@ -37,4 +37,25 @@ class BTS extends Model
         'ada_genset' => 'boolean',
         'ada_tembok_batas' => 'boolean',
     ];
+
+    // Define relationships
+    public function jenisBts()
+    {
+        return $this->belongsTo(JenisBts::class);
+    }
+
+    public function pemilik()
+    {
+        return $this->belongsTo(Pemilik::class);
+    }
+
+    public function wilayah()
+    {
+        return $this->belongsTo(Wilayah::class);
+    }
+
+    public function monitoring()
+    {
+        return $this->belongsTo(Wilayah::class);
+    }
 }

@@ -15,12 +15,11 @@
 <body class="bg-gray-100 py-10">
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
-            @csrf
-            @method('PUT')
-            <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data Kuesioner</h1>
+            <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Tambah Jenis BTS</h1>
             @include('components.allert.danger')
-            <form action='{{ route('kuesioner.update', $kuesioner->id) }}' method='get'>
-                <x-form.form-input id="pertanyaan" label="Pertanyaan" name="pertanyaan"  type="text" value="{{ old('pertanyaan', $kuesioner->pertanyaan) }}" />
+            <form action='{{ route("jenis_bts.store") }}' method='post'>
+                @csrf
+                <x-form.form-input id="nama" label="Jenis BTS" name="nama"  type="text"/>
 
                 <button type="submit" name="submit"
                     class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>

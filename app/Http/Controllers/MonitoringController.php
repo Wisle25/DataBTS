@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KondisiBTS;
 use App\Models\Monitoring;
 use Illuminate\Http\Request;
 
@@ -29,20 +30,24 @@ class MonitoringController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'tahun' => 'required|integer',
-        //     'id_bts' => 'nullable|integer',
-        //     'tisi_bts' => 'required|string',
-        //     'id_user_surveyor' => 'nullable|integer',
-        // ]);
+        $request->validate([
+            'tahun' => 'required|integer',
+            'id_bts' => 'required|integer',
+            'tgl_generate' => 'required|date',
+            'tgl_kunjungan' => 'required|date',
+            'kondisi_bts' => 'required|string',
+            'id_user_surveyor' => 'nullable|integer',
+            'created_by' => 'nullable|integer',
+            'edited_by' => 'nullable|integer',
+        ]);
 
         Monitoring::create([
             'tahun' => $request->tahun,
             'id_bts' => $request->id_bts,
-            'tisi_bts' => $request->tisi_bts,
-            'id_user_surveyor' => $request->id_user_surveyor,
-            // 'created_by' => Auth::id(),
-            // 'edited_by' => Auth::id(),
+            'tgl_generate' => $request->tgl_generate,
+            'tgl_kunjungan' => $request->tgl_kunjungan,
+            'kondisi_bts' => $request->kondisi_bts,
+            'edited_at' => now()
         ]);
 
         return redirect()->route('monitoring.index')->with('success', 'Monitoring created successfully.');
@@ -61,18 +66,21 @@ class MonitoringController extends Controller
      */
     public function update(Request $request, Monitoring $monitoring)
     {
-        // $request->validate([
-        //     'tahun' => 'required|integer',
-        //     'id_bts' => 'nullable|integer',
-        //     'tisi_bts' => 'required|string',
-        //     'id_user_surveyor' => 'nullable|integer',
-        // ]);
+        $request->validate([
+            'tahun' => 'required|date_format:Y',
+            'id_bts' => 'required|exists:bts,id',
+            'tgl_generate' => 'required|date',
+            'tgl_kunjungan' => 'required|date',
+            'kondisi_bts' => 'required|in:Baik,Buruk',
+            'id_user_surveyor' => 'nullable|exists:users,id',
+        ]);
 
         $monitoring->update([
             'tahun' => $request->tahun,
             'id_bts' => $request->id_bts,
-            'tisi_bts' => $request->tisi_bts,
-            'id_user_surveyor' => $request->id_user_surveyor,
+            'tgl_generate' => $request->tgl_generate,
+            'tgl_kunjungan' => $request->tgl_kunjungan,
+            'kondisi_bts' => $request->kondisi_bts,
             // 'edited_by' => Auth::id(),
             'edited_at' => now()
         ]);

@@ -16,7 +16,7 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Tambah Data Kuesioner</h1>
-            {{-- <form action='{{ url('bts/'.$data->id) }}' method='post'> --}}
+            @include('components.allert.danger')
             <form action='{{ route('kuesioner.store') }}' method='post'>
                 @csrf
                 <x-form.form-input id="pertanyaan" label="Pertanyaan" name="pertanyaan" type="text" />

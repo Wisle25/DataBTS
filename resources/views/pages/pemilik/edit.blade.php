@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Master Data Pemilik</title>
+    <title>Master Data BTS</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -16,6 +16,7 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data Pemilik</h1>
+            @include('components.allert.danger')
             <form action='{{ route("pemilik.update", $pemilik->id) }}' method="GET">
                 @csrf
                 @method("PUT")

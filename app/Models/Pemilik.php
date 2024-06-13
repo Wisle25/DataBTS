@@ -26,6 +26,10 @@ class Pemilik extends Model
         'edited_by' => 'integer',
     ];
 
+    public function bts()
+    {
+        return $this->belongsToMany(BTS::class);
+    }
     // // Relationships
     // public function creator()
     // {

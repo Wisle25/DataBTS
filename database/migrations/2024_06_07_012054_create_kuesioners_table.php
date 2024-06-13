@@ -16,7 +16,6 @@ return new class extends Migration
             $table->text('pertanyaan');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();
-            // $table->timestamp('created_at')->useCurrent();
             $table->timestamp('edited_at')->useCurrent()->nullable();
             $table->timestamps();
         });

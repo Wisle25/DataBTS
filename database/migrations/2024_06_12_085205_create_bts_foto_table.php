@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jenis_bts', function (Blueprint $table) {
-            $table->id()->primary();
-            $table->string('nama');
+        Schema::create('bts_foto', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_bts');
+            $table->string('path_foto');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamp('edited_at')->useCurrent()->nullable();
             $table->timestamps();
+
+            $table->foreign('id_bts')->references('id')->on('bts');
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenis_bts');
+        Schema::dropIfExists('bts_foto');
     }
 };

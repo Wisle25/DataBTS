@@ -15,7 +15,9 @@ class Monitoring extends Model
     protected $fillable = [
         'tahun',
         'id_bts',
-        'tisi_bts',
+        'tgl_generate',
+        'tgl_kunjungan',
+        'kondisi_bts',
         'id_user_surveyor',
         'created_by',
         'edited_by',
@@ -38,4 +40,10 @@ class Monitoring extends Model
         'created_at' => 'datetime',
         'edited_at' => 'datetime',
     ];
+
+    // Define relationships
+    public function bts()
+    {
+        return $this->belongsTo(Bts::class);
+    }
 }

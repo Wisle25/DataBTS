@@ -12,13 +12,18 @@ class BTSController extends Controller
      */
     public function index()
     {
-        // Getting Data
-        $data = BTS::get();
+        $max_data = 5;
+
+        if (request('search')) {
+            $data = BTS::where('nama', 'like', '%' . request('search') . '%')->paginate($max_data);
+        } else {
+            $data = BTS::orderBy('nama', 'asc')->paginate($max_data);
+        }
 
         return view("pages.bts.index", compact("data"));
     }
 
-       /**
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -31,26 +36,26 @@ class BTSController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nama' => 'required|string|max:255',
-        //     'alamat' => 'required|string',
-        //     // 'id_jenis_bts' => 'nullable|integer',
-        //     'latitude' => 'required|numeric|between:-90,90',
-        //     'longitude' => 'required|numeric|between:-180,180',
-        //     'tinggi_tower' => 'required|integer',
-        //     'panjang_tanah' => 'required|integer',
-        //     'lebar_tanah' => 'required|integer',
-        //     'ada_genset' => 'required|boolean',
-        //     'ada_tembok_batas' => 'required|boolean',
-        //     // 'id_user_pic' => 'nullable|integer',
-        //     // 'id_pemilik' => 'nullable|integer',
-        //     // 'id_wilayah' => 'nullable|integer',
-        // ]);
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            // 'id_jenis_bts' => 'nullable|integer',
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
+            'tinggi_tower' => 'required|integer',
+            'panjang_tanah' => 'required|integer',
+            'lebar_tanah' => 'required|integer',
+            'ada_genset' => 'required|boolean',
+            'ada_tembok_batas' => 'required|boolean',
+            'id_pemilik' => 'required|exists:pemilik,id',
+            'id_wilayah' => 'required|exists:wilayah,id',
+            'id_jenis_bts' => 'required|exists:jenis_bts,id'
+            // 'id_user_pic' => 'nullable|integer',
+        ]);
 
         BTS::create([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            // 'id_jenis_bts' => $request->id_jenis_bts,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'tinggi_tower' => $request->tinggi_tower,
@@ -58,9 +63,10 @@ class BTSController extends Controller
             'lebar_tanah' => $request->lebar_tanah,
             'ada_genset' => $request->ada_genset,
             'ada_tembok_batas' => $request->ada_tembok_batas,
+            'id_pemilik' => $request->id_pemilik,
+            'id_wilayah' => $request->id_wilayah,
+            'id_jenis_bts' => $request->id_jenis_bts,
             // 'id_user_pic' => $request->id_user_pic,
-            // 'id_pemilik' => $request->id_pemilik,
-            // 'id_wilayah' => $request->id_wilayah,
             // 'created_by' => Auth::id(),
             // 'edited_by' => Auth::id(),
             'edited_at' => now()

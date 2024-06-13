@@ -22,8 +22,8 @@ class DashboardController extends Controller
         $pemilik = Pemilik::all();
         $jenis_bts = JenisBTS::all();
         $kuesioner = Kuesioner::all();
-        $monitoring = Monitoring::all();
+        // $monitoring = Monitoring::all();
 
-        return view('pages.dashboard', compact("pemilik", "jenis_bts", "kuesioner", "monitoring"));
+        return view('pages.dashboard', compact("pemilik", "jenis_bts", "kuesioner"));
     }
 }
