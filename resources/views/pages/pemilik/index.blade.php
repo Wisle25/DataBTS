@@ -1,30 +1,34 @@
-<div class="items-center px-3 py-3 bg-violet-200 rounded-md shadow-sm">
+<div class="items-center px-2 pt-3 bg-violet-200 rounded-md shadow-sm">
     <div class="flex">
-        <p class="mx-4 text-xl font-semibold">Pemilik</p>
-        {{-- Tombol tambah data --}}
-        <div class="ms-auto">
-            @component('components.button.btn-tambah', ['url' => url('pemilik/create')])
-            @endcomponent
-        </div>
+        <p class="ml-4 mr-1 text-xl font-semibold">Pemilik</p>
+        <x-button.btn-action-tambah :url="url('pemilik/create')" />
+        @component('components.section.export', ['route' => route('pemilik.export')])
+        @endcomponent
     </div>
-    @component('components.table.index', [
+    @component('components.table.index',    [
         'columns' => ['No', 'Nama'],
     ])
         @foreach ($pemilik as $index => $p)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($p) }})">
-                <td class="px-5 py-2 text-center">{{ $index + 1 }}</td>
-                <td class="px-4 py-2 text-center">{{ $p['name'] }}</td>
-                <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
+                <td class="px-5 py-1 text-center">{{ ($pemilik->currentPage() - 1) * $pemilik->perPage() + $index + 1 }}</td>
+                <td class="px-4 py-1 text-center">{{ $p->name }}</td>
+                <td class="px-4 py-1 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center items-center space-x-2">
-                        <x-button.btn-action editUrl="{{ url('pemilik/' . $p['id'] . '/edit') }}"
-                            deleteUrl="{{ url('pemilik/' . $p['id']) }}"
+                        <x-button.btn-action editUrl="{{ url('pemilik/' . $p->id . '/edit') }}"
+                            deleteUrl="{{ url('pemilik/' . $p->id) }}"
                             deleteMessage="Are you sure you want to delete this item?" />
                     </div>
                 </td>
             </tr>
         @endforeach
     @endcomponent
+
+    <!-- Pagination links -->
+    <div class="mt-1 mx-3 pb-2">
+        {{ $pemilik->appends(['jenis_bts_page' => $jenis_bts->currentPage(), 'kuesioner_page' => $kuesioner->currentPage()])->links() }}
+    </div>
 </div>
+
 
 
 

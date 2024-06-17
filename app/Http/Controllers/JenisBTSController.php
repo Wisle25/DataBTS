@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\JenisBTS;
 use Illuminate\Http\Request;
+use App\Exports\ExportJenisBTS;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JenisBTSController extends Controller
 {
     public function index()
     {
-        $jenisBTS = JenisBTS::all();
+        $max_data = 5;
+        $jenisBTS = JenisBTS::orderBy('nama', 'asc')->paginate($max_data);
+        
         return view('pages.jenis_bts.index', compact('jenisBTS'));
+    }
+
+    public function export_excel(){
+        return Excel::download(new ExportJenisBTS, "JenisBTS.xlsx");
     }
 
     public function create()

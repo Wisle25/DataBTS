@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KondisiBTS;
+use App\Exports\ExportMonitoring;
 use App\Models\Monitoring;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MonitoringController extends Controller
 {
@@ -13,8 +14,20 @@ class MonitoringController extends Controller
      */
     public function index()
     {
-        $monitorings = Monitoring::all();
+        $max_data = 8;
+        
+        if (request('search')) {
+            $monitorings = Monitoring::where('id_bts', 'like', '%' . request('search') . '%')->paginate($max_data);
+        } else {
+            $monitorings = Monitoring::orderBy('tahun', 'asc')->paginate($max_data);
+        }
+
         return view('pages.monitoring.index', compact('monitorings'));
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new ExportMonitoring, "Monitoring.xlsx");
     }
 
     /**
@@ -35,7 +48,7 @@ class MonitoringController extends Controller
             'id_bts' => 'required|integer',
             'tgl_generate' => 'required|date',
             'tgl_kunjungan' => 'required|date',
-            'kondisi_bts' => 'required|string',
+            'kondisi_bts' => 'required|in:Active,Not Active', // Validasi kondisi_bts
             'id_user_surveyor' => 'nullable|integer',
             'created_by' => 'nullable|integer',
             'edited_by' => 'nullable|integer',
@@ -46,7 +59,7 @@ class MonitoringController extends Controller
             'id_bts' => $request->id_bts,
             'tgl_generate' => $request->tgl_generate,
             'tgl_kunjungan' => $request->tgl_kunjungan,
-            'kondisi_bts' => $request->kondisi_bts,
+            'kondisi_bts' => $request->kondisi_bts, // Simpan kondisi_bts sesuai input
             'edited_at' => now()
         ]);
 
@@ -71,7 +84,7 @@ class MonitoringController extends Controller
             'id_bts' => 'required|exists:bts,id',
             'tgl_generate' => 'required|date',
             'tgl_kunjungan' => 'required|date',
-            'kondisi_bts' => 'required|in:Baik,Buruk',
+            'kondisi_bts' => 'required|in:Active,Not Active', // Validasi kondisi_bts
             'id_user_surveyor' => 'nullable|exists:users,id',
         ]);
 
@@ -80,8 +93,7 @@ class MonitoringController extends Controller
             'id_bts' => $request->id_bts,
             'tgl_generate' => $request->tgl_generate,
             'tgl_kunjungan' => $request->tgl_kunjungan,
-            'kondisi_bts' => $request->kondisi_bts,
-            // 'edited_by' => Auth::id(),
+            'kondisi_bts' => $request->kondisi_bts, // Simpan kondisi_bts sesuai input
             'edited_at' => now()
         ]);
 

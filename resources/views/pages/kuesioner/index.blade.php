@@ -1,11 +1,9 @@
-<div class="items-center px-3 py-3 bg-violet-200 rounded-md shadow-sm">
+<div class="items-center px-2 pt-3 bg-violet-200 rounded-md shadow-sm">
     <div class="flex">
-        <p class="mx-4 text-xl font-semibold">Kuesioner</p>
-        {{-- Tombol tambah data --}}
-        <div class="ms-auto">
-            @component('components.button.btn-tambah', ['url' => url('kuesioner/create')])
-            @endcomponent
-        </div>
+        <p class="ml-4 mr-1 text-xl font-semibold">Kuesioner</p>
+        <x-button.btn-action-tambah :url="url('kuesioner/create')" />
+        @component('components.section.export', ['route' => route('kuesioner.export')])
+        @endcomponent
     </div>
 
     @component('components.table.index', [
@@ -13,9 +11,9 @@
     ])
         @foreach ($kuesioner as $index => $k)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetailsK({{ json_encode($k) }})">
-                <td class="px-4 py-2 text-center">{{ $index + 1 }}</td>
-                <td class="px-4 py-2 text-center">{{ $k['pertanyaan'] }}</td>
-                <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
+                <td class="px-4 py-1 text-center">{{ ($kuesioner->currentPage() - 1) * $kuesioner->perPage() + $index + 1 }}</td>
+                <td class="px-4 py-1 text-center">{{ $k['pertanyaan'] }}</td>
+                <td class="px-4 py-1 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center">
                         <x-button.btn-action editUrl="{{ url('kuesioner/' . $k['id'] . '/edit') }}"
                             deleteUrl="{{ url('kuesioner/' . $k['id']) }}"
@@ -25,6 +23,11 @@
             </tr>
         @endforeach
     @endcomponent
+
+    <!-- Pagination links -->
+    <div class="mt-1 mx-3 pb-2">
+        {{ $kuesioner->appends(['pemilik_page' => $pemilik->currentPage(), 'jenis_bts_page' => $jenis_bts->currentPage()])->links() }}
+    </div>
 </div>
 
 

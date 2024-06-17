@@ -4,14 +4,14 @@
     @include('components.allert.success')
 
     {{-- ISI DASHBOARD --}}
-    <div class="mt-1 flex flex-wrap -mx-4">
+    <div class="mt-1 flex flex-wrap -mx-6">
         {{-- DASHBOARD - PEMILIK --}}
-        <div class="w-full px-6 mt-6 sm:w-4/5 xl:w-1/2 xl:mt-5">
+        <div class="w-full pl-4 sm:w-4/5 xl:w-1/2 mt-2">
             @include('pages.pemilik.index')
         </div>
 
         {{-- DASHBOARD - History Login --}}
-        {{-- <div class="w-full px-6 mt-6 sm:w-4/5 xl:w-1/2 xl:mt-5">
+        {{-- <div class="w-full px-6 sm:w-4/5 xl:w-1/2 mt-2">
             <div class="items-center px-5 py-6 bg-violet-200 rounded-md shadow-sm">
                 <h5>History Login</h5>
                 @component('components.table.index', ['columns' => ['No', 'Username', 'Email'],])
@@ -49,11 +49,11 @@
             </div>
         </div> --}}
 
-        <div class="w-full px-6 mt-6 sm:w-4/5 xl:w-1/2 xl:mt-5">
+        <div class="w-full px-6 sm:w-4/5 xl:w-1/2 mt-2">
             @include('pages.kuesioner.index')
         </div>
 
-        <div class="w-full px-6 mt-6 sm:w-4/5 xl:w-1/2 xl:mt-5">
+        <div class="w-full pl-4 sm:w-4/5 xl:w-1/2 mt-4">
             @include('pages.jenis_bts.index')
         </div>
 

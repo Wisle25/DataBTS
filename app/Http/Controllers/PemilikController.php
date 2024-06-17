@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pemilik;
 use Auth;
+use App\Models\Pemilik;
 use Illuminate\Http\Request;
+use App\Exports\ExportPemilik;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PemilikController extends Controller
 {
@@ -12,9 +14,15 @@ class PemilikController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $pemilik = Pemilik::all();
+    {      
+        $pemilik = Pemilik::orderBy('name', 'asc')->get();
+
         return view('pages.pemilik.index', compact('pemilik'));
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new ExportPemilik, "Pemilik.xlsx");
     }
 
     /**
@@ -81,7 +89,7 @@ class PemilikController extends Controller
     public function destroy(Pemilik $pemilik)
     {
         $pemilik->delete();
-        
+
         return redirect()->route('dashboard')->with('success', 'Pemilik deleted successfully.');
     }
 }

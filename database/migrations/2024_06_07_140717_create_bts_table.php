@@ -29,9 +29,9 @@ return new class extends Migration
             $table->timestamp("edited_at")->default(now());
             $table->timestamps();
 
-            $table->foreign('id_jenis_bts')->references('id')->on('jenis_bts');
-            $table->foreign('id_pemilik')->references('id')->on('pemilik');
-            $table->foreign('id_wilayah')->references('id')->on('wilayah');
+            $table->foreign('id_jenis_bts')->references('id')->on('jenis_bts')->after('id_wilayah');
+            $table->foreign('id_pemilik')->references('id')->on('pemilik')->after('id_jenis_bts');
+            $table->foreign('id_wilayah')->references('id')->on('wilayah')->after('id_pemilik');
             // $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
             // $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
         });

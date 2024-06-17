@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kuesioner;
+use App\Exports\ExportKuesioner;
 use Auth;
+use App\Models\Kuesioner;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KuesionerController extends Controller
 {
@@ -15,6 +17,10 @@ class KuesionerController extends Controller
     {
         $kuesioners = Kuesioner::all();
         return view('pages.kuesioner.index', compact('kuesioners'));
+    }
+
+    public function export_excel(){
+        return Excel::download(new ExportKuesioner, "Kuesioner.xlsx");
     }
 
     /**

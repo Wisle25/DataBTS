@@ -16,7 +16,9 @@
     <div class="flex mt-3">
         @component('components.section.search', ['url' => url('bts'), 'placeholder' => 'Search Nama BTS'])
         @endcomponent
-        @include('components.section.export')
+        @component('components.section.export', ['route' => route('bts.export')])
+            Export Excel
+        @endcomponent
     </div>
 
     {{-- Tabel BTS --}}
@@ -25,7 +27,7 @@
     ])
         @foreach ($data as $index => $bts)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($bts) }})">
-                <td class="px-5 py-2 text-center">{{ $index + 1 }}</td>
+                <td class="px-5 py-2 text-center">{{ ($data->currentPage() - 1) * $data->perPage() + $index + 1 }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['nama'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['alamat'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['latitude'] }}</td>
@@ -48,6 +50,7 @@
     <div class="mt-4 mx-2">
         {{ $data->links() }}
     </div>
+    
 
     {{-- @include('components.section.pagination') --}}
     

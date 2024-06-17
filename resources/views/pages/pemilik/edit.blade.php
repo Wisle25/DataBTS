@@ -17,16 +17,17 @@
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data Pemilik</h1>
             @include('components.allert.danger')
-            <form action='{{ route("pemilik.update", $pemilik->id) }}' method="GET">
+            <form action='{{ route("pemilik.update", $pemilik->id) }}' method="POST">
                 @csrf
                 @method("PUT")
                 <x-form.form-input id="nama" label="Nama" name="name" value="{{ old('name', $pemilik->name) }}" />
                 <x-form.form-input id="alamat" label="Alamat" name="alamat" value="{{ old('alamat', $pemilik->alamat) }}" />
-                <x-form.form-input id="telepon" label="Telepon" name="telepon" step="any" value="{{ old('telepon', $pemilik->telepon) }}" />
-
-                <button type="submit" name="submit"
-                    class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>
-            </form>
+                <x-form.form-input id="telepon" label="Telepon" name="telepon" value="{{ old('telepon', $pemilik->telepon) }}" />
+            
+                <button type="submit" class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">
+                    Simpan
+                </button>
+            </form>            
         </div>
     </div>
 </body>

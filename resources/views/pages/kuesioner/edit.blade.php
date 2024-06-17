@@ -15,11 +15,11 @@
 <body class="bg-gray-100 py-10">
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
-            @csrf
-            @method('PUT')
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data Kuesioner</h1>
             @include('components.allert.danger')
-            <form action='{{ route('kuesioner.update', $kuesioner->id) }}' method='get'>
+            <form action='{{ route('kuesioner.update', $kuesioner->id) }}' method='POST'>
+                @csrf
+                @method('PUT')
                 <x-form.form-input id="pertanyaan" label="Pertanyaan" name="pertanyaan"  type="text" value="{{ old('pertanyaan', $kuesioner->pertanyaan) }}" />
 
                 <button type="submit" name="submit"

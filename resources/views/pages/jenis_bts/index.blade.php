@@ -1,20 +1,25 @@
-<div class="items-center px-3 py-3 bg-violet-200 rounded-md shadow-sm">
+<div class="items-center px-2 pt-3 bg-violet-200 rounded-md shadow-sm">
+
     <div class="flex">
-        <p class="mx-4 text-xl font-semibold">Jenis BTS</p>
+        <p class="ml-4 mr-1 text-xl font-semibold">Jenis BTS</p>
         {{-- Tombol tambah data --}}
-        <div class="ms-auto">
+        {{-- <div class="ms-auto">
             @component('components.button.btn-tambah', ['url' => url('jenis_bts/create')])
             @endcomponent
-        </div>
+        </div> --}}
+        <x-button.btn-action-tambah :url="url('jenis_bts/create')" />
+        @component('components.section.export', ['route' => route('jenis_bts.export')])
+        @endcomponent
     </div>
     @component('components.table.index', [
         'columns' => ['No', 'Nama'],
     ])
         @foreach ($jenis_bts as $index => $jb)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetailsJB({{ json_encode($jb) }})">
-                <td class="px-5 py-2 text-center">{{ $index + 1 }}</td>
-                <td class="px-4 py-2 text-center">{{ $jb['nama'] }}</td>
-                <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
+                <td class="px-5 py-1 text-center">{{ ($jenis_bts->currentPage() - 1) * $jenis_bts->perPage() + $index + 1 }}
+                </td>
+                <td class="px-4 py-1 text-center">{{ $jb['nama'] }}</td>
+                <td class="px-4 py-1 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center items-center space-x-2">
                         <x-button.btn-action editUrl="{{ url('jenis_bts/' . $jb['id'] . '/edit') }}"
                             deleteUrl="{{ url('jenis_bts/' . $jb['id']) }}"
@@ -24,6 +29,11 @@
             </tr>
         @endforeach
     @endcomponent
+
+    <!-- Pagination links -->
+    <div class="mt-1 mx-3 pb-2">
+        {{ $jenis_bts->appends(['pemilik_page' => $pemilik->currentPage(), 'kuesioner_page' => $kuesioner->currentPage()])->links() }}
+    </div>
 </div>
 
 <script>

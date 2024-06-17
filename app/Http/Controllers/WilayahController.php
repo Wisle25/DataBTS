@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Exports\ExportWilayah;
 use App\Models\Wilayah;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class WilayahController extends Controller
 {
     public function index()
     {
-        $data = Wilayah::with('children')->get();
+        $max_data = 8;
+
+        if (request('search')) {
+            $data = Wilayah::where('nama', 'like', '%' . request('search') . '%')->paginate($max_data);
+        } else {
+            $data = Wilayah::with('children')->orderBy('id_parent', 'asc')->paginate($max_data);
+        }
+
         return view('pages.wilayah.index', compact('data'));
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new ExportWilayah, "Wilayah.xlsx");
     }
 
     public function create()

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportBTS;
 use App\Models\BTS;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BTSController extends Controller
 {
@@ -12,7 +14,7 @@ class BTSController extends Controller
      */
     public function index()
     {
-        $max_data = 5;
+        $max_data = 8;
 
         if (request('search')) {
             $data = BTS::where('nama', 'like', '%' . request('search') . '%')->paginate($max_data);
@@ -21,6 +23,10 @@ class BTSController extends Controller
         }
 
         return view("pages.bts.index", compact("data"));
+    }
+
+    public function export_excel(){
+        return Excel::download(new ExportBTS, "BTS.xlsx");
     }
 
     /**

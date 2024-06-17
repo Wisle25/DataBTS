@@ -16,18 +16,21 @@
     <div class="flex mt-3">
         @component('components.section.search', ['url' => url('wilayah'), 'placeholder' => 'Search Nama wilayah'])
         @endcomponent
-        @include('components.section.export')
+        @component('components.section.export', ['route' => route('wilayah.export')])
+            Export Excel
+        @endcomponent
     </div>
 
     {{-- Tabel wilayah --}}
     @component('components.table.index', [
-        'columns' => ['No', 'Nama', 'Level'],
+        'columns' => ['No', 'Nama', 'Level', 'ID Parent'],
     ])
         @foreach ($data as $index => $wilayah)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($wilayah) }})">
-                <td class="px-5 py-2 text-center">{{ $index + 1 }}</td>
+                <td class="px-5 py-2 text-center">{{ ($data->currentPage() - 1) * $data->perPage() + $index + 1 }}</td>
                 <td class="px-4 py-2 text-center">{{ $wilayah['nama'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $wilayah['level'] }}</td>
+                <td class="px-4 py-2 text-center">{{ $wilayah['id_parent'] }}</td>
                 <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center items-center space-x-2">
 
@@ -40,9 +43,10 @@
         @endforeach
     @endcomponent
 
+
     <!-- Pagination links -->
     <div class="mt-4 mx-2">
-        {{-- {{ $data->links() }} --}}
+        {{ $data->links() }}
     </div>
 
     {{-- @include('components.section.pagination') --}}

@@ -50,6 +50,7 @@ Route::controller(BTSController::class)->group(function () {
     Route::get("/bts/{bts}/edit", "edit")->name("bts.edit");
     Route::put("/bts/{bts}", "update")->name('bts.update');
     Route::delete("/bts/{bts}", "destroy")->name("bts.destroy");
+    Route::get("/bts/export/excel", "export_excel")->name('bts.export');
 });
 
 // Wilayah
@@ -58,12 +59,13 @@ Route::controller(WilayahController::class)->group(function () {
     Route::get("/wilayah/create", "create")->name("wilayah.create");
     Route::post("/wilayah", "store")->name("wilayah.store");
     Route::get("/wilayah/{wilayah}/edit", "edit")->name("wilayah.edit");
-    Route::get("/wilayah/{wilayah}", "update")->name('wilayah.update');
+    Route::put("/wilayah/{wilayah}", "update")->name('wilayah.update');
     Route::delete("/wilayah/{wilayah}", "destroy")->name("wilayah.destroy");
 });
 
+Route::get('/wilayah/export/excel', [WilayahController::class, 'export_excel'])->name('wilayah.export');
 
-// Route::middleware(['auth', 'checkadministrator'])->group(function () {
+// Pemilik
 Route::controller(PemilikController::class)->group(function () {
     Route::get("/pemilik", "index")->name('pemilik.index');
     Route::get("/pemilik/create", "create")->name('pemilik.create');
@@ -71,6 +73,7 @@ Route::controller(PemilikController::class)->group(function () {
     Route::get("/pemilik/{pemilik}/edit", "edit")->name('pemilik.edit');
     Route::put("/pemilik/{pemilik}", "update")->name('pemilik.update');
     Route::delete("/pemilik/{pemilik}", "destroy")->name('pemilik.destroy');
+    Route::get("/pemilik/export/excel", "export_excel")->name('pemilik.export');
 });
 
 // JenisBTS
@@ -81,6 +84,7 @@ Route::controller(JenisBTSController::class)->group(function () {
     Route::get("/jenis_bts/{jenis_bts}/edit", "edit")->name("jenis_bts.edit");
     Route::put("/jenis_bts/{jenis_bts}", "update")->name('jenis_bts.update');
     Route::delete("/jenis_bts/{jenis_bts}", "destroy")->name("jenis_bts.destroy");
+    Route::get("/jenis_bts/export/excel", "export_excel")->name('jenis_bts.export');
 });
 
 // Kuesioner
@@ -91,6 +95,7 @@ Route::controller(KuesionerController::class)->group(function () {
     Route::get("/kuesioner/{kuesioner}/edit", "edit")->name("kuesioner.edit");
     Route::put("/kuesioner/{kuesioner}", "update")->name('kuesioner.update');
     Route::delete("/kuesioner/{kuesioner}", "destroy")->name("kuesioner.destroy");
+    Route::get("/kuesioner/export/excel", "export_excel")->name('kuesioner.export');
 });
 
 // Monitoring
@@ -101,6 +106,7 @@ Route::controller(MonitoringController::class)->group(function () {
     Route::get("/monitoring/{monitoring}/edit", "edit")->name("monitoring.edit");
     Route::put("/monitoring/{monitoring}", "update")->name('monitoring.update');
     Route::delete("/monitoring/{monitoring}", "destroy")->name("monitoring.destroy");
+    Route::get("/monitoring/export/excel", "export_excel")->name('monitoring.export');
 });
 
 

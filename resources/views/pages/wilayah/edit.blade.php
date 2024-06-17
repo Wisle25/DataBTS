@@ -15,11 +15,11 @@
 <body class="bg-gray-100 py-10">
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
-            @csrf
-            @method('PUT')
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data wilayah</h1>
             @include('components.allert.danger')
-            <form action='{{ route("wilayah.update", $wilayah->id) }}' method="GET">
+            <form action='{{ route('wilayah.update', $wilayah->id) }}' method='POST'>
+                @csrf
+                @method('PUT')
                 <x-form.form-input id="nama" label="Nama" name="nama" value="{{ old('nama', $wilayah->nama) }}" />
                 <x-form.form-input id="id_parent" label="Id parent" name="id_parent" type="number" value="{{ old('id_parent', $wilayah->id_parent) }}" />
                 <x-form.form-input id="level" label="Level" name="level" type="number" step="any" value="{{ old('level', $wilayah->level) }}" />

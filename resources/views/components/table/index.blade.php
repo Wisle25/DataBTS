@@ -1,4 +1,4 @@
-<div class="overflow-x-auto mx-3 pt-2.5 pb-5">
+<div class="overflow-x-auto mx-3 pt-2.5 pb-1">
     <table class="min-w-full bg-white shadow-md overflow-hidden border border-gray-300">
         <thead class="bg-violet-100 border-b border-gray-300">
             <tr>
