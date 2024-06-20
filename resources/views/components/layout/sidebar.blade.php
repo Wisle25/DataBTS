@@ -63,8 +63,6 @@
                 <span class="mx-3">Wilayah</span>
             </a>
 
-            
-
             {{-- SIDEBAR MONITORING --}}
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('monitoring') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}"
                 href="/monitoring">

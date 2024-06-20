@@ -52,6 +52,5 @@
         });
     
         leafletMap.addControl(search);
-        </script>
-
+    </script>
 @endsection
