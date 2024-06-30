@@ -59,7 +59,17 @@
         Data BTS
     @endcomponent
 
+
+    {{-- Maps --}}
+    <div id="peta-container" class="my-10 mx-3">
+        @component('components.section.title')
+            Peta Persebaran BTS
+        @endcomponent
+        <div id="peta"></div>
+    </div>
+
     <script>
+        // To show detail
         function showDetails(data) {
             const modal = document.getElementById('detailModal');
             const modalContent = document.getElementById('modalContent');
@@ -120,6 +130,36 @@
             const modal = document.getElementById('detailModal');
             modal.classList.add('hidden');
         }
+
+
+        // Pass BTS data to JavaScript
+        const btsData = @json($allBTSData);
+
+        // Provide Map in Webpage
+        const providerOSM = new GeoSearch.OpenStreetMapProvider();
+    
+        // leaflet map
+        var leafletMap = L.map('peta', {
+            fullscreenControl: {
+                pseudoFullscreen: false 
+            },
+            minZoom: 4
+        }).setView([0,120], 5);
+    
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(leafletMap);
+
+        // Function to add BTS markers
+        function addBTSMarkers(btsData) {
+            btsData.forEach(bts => {
+                let marker = L.marker([bts.latitude, bts.longitude]).addTo(leafletMap);
+                marker.bindPopup(`<b>${bts.nama}</b><br>Alamat: ${bts.alamat}<br>Tinggi Tower: ${bts.tinggi_tower}`);
+            });
+        }
+
+        // Call the function to add BTS markers
+        addBTSMarkers(btsData);
     </script>
 @endsection
 

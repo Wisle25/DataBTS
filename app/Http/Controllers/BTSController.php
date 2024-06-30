@@ -22,7 +22,9 @@ class BTSController extends Controller
             $data = BTS::orderBy('nama', 'asc')->paginate($max_data);
         }
 
-        return view("pages.bts.index", compact("data"));
+        $allBTSData = BTS::select('id', 'nama', 'alamat', 'latitude', 'longitude', 'tinggi_tower')->get();
+
+        return view("pages.bts.index", compact("data", "allBTSData"));
     }
 
     public function export_excel(){

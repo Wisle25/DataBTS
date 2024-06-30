@@ -5,7 +5,7 @@
     @endcomponent
     
     {{-- Maps --}}
-    <div id="peta"></div>
+    {{-- <div id="peta"></div>
 
     <script>
         // Provide Map in Webpage
@@ -13,14 +13,13 @@
     
         // leaflet map
         var leafletMap = L.map('peta', {
-    
-        // Map's first displayed (On Indonesian's map) 
-        fullscreenControl: {
-            // fullscreenControl: true  /*fullscreen to page width and height*/
-            pseudoFullscreen: false 
-        },
-        minZoom: 4
-        }).setView([0,-598], 2);
+            // Map's first displayed (On Indonesian's map) 
+            fullscreenControl: {
+                // fullscreenControl: true  /*fullscreen to page width and height*/
+                pseudoFullscreen: false 
+            },
+            minZoom: 4
+        }).setView([0,120], 2);
     
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors,  <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -52,5 +51,5 @@
         });
     
         leafletMap.addControl(search);
-    </script>
+    </script> --}}
 @endsection

@@ -61,9 +61,8 @@ Route::controller(WilayahController::class)->group(function () {
     Route::get("/wilayah/{wilayah}/edit", "edit")->name("wilayah.edit");
     Route::put("/wilayah/{wilayah}", "update")->name('wilayah.update');
     Route::delete("/wilayah/{wilayah}", "destroy")->name("wilayah.destroy");
+    Route::get('/wilayah/export/excel', "export_excel")->name('wilayah.export');
 });
-
-Route::get('/wilayah/export/excel', [WilayahController::class, 'export_excel'])->name('wilayah.export');
 
 // Pemilik
 Route::controller(PemilikController::class)->group(function () {
