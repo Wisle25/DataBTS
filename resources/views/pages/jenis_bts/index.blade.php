@@ -2,13 +2,12 @@
 
     <div class="flex">
         <p class="ml-4 mr-1 text-xl font-semibold">Jenis BTS</p>
-        {{-- Tombol tambah data --}}
-        {{-- <div class="ms-auto">
-            @component('components.button.btn-tambah', ['url' => url('jenis_bts/create')])
-            @endcomponent
-        </div> --}}
         <x-button.btn-action-tambah :url="url('jenis_bts/create')" />
-        @component('components.section.export', ['route' => route('jenis_bts.export')])
+        @component('components.section.export', ['route' => route('jenis_bts.exportExcel')])
+        Export Excel
+        @endcomponent
+        @component('components.section.export', ['route' => route('jenis_bts.exportPdf')])
+        Export Pdf
         @endcomponent
     </div>
     @component('components.table.index', [

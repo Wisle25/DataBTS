@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ExportWilayah;
+use Mpdf\Mpdf;
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
+use App\Exports\ExportWilayah;
 use Maatwebsite\Excel\Facades\Excel;
 
 class WilayahController extends Controller
@@ -82,5 +83,29 @@ class WilayahController extends Controller
         $wilayah->delete();
 
         return redirect()->route('wilayah.index')->with('success', 'Wilayah berhasil dihapus.');
+    }
+
+    public function exportPdf()
+    {
+        // Ambil data dari database
+        $wilayahs = Wilayah::with('children')->orderBy('id_parent', 'asc')->get();
+
+        // Inisialisasi mPDF
+        $mpdf = new Mpdf();
+
+        // Buat tampilan untuk PDF
+        $html = view('pages.wilayah.exportPdf', compact('wilayahs'))->render();
+
+        // Menulis HTML ke PDF
+        $mpdf->WriteHTML($html);
+
+        // Output PDF untuk diunduh
+        $pdfOutput = $mpdf->Output('Wilayah.pdf', 'S'); // S: return as a string
+
+        return response($pdfOutput)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="Wilayah.pdf"')
+            ->header('Cache-Control', 'private, max-age=0, must-revalidate')
+            ->header('Pragma', 'public');
     }
 }

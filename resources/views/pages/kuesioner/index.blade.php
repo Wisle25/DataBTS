@@ -2,7 +2,11 @@
     <div class="flex">
         <p class="ml-4 mr-1 text-xl font-semibold">Kuesioner</p>
         <x-button.btn-action-tambah :url="url('kuesioner/create')" />
-        @component('components.section.export', ['route' => route('kuesioner.export')])
+        @component('components.section.export', ['route' => route('kuesioner.exportExcel')])
+        Export Excel
+        @endcomponent
+        @component('components.section.export', ['route' => route('kuesioner.exportPdf')])
+        Export Pdf
         @endcomponent
     </div>
 

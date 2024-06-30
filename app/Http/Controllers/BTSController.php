@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ExportBTS;
 use App\Models\BTS;
+use App\Exports\ExportBTS;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Mpdf\Mpdf;
 
 class BTSController extends Controller
 {
@@ -47,7 +48,6 @@ class BTSController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
-            // 'id_jenis_bts' => 'nullable|integer',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
             'tinggi_tower' => 'required|integer',
@@ -140,5 +140,29 @@ class BTSController extends Controller
     {
         $bts->delete();
         return redirect()->route('bts.index')->with('success', 'BTS deleted successfully.');
+    }
+
+    public function exportPdf()
+    {
+        // Ambil data dari database
+        $data = BTS::orderBy('nama', 'asc')->get();
+
+        // Inisialisasi mPDF
+        $mpdf = new Mpdf();
+
+        // Buat tampilan untuk PDF
+        $html = view('pages.bts.exportPdf', compact('data'))->render();
+
+        // Menulis HTML ke PDF
+        $mpdf->WriteHTML($html);
+
+        // Output PDF untuk diunduh
+        $pdfOutput = $mpdf->Output('BTS.pdf', 'S'); // S: return as a string
+
+        return response($pdfOutput)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="BTS.pdf"')
+            ->header('Cache-Control', 'private, max-age=0, must-revalidate')
+            ->header('Pragma', 'public');
     }
 }

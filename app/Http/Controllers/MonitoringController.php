@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ExportMonitoring;
+use Mpdf\Mpdf;
 use App\Models\Monitoring;
 use Illuminate\Http\Request;
+use App\Exports\ExportMonitoring;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MonitoringController extends Controller
@@ -107,5 +108,29 @@ class MonitoringController extends Controller
     {
         $monitoring->delete();
         return redirect()->route('monitoring.index')->with('success', 'Monitoring deleted successfully.');
+    }
+
+    public function exportPdf()
+    {
+        // Ambil data dari database
+        $monitorings = Monitoring::orderBy('tahun', 'asc')->get();
+
+        // Inisialisasi mPDF
+        $mpdf = new Mpdf();
+
+        // Buat tampilan untuk PDF
+        $html = view('pages.monitoring.exportPdf', compact('monitorings'))->render();
+
+        // Menulis HTML ke PDF
+        $mpdf->WriteHTML($html);
+
+        // Output PDF untuk diunduh
+        $pdfOutput = $mpdf->Output('Monitoring.pdf', 'S'); // S: return as a string
+
+        return response($pdfOutput)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="Monitoring.pdf"')
+            ->header('Cache-Control', 'private, max-age=0, must-revalidate')
+            ->header('Pragma', 'public');
     }
 }

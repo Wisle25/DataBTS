@@ -2,7 +2,11 @@
     <div class="flex">
         <p class="ml-4 mr-1 text-xl font-semibold">Pemilik</p>
         <x-button.btn-action-tambah :url="url('pemilik/create')" />
-        @component('components.section.export', ['route' => route('pemilik.export')])
+        @component('components.section.export', ['route' => route('pemilik.exportExcel')])
+        Export Excel
+        @endcomponent
+        @component('components.section.export', ['route' => route('pemilik.exportPdf')])
+        Export Pdf
         @endcomponent
     </div>
     @component('components.table.index',    [

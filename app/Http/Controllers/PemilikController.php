@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Mpdf\Mpdf;
 use App\Models\Pemilik;
 use Illuminate\Http\Request;
 use App\Exports\ExportPemilik;
@@ -91,5 +92,29 @@ class PemilikController extends Controller
         $pemilik->delete();
 
         return redirect()->route('dashboard')->with('success', 'Pemilik deleted successfully.');
+    }
+
+    public function exportPdf()
+    {
+        // Ambil data dari database
+        $pemilik = Pemilik::orderBy('name', 'asc')->get();
+
+        // Inisialisasi mPDF
+        $mpdf = new Mpdf();
+
+        // Buat tampilan untuk PDF
+        $html = view('pages.pemilik.exportPdf', compact('pemilik'))->render();
+
+        // Menulis HTML ke PDF
+        $mpdf->WriteHTML($html);
+
+        // Output PDF untuk diunduh
+        $pdfOutput = $mpdf->Output('Pemilik.pdf', 'S'); // S: return as a string
+
+        return response($pdfOutput)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="Pemilik.pdf"')
+            ->header('Cache-Control', 'private, max-age=0, must-revalidate')
+            ->header('Pragma', 'public');
     }
 }

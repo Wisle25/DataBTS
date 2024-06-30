@@ -16,25 +16,29 @@
     <div class="flex mt-3">
         @component('components.section.search', ['url' => url('bts'), 'placeholder' => 'Search Nama BTS'])
         @endcomponent
-        @component('components.section.export', ['route' => route('bts.export')])
+        @component('components.section.export', ['route' => route('bts.exportExcel')])
             Export Excel
+        @endcomponent
+        @component('components.section.export', ['route' => route('bts.exportPdf')])
+            Export Pdf
         @endcomponent
     </div>
 
     {{-- Tabel BTS --}}
     @component('components.table.index', [
-        'columns' => ['No', 'Nama', 'Alamat', 'Latitude', 'Lontitude', 'Tinggi Tower', 'Panjang Tanah', 'Lebar Tanah'],
+        'columns' => ['No', 'Nama', 'Alamat', 'Wilayah', 'Latitude', 'Lontitude', 'Tinggi Tower', 'Pemilik', 'Jenis'],
     ])
         @foreach ($data as $index => $bts)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($bts) }})">
                 <td class="px-5 py-2 text-center">{{ ($data->currentPage() - 1) * $data->perPage() + $index + 1 }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['nama'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['alamat'] }}</td>
+                <td class="px-4 py-2 text-center">{{ $bts->wilayah->nama }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['latitude'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['longitude'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['tinggi_tower'] }}</td>
-                <td class="px-4 py-2 text-center">{{ $bts['panjang_tanah'] }}</td>
-                <td class="px-4 py-2 text-center">{{ $bts['lebar_tanah'] }}</td>
+                <td class="px-4 py-2 text-center">{{ $bts->pemilik->name }}</td>
+                <td class="px-4 py-2 text-center">{{ $bts->jenisBTS->nama }}</td>
                 <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center items-center space-x-2">
                         <x-button.btn-action editUrl="{{ url('bts/' . $bts['id'] . '/edit') }}"

@@ -37,6 +37,6 @@ class JenisBTS extends Model
     // Define relationships
     public function bts()
     {
-        return $this->belongsToMany(BTS::class);
+        return $this->hasMany(BTS::class, 'id_bts');
     }
 }

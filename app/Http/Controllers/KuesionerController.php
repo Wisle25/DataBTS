@@ -7,6 +7,7 @@ use Auth;
 use App\Models\Kuesioner;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Mpdf\Mpdf;
 
 class KuesionerController extends Controller
 {
@@ -85,4 +86,29 @@ class KuesionerController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Kuesioner deleted successfully.');
     }
+
+    public function exportPdf()
+{
+    // Ambil data dari database
+    $kuesioners = Kuesioner::orderBy('created_at', 'asc')->get();
+
+    // Inisialisasi mPDF
+    $mpdf = new Mpdf();
+
+    // Buat tampilan untuk PDF
+    $html = view('pages.kuesioner.exportPdf', compact('kuesioners'))->render();
+
+    // Menulis HTML ke PDF
+    $mpdf->WriteHTML($html);
+
+    // Output PDF untuk diunduh
+    $pdfOutput = $mpdf->Output('Kuesioner.pdf', 'S'); // S: return as a string
+
+    return response($pdfOutput)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="Kuesioner.pdf"')
+        ->header('Cache-Control', 'private, max-age=0, must-revalidate')
+        ->header('Pragma', 'public');
+}
+
 }

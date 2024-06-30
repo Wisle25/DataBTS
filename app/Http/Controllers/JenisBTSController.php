@@ -6,6 +6,7 @@ use App\Models\JenisBTS;
 use Illuminate\Http\Request;
 use App\Exports\ExportJenisBTS;
 use Maatwebsite\Excel\Facades\Excel;
+use Mpdf\Mpdf;
 
 class JenisBTSController extends Controller
 {
@@ -13,11 +14,12 @@ class JenisBTSController extends Controller
     {
         $max_data = 5;
         $jenisBTS = JenisBTS::orderBy('nama', 'asc')->paginate($max_data);
-        
+
         return view('pages.jenis_bts.index', compact('jenisBTS'));
     }
 
-    public function export_excel(){
+    public function export_excel()
+    {
         return Excel::download(new ExportJenisBTS, "JenisBTS.xlsx");
     }
 
@@ -61,5 +63,29 @@ class JenisBTSController extends Controller
     {
         $jenisBTS->delete();
         return redirect()->route('dashboard')->with('success', 'Jenis BTS deleted successfully.');
+    }
+
+    public function exportPdf()
+    {
+        // Ambil data dari database
+        $jenisBTS = JenisBTS::orderBy('nama', 'asc')->get();
+
+        // Inisialisasi mPDF
+        $mpdf = new Mpdf();
+
+        // Buat tampilan untuk PDF
+        $html = view('pages.jenis_bts.exportPdf', compact('jenisBTS'))->render();
+
+        // Menulis HTML ke PDF
+        $mpdf->WriteHTML($html);
+
+        // Output PDF untuk diunduh
+        $pdfOutput = $mpdf->Output('JenisBTS.pdf', 'S'); // S: return as a string
+
+        return response($pdfOutput)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="JenisBTS.pdf"')
+            ->header('Cache-Control', 'private, max-age=0, must-revalidate')
+            ->header('Pragma', 'public');
     }
 }

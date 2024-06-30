@@ -41,21 +41,21 @@ class BTS extends Model
     // Define relationships
     public function jenisBts()
     {
-        return $this->belongsTo(JenisBts::class);
+        return $this->belongsTo(JenisBts::class, 'id_jenis_bts');
     }
 
     public function pemilik()
     {
-        return $this->belongsTo(Pemilik::class);
+        return $this->belongsTo(Pemilik::class, 'id_pemilik');
     }
 
     public function wilayah()
     {
-        return $this->belongsTo(Wilayah::class);
+        return $this->belongsTo(Wilayah::class, 'id_wilayah');
     }
 
     public function monitoring()
     {
-        return $this->belongsTo(Wilayah::class);
+        return $this->hasMany(Monitoring::class, 'id_bts');
     }
 }

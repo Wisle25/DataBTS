@@ -44,6 +44,6 @@ class Monitoring extends Model
     // Define relationships
     public function bts()
     {
-        return $this->belongsTo(Bts::class);
+        return $this->belongsTo(BTS::class, 'id_bts');
     }
 }

@@ -50,7 +50,8 @@ Route::controller(BTSController::class)->group(function () {
     Route::get("/bts/{bts}/edit", "edit")->name("bts.edit");
     Route::put("/bts/{bts}", "update")->name('bts.update');
     Route::delete("/bts/{bts}", "destroy")->name("bts.destroy");
-    Route::get("/bts/export/excel", "export_excel")->name('bts.export');
+    Route::get("/bts/export/excel", "export_excel")->name('bts.exportExcel');
+    Route::get("/bts/export/pdf", "exportPdf")->name('bts.exportPdf');
 });
 
 // Wilayah
@@ -61,7 +62,8 @@ Route::controller(WilayahController::class)->group(function () {
     Route::get("/wilayah/{wilayah}/edit", "edit")->name("wilayah.edit");
     Route::put("/wilayah/{wilayah}", "update")->name('wilayah.update');
     Route::delete("/wilayah/{wilayah}", "destroy")->name("wilayah.destroy");
-    Route::get('/wilayah/export/excel', "export_excel")->name('wilayah.export');
+    Route::get('/wilayah/export/excel', "export_excel")->name('wilayah.exportExcel');
+    Route::get("/wilayah/export/pdf", "exportPdf")->name('wilayah.exportPdf');
 });
 
 // Pemilik
@@ -72,7 +74,8 @@ Route::controller(PemilikController::class)->group(function () {
     Route::get("/pemilik/{pemilik}/edit", "edit")->name('pemilik.edit');
     Route::put("/pemilik/{pemilik}", "update")->name('pemilik.update');
     Route::delete("/pemilik/{pemilik}", "destroy")->name('pemilik.destroy');
-    Route::get("/pemilik/export/excel", "export_excel")->name('pemilik.export');
+    Route::get("/pemilik/export/excel", "export_excel")->name('pemilik.exportExcel');
+    Route::get("/pemilik/export/pdf", "exportPdf")->name('pemilik.exportPdf');
 });
 
 // JenisBTS
@@ -83,7 +86,8 @@ Route::controller(JenisBTSController::class)->group(function () {
     Route::get("/jenis_bts/{jenis_bts}/edit", "edit")->name("jenis_bts.edit");
     Route::put("/jenis_bts/{jenis_bts}", "update")->name('jenis_bts.update');
     Route::delete("/jenis_bts/{jenis_bts}", "destroy")->name("jenis_bts.destroy");
-    Route::get("/jenis_bts/export/excel", "export_excel")->name('jenis_bts.export');
+    Route::get("/jenis_bts/export/excel", "export_excel")->name('jenis_bts.exportExcel');
+    Route::get("/jenis_bts/export/pdf", "exportPdf")->name('jenis_bts.exportPdf');
 });
 
 // Kuesioner
@@ -94,7 +98,8 @@ Route::controller(KuesionerController::class)->group(function () {
     Route::get("/kuesioner/{kuesioner}/edit", "edit")->name("kuesioner.edit");
     Route::put("/kuesioner/{kuesioner}", "update")->name('kuesioner.update');
     Route::delete("/kuesioner/{kuesioner}", "destroy")->name("kuesioner.destroy");
-    Route::get("/kuesioner/export/excel", "export_excel")->name('kuesioner.export');
+    Route::get("/kuesioner/export/excel", "export_excel")->name('kuesioner.exportExcel');
+    Route::get("/kuesioner/export/pdf", "exportPdf")->name('kuesioner.exportPdf');
 });
 
 // Monitoring
@@ -105,7 +110,8 @@ Route::controller(MonitoringController::class)->group(function () {
     Route::get("/monitoring/{monitoring}/edit", "edit")->name("monitoring.edit");
     Route::put("/monitoring/{monitoring}", "update")->name('monitoring.update');
     Route::delete("/monitoring/{monitoring}", "destroy")->name("monitoring.destroy");
-    Route::get("/monitoring/export/excel", "export_excel")->name('monitoring.export');
+    Route::get("/monitoring/export/excel", "export_excel")->name('monitoring.exportExcel');
+    Route::get("/monitoring/export/pdf", "exportPdf")->name('monitoring.exportPdf');
 });
 
 

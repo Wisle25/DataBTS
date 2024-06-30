@@ -16,8 +16,11 @@
     <div class="flex mt-3">
         @component('components.section.search', ['url' => url('monitoring'), 'placeholder' => 'Search ID BTS'])
         @endcomponent
-        @component('components.section.export', ['route' => route('monitoring.export')])
-            Export Excel
+        @component('components.section.export', ['route' => route('monitoring.exportExcel')])
+        Export Excel
+        @endcomponent
+        @component('components.section.export', ['route' => route('monitoring.exportPdf')])
+        Export Pdf
         @endcomponent
     </div>
 
@@ -28,7 +31,7 @@
         @foreach ($monitorings as $index => $monitoring)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($monitoring) }})">
                 <td class="px-4 py-2 text-center">{{ ($monitorings->currentPage() - 1) * $monitorings->perPage() + $index + 1 }}</td>
-                <td class="px-4 py-2 text-center">{{ $monitoring['id_bts'] }}</td>
+                <td class="px-4 py-2 text-center">{{ $monitoring->bts->nama }}</td>
                 <td class="px-4 py-2 text-center">{{ $monitoring['kondisi_bts'] }}</td>
                 <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center items-center space-x-2">

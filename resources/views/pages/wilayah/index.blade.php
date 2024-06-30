@@ -16,8 +16,11 @@
     <div class="flex mt-3">
         @component('components.section.search', ['url' => url('wilayah'), 'placeholder' => 'Search Nama wilayah'])
         @endcomponent
-        @component('components.section.export', ['route' => route('wilayah.export')])
-            Export Excel
+        @component('components.section.export', ['route' => route('wilayah.exportExcel')])
+        Export Excel
+        @endcomponent
+        @component('components.section.export', ['route' => route('wilayah.exportPdf')])
+        Export Pdf
         @endcomponent
     </div>
 
