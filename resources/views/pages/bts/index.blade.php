@@ -69,7 +69,7 @@
 
 
     {{-- Maps --}}
-    <div id="peta-container" class="my-10 mx-3">
+    <div id="peta-container" class="my-10 mx-3 z-0">
         @component('components.section.title')
             Peta Persebaran BTS
         @endcomponent
