@@ -40,6 +40,7 @@
                 <th>Lebar Tanah</th>
                 <th>Pemilik</th>
                 <th>Jenis</th>
+                <th>Foto</th>
             </tr>
         </thead>
         <tbody>
@@ -56,6 +57,13 @@
                     <td>{{ $bts->lebar_tanah }}</td>
                     <td>{{ $bts->pemilik->name }}</td>
                     <td>{{ $bts->jenisBTS->nama }}</td>
+                    <td>
+                        @if($bts->path_foto)
+                            <img src="{{ public_path('path_foto/' . $bts->path_foto) }}" alt="Foto BTS" style="max-width: 80px; height: auto;">
+                        @else
+                            No Image
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>

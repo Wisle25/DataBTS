@@ -17,7 +17,7 @@
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data BTS</h1>
             @include('components.allert.danger')
-            <form action='{{ route("bts.update", $bts->id) }}' method="POST">
+            <form action='{{ route('bts.update', $bts->id) }}' method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <x-form.form-input id="nama" label="Nama" name="nama" value="{{ old('nama', $bts->nama) }}" />
@@ -27,7 +27,12 @@
                 <x-form.form-input id="tinggi_tower" label="Tinggi Tower" name="tinggi_tower" type="number" step="any" value="{{ old('tinggi_tower', $bts->tinggi_tower) }}" />
                 <x-form.form-input id="panjang_tanah" label="Panjang Tanah" name="panjang_tanah" type="number" step="any" value="{{ old('panjang_tanah', $bts->panjang_tanah) }}" />
                 <x-form.form-input id="lebar_tanah" label="Lebar Tanah" name="lebar_tanah" type="number" step="any" value="{{ old('lebar_tanah', $bts->lebar_tanah) }}" />
-
+                    @if($bts->path_foto)
+                    <div id="current-photo">
+                        <img src="{{ url('path_foto/' . $bts->path_foto) }}" style="max-width: 300px; height: auto;">
+                    </div>
+                @endif
+                <x-form.form-input id="path_foto" label="Foto" name="path_foto" type="file" onchange="previewImage(event)" />
                 <x-form.form-select id="ada_genset" label="Ada Genset" name="ada_genset" :options="[1 => 'Ya', 0 => 'Tidak']" />
                 <x-form.form-select id="ada_tembok_batas" label="Ada Tembok Batas" name="ada_tembok_batas" :options="[1 => 'Ya', 0 => 'Tidak']" />
 
@@ -36,6 +41,25 @@
             </form>
         </div>
     </div>
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function(){
+                var imgElement = document.createElement('img');
+                imgElement.src = reader.result;
+                imgElement.style.maxWidth = '300px';
+                imgElement.style.height = 'auto';
+                
+                var currentPhoto = document.getElementById('current-photo');
+                if (currentPhoto) {
+                    currentPhoto.innerHTML = ''; // Hapus gambar lama jika ada
+                    currentPhoto.appendChild(imgElement);
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    </script>
 </body>
 
 </html>

@@ -26,6 +26,7 @@ class BTS extends Model
         'id_user_pic',
         'id_pemilik',
         'id_wilayah',
+        'path_foto',
         'created_by',
         'edited_by',
     ];

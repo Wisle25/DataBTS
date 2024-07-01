@@ -84,6 +84,11 @@
 
             modalContent.innerHTML = `
             <table class="border-collapse">
+                <tr class="text-center">
+                    <td class="px-14 py-1" colspan="2">
+                        <img src="{{ url('path_foto') }}/${data.path_foto}" style="max-width: 300px; height: auto; display: block; margin: 0 auto;">
+                    </td>
+                </tr>
                 <tr>
                     <td class="px-6 py-1">Nama</td>
                     <td class="px-14 py-1">${data.nama}</td>
@@ -120,15 +125,7 @@
                     <td class="px-6 py-1">Tembok Batas</td>
                     <td class="px-14 py-1">${data.ada_tembok_batas}</td>
                 </tr>
-                <tr>
-                    <td class="px-6 py-1">Created At</td>
-                    <td class="px-14 py-1">${data.created_at}</td>
-                    </tr>
-                <tr>
-                    <td class="px-6 py-1">Edited At</td>
-                    <td class="px-14 py-1">${data.edited_at}</td>
-                    </tr>
-                    </table>
+            </table>
                     `;
 
             modal.classList.remove('hidden');

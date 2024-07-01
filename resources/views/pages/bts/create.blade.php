@@ -17,7 +17,7 @@
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
             <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Tambah Data BTS</h1>
             @include('components.allert.danger')
-            <form action='{{ route('bts.store') }}' method='post'>
+            <form action='{{ route('bts.store') }}' method='post' enctype="multipart/form-data">
                 @csrf
                 <x-form.form-input id="nama" label="Nama" name="nama" value="{{ $errors->has('nama') ? '' : old('nama') }}" />
                 <x-form.form-input id="alamat" label="Alamat" name="alamat" value="{{ $errors->has('alamat') ? '' : old('alamat') }}" />
@@ -28,7 +28,7 @@
                 <x-form.form-input id="lebar_tanah" label="Lebar Tanah" name="lebar_tanah" type="number" step="any" value="{{ $errors->has('lebar_tanah') ? '' : old('lebar_tanah') }}" />
                 <x-form.form-select id="ada_genset" label="Ada Genset" name="ada_genset" :options="[1 => 'Yes', 0 => 'No']" selected="{{ $errors->has('ada_genset') ? '' : old('ada_genset') }}" />
                 <x-form.form-select id="ada_tembok_batas" label="Ada Tembok Batas" name="ada_tembok_batas" :options="[1 => 'Yes', 0 => 'No']" selected="{{ $errors->has('ada_tembok_batas') ? '' : old('ada_tembok_batas') }}" />
-                
+                    <x-form.form-input id="path_foto" label="Foto" name="path_foto" type="file" />
                 <x-form.form-input id="id_jenis_bts" label="ID Jenis BTS" name="id_jenis_bts" type="number" step="any" value="{{ $errors->has('id_jenis_bts') ? '' : old('id_jenis_bts') }}" />
                 <x-form.form-input id="id_pemilik" label="ID Pemilik" name="id_pemilik" type="number" step="any" value="{{ $errors->has('id_pemilik') ? '' : old('id_pemilik') }}" />
                 <x-form.form-input id="id_wilayah" label="ID Wilayah" name="id_wilayah" type="number" step="any"  value="{{ $errors->has('id_wilayah') ? '' : old('id_wilayah') }}" />

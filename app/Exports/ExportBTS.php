@@ -12,12 +12,14 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles, WithEvents
 {
     private $number = 0;
     private $rowCount;
     private $columnCount;
+    private $images = [];
 
     /**
      * @return \Illuminate\Support\Collection
@@ -33,6 +35,11 @@ class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles
     public function map($data): array
     {
         $this->number++;
+        $pathFoto = null;
+        if ($data->path_foto && file_exists(public_path('path_foto/' . $data->path_foto))) {
+            $pathFoto = public_path('path_foto/' . $data->path_foto);
+            $this->images[] = ['path' => $pathFoto, 'row' => $this->number + 1];
+        }
         return [
             $this->number,
             $data->nama,
@@ -45,6 +52,7 @@ class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles
             $data->lebar_tanah,
             $data->pemilik->name,
             $data->jenisBTS->nama,
+            $pathFoto ? '' : 'No Image',
         ];
     }
 
@@ -62,6 +70,7 @@ class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles
             'Lebar Tanah',
             'Pemilik',
             'Jenis',
+            'Foto',
         ];
     }
 
@@ -74,10 +83,11 @@ class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles
     public function styles(Worksheet $sheet)
     {
         $lastRow = $this->rowCount + 1; // +1 to include the header row
-        $lastColumn = chr(64 + $this->columnCount); // Convert column count to letter (e.g., 1 = A, 2 = B, ..., 26 = Z)
+        $lastColumn = chr(64 + $this->columnCount); 
 
         // Center align all cells
         $sheet->getStyle('A1:' . $lastColumn . $lastRow)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:' . $lastColumn . $lastRow)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
         // Apply bold to the first row
         $sheet->getStyle('A1:' . $lastColumn . '1')->getFont()->setBold(true);
@@ -103,6 +113,27 @@ class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles
                 foreach (range('A', $sheet->getHighestColumn()) as $columnID) {
                     $sheet->getColumnDimension($columnID)->setAutoSize(true);
                 }
+
+                // Set specific column width for Foto column
+                $sheet->getColumnDimension('L')->setWidth(20); 
+
+                // Add images and adjust row height
+                foreach ($this->images as $image) {
+                    $drawing = new Drawing();
+                    $drawing->setPath($image['path']);
+                    $drawing->setCoordinates('L' . $image['row']);
+                    $drawing->setWidth(50); 
+                    $drawing->setHeight(50); 
+                    $drawing->setOffsetX(15); 
+                    $drawing->setOffsetY(10); 
+                    $drawing->setWorksheet($sheet);
+
+                    // Adjust row height
+                    $sheet->getRowDimension($image['row'])->setRowHeight(55); 
+                }
+
+                // Center align all cells vertically
+                $sheet->getStyle('A2:L' . ($this->rowCount + 1))->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
             },
         ];
     }

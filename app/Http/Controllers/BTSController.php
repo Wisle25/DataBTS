@@ -48,6 +48,7 @@ class BTSController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
+            'path_foto' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
             'tinggi_tower' => 'required|integer',
@@ -60,6 +61,12 @@ class BTSController extends Controller
             'id_jenis_bts' => 'required|exists:jenis_bts,id'
             // 'id_user_pic' => 'nullable|integer',
         ]);
+
+        $foto_file = $request->file('path_foto');
+        $foto_ekstensi = $foto_file->extension();
+        $foto_nama = date('ymdhis') . "." . $foto_ekstensi;
+        $foto_file->move(public_path('path_foto'), $foto_nama);
+
 
         BTS::create([
             'nama' => $request->nama,
@@ -74,7 +81,7 @@ class BTSController extends Controller
             'id_pemilik' => $request->id_pemilik,
             'id_wilayah' => $request->id_wilayah,
             'id_jenis_bts' => $request->id_jenis_bts,
-            // 'id_user_pic' => $request->id_user_pic,
+            'path_foto'=>$foto_nama,
             // 'created_by' => Auth::id(),
             // 'edited_by' => Auth::id(),
             'edited_at' => now()
@@ -99,6 +106,7 @@ class BTSController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
+            'path_foto' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             // 'id_jenis_bts' => 'nullable|integer',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
@@ -112,10 +120,24 @@ class BTSController extends Controller
             // 'id_wilayah' => 'nullable|integer',
         ]);
 
+        if ($request->hasFile('path_foto')) {
+            // Hapus file lama jika ada
+            if ($bts->path_foto && file_exists(public_path('path_foto/' . $bts->path_foto))) {
+                unlink(public_path('path_foto/' . $bts->path_foto));
+            }
+    
+            $foto_file = $request->file('path_foto');
+            $foto_ekstensi = $foto_file->extension();
+            $foto_nama = date('ymdhis') . "." . $foto_ekstensi;
+            $foto_file->move(public_path('path_foto'), $foto_nama);
+        } else {
+            $foto_nama = $bts->path_foto; // Gunakan foto lama jika tidak ada file baru
+        }
+
         $bts->update([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            // 'id_jenis_bts' => $request->id_jenis_bts,
+            'path_foto'=>$foto_nama,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'tinggi_tower' => $request->tinggi_tower,
@@ -126,8 +148,6 @@ class BTSController extends Controller
             // 'id_user_pic' => $request->id_user_pic,
             // 'id_pemilik' => $request->id_pemilik,
             // 'id_wilayah' => $request->id_wilayah,
-            // 'edited_by' => Auth::id(),
-            // 'edited_at' => now()
         ]);
 
         return redirect()->route('bts.index')->with('success', 'BTS updated successfully.');
@@ -138,6 +158,9 @@ class BTSController extends Controller
      */
     public function destroy(BTS $bts)
     {
+        if ($bts->path_foto && file_exists(public_path('path_foto/' . $bts->path_foto))) {
+            unlink(public_path('path_foto/' . $bts->path_foto));
+        }
         $bts->delete();
         return redirect()->route('bts.index')->with('success', 'BTS deleted successfully.');
     }

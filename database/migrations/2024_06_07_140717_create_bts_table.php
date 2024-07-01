@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user_pic')->nullable();
             $table->unsignedBigInteger('id_pemilik');
             $table->unsignedBigInteger('id_wilayah');
+            $table->string('path_foto')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();;
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamp("edited_at")->default(now());
@@ -32,8 +33,6 @@ return new class extends Migration
             $table->foreign('id_jenis_bts')->references('id')->on('jenis_bts')->after('id_wilayah');
             $table->foreign('id_pemilik')->references('id')->on('pemilik')->after('id_jenis_bts');
             $table->foreign('id_wilayah')->references('id')->on('wilayah')->after('id_pemilik');
-            // $table->foreign('created_by')->references('id')->on('pengguna')->onDelete("cascade");
-            // $table->foreign('edited_by')->references('id')->on('pengguna')->onDelete("cascade");
         });
     }
 
