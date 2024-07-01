@@ -37,8 +37,12 @@
                 <td class="px-4 py-2 text-center">{{ $bts['latitude'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['longitude'] }}</td>
                 <td class="px-4 py-2 text-center">{{ $bts['tinggi_tower'] }}</td>
-                <td class="px-4 py-2 text-center">{{ $bts->pemilik->name }}</td>
-                <td class="px-4 py-2 text-center">{{ $bts->jenisBTS->nama }}</td>
+                <td class="px-4 py-2 text-center hover:underline hover:text-blue-700" onclick="event.stopPropagation();">
+                    <a href="{{ route('pemilik.show', $bts->pemilik->id) }}"> {{ $bts->pemilik->name }} </a>
+                </td>
+                <td class="px-4 py-2 text-center hover:underline hover:text-blue-700" onclick="event.stopPropagation();">
+                    <a href="{{ route('jenis_bts.show', $bts->jenisBTS->id) }}"> {{ $bts->jenisBTS->nama }} </a>
+                </td>
                 <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center items-center space-x-2">
                         <x-button.btn-action editUrl="{{ url('bts/' . $bts['id'] . '/edit') }}"

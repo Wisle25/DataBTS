@@ -54,6 +54,8 @@ Route::controller(BTSController::class)->group(function () {
     Route::get("/bts/export/pdf", "exportPdf")->name('bts.exportPdf');
 });
 
+
+
 // Wilayah
 Route::controller(WilayahController::class)->group(function () {
     Route::get("/wilayah", "index")->name("wilayah.index");
@@ -76,6 +78,7 @@ Route::controller(PemilikController::class)->group(function () {
     Route::delete("/pemilik/{pemilik}", "destroy")->name('pemilik.destroy');
     Route::get("/pemilik/export/excel", "export_excel")->name('pemilik.exportExcel');
     Route::get("/pemilik/export/pdf", "exportPdf")->name('pemilik.exportPdf');
+    Route::get('/pemilik/{id}', 'show')->name('pemilik.show');
 });
 
 // JenisBTS
@@ -88,6 +91,8 @@ Route::controller(JenisBTSController::class)->group(function () {
     Route::delete("/jenis_bts/{jenis_bts}", "destroy")->name("jenis_bts.destroy");
     Route::get("/jenis_bts/export/excel", "export_excel")->name('jenis_bts.exportExcel');
     Route::get("/jenis_bts/export/pdf", "exportPdf")->name('jenis_bts.exportPdf');
+    Route::get('/jenis_bts/{id}', 'show')->name('jenis_bts.show');
+
 });
 
 // Kuesioner

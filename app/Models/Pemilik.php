@@ -28,7 +28,7 @@ class Pemilik extends Model
 
     public function bts()
     {
-        return $this->belongsToMany(BTS::class, 'id_bts');
+        return $this->hasMany(BTS::class, 'id_pemilik');
     }
     // // Relationships
     // public function creator()

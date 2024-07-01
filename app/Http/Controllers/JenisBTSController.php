@@ -12,8 +12,8 @@ class JenisBTSController extends Controller
 {
     public function index()
     {
-        $max_data = 5;
-        $jenisBTS = JenisBTS::orderBy('nama', 'asc')->paginate($max_data);
+
+        $jenisBTS = JenisBTS::with('bts')->orderBy('nama', 'asc')->get();
 
         return view('pages.jenis_bts.index', compact('jenisBTS'));
     }
@@ -87,5 +87,15 @@ class JenisBTSController extends Controller
             ->header('Content-Disposition', 'attachment; filename="JenisBTS.pdf"')
             ->header('Cache-Control', 'private, max-age=0, must-revalidate')
             ->header('Pragma', 'public');
+    }
+
+    public function show($id)
+    {
+        // Fetch the owner by ID with eager loading for bts
+        $jenisBTS = JenisBTS::with('bts')->findOrFail($id);
+
+
+        // Return the view with the owner and their BTS records
+        return view('pages.jenis_bts.show', compact('jenisBTS'));
     }
 }

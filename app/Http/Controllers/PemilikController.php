@@ -11,12 +11,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PemilikController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
-    {      
-        $pemilik = Pemilik::orderBy('name', 'asc')->get();
+    {
+        $pemilik = Pemilik::with('bts')->orderBy('name', 'asc')->get();
 
         return view('pages.pemilik.index', compact('pemilik'));
     }
@@ -26,17 +24,11 @@ class PemilikController extends Controller
         return Excel::download(new ExportPemilik, "Pemilik.xlsx");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.pemilik.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -56,17 +48,11 @@ class PemilikController extends Controller
         return redirect()->route('dashboard')->with('success', 'Pemilik created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Pemilik $pemilik)
     {
         return view('pages.pemilik.edit', compact('pemilik'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Pemilik $pemilik)
     {
         // $request->validate([
@@ -84,9 +70,6 @@ class PemilikController extends Controller
         return redirect()->route('dashboard')->with('success', 'Pemilik updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Pemilik $pemilik)
     {
         $pemilik->delete();
@@ -116,5 +99,15 @@ class PemilikController extends Controller
             ->header('Content-Disposition', 'attachment; filename="Pemilik.pdf"')
             ->header('Cache-Control', 'private, max-age=0, must-revalidate')
             ->header('Pragma', 'public');
+    }
+
+    public function show($id)
+    {
+        // Fetch the owner by ID with eager loading for bts
+        $pemilik = Pemilik::with('bts')->findOrFail($id);
+
+
+        // Return the view with the owner and their BTS records
+        return view('pages.pemilik.show', compact('pemilik'));
     }
 }
