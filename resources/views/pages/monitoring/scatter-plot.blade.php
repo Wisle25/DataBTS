@@ -1,9 +1,10 @@
 <!-- Scatter Plot -->
-<div  class="mt-16 mb-8 mx-3 z-0">
+<div class="mt-16 mb-8 mx-3 z-0">
     @component('components.section.title')
         Plot Monitoring
     @endcomponent
-    <canvas id="scatterPlot" width="300" height="150" class="mt-5 bg-slate-50 border border-gray-400 shadow-sm"></canvas>
+    <canvas id="scatterPlot" width="300" height="150"
+        class="mt-5 bg-slate-50 border border-gray-400 shadow-sm"></canvas>
 </div>
 
 
@@ -77,7 +78,11 @@
                     },
                     title: {
                         display: true,
-                        text: 'Bulan dan Tahun'
+                        text: 'Bulan dan Tahun',
+                        color: 'black',
+                        font: {
+                            weight: 'bold' 
+                        }
                     },
                     min: new Date('2023-12-20').getTime(), // Menentukan nilai minimum untuk sumbu x
                     max: new Date('2024-07-31').getTime() // Menentukan nilai maksimum untuk sumbu x
@@ -85,19 +90,23 @@
                 y: {
                     title: {
                         display: true,
-                        text: 'Jumlah BTS'
+                        text: 'Jumlah BTS',
+                        color: 'black',
+                        font: {
+                            weight: 'bold' 
+                        }
                     },
-                    min: 0, 
-                    max: 15, 
+                    min: 0,
+                    max: 20,
                     ticks: {
-                        stepSize: 1 
+                        stepSize: 2
                     }
                 }
             }
         };
 
         var scatterPlot = new Chart(ctx, {
-            type: 'line', 
+            type: 'line',
             data: scatterData,
             options: scatterOptions
         });
