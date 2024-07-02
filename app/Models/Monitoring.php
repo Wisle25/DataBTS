@@ -17,7 +17,7 @@ class Monitoring extends Model
         'id_bts',
         'tgl_generate',
         'tgl_kunjungan',
-        'kondisi_bts',
+        'id_kondisi_bts',
         'id_user_surveyor',
         'created_by',
         'edited_by',
@@ -45,5 +45,9 @@ class Monitoring extends Model
     public function bts()
     {
         return $this->belongsTo(BTS::class, 'id_bts');
+    }
+    public function kondisi_bts()
+    {
+        return $this->belongsTo(KondisiBts::class, 'id_kondisi_bts');
     }
 }

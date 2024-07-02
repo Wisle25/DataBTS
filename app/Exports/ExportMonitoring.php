@@ -36,10 +36,10 @@ class ExportMonitoring implements FromCollection, WithHeadings, WithMapping, Wit
         return [
             $this->number,
             $monitoring->tahun,
-            $monitoring->id_bts,
+            $monitoring->bts->nama,
             $monitoring->tgl_generate,
             $monitoring->tgl_kunjungan,
-            $monitoring->kondisi_bts,
+            $monitoring->kondisi_bts->nama,
         ];
     }
 

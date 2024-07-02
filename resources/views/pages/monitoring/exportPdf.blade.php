@@ -45,7 +45,7 @@
                     <td>{{ $monitoring->bts->nama }}</td>
                     <td>{{ $monitoring->tgl_generate }}</td>
                     <td>{{ $monitoring->tgl_kunjungan }}</td>
-                    <td>{{ $monitoring->kondisi_bts }}</td>
+                    <td>{{ $monitoring->kondisi_bts->nama }}</td>
                 </tr>
             @endforeach
         </tbody>

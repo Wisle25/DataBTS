@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             KuesionerSeeder::class,
             WilayahSeeder::class,
             BTSSeeder::class,
+            KondisiBtsSeeder::class,
             MonitoringSeeder::class,
 
         ]);

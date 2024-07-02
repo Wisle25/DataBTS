@@ -58,10 +58,6 @@
     <div class="mt-4 mx-2">
         {{ $data->links() }}
     </div>
-    
-
-    {{-- @include('components.section.pagination') --}}
-    
 
     @component('components.allert.modal')
         Data BTS
