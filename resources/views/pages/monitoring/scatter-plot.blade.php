@@ -3,7 +3,7 @@
     @component('components.section.title')
         Plot Monitoring
     @endcomponent
-    <canvas id="scatterPlot" width="300" height="150" class="mt-5"></canvas>
+    <canvas id="scatterPlot" width="300" height="150" class="mt-5 bg-slate-50 border border-gray-400 shadow-sm"></canvas>
 </div>
 
 
@@ -87,17 +87,17 @@
                         display: true,
                         text: 'Jumlah BTS'
                     },
-                    min: 0, // Menentukan nilai minimum untuk sumbu y
-                    max: 10, // Menentukan nilai maksimum untuk sumbu y, sesuaikan dengan data
+                    min: 0, 
+                    max: 15, 
                     ticks: {
-                        stepSize: 1 // Mengatur jarak antar nilai di sumbu y
+                        stepSize: 1 
                     }
                 }
             }
         };
 
         var scatterPlot = new Chart(ctx, {
-            type: 'line', // Menggunakan tipe chart 'line' dengan dataset 'scatter'
+            type: 'line', 
             data: scatterData,
             options: scatterOptions
         });

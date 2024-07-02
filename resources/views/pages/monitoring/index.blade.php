@@ -17,15 +17,17 @@
         @component('components.section.search', ['url' => url('monitoring'), 'placeholder' => 'Search Nama BTS'])
         @endcomponent
         <!-- Add a new button to open the new modal -->
-        <button onclick="toggleModal('btsModalCurrentMonth')" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 rounded">
+        <button onclick="toggleModal('btsModalCurrentMonth')" class="bg-blue-500 hover:bg-blue-700 text-white font-medium px-4 rounded">
             See detail for current month
         </button>
-        @component('components.section.export', ['route' => route('monitoring.exportExcel')])
+        <div class="ms-auto flex">
+        @component('components.section.exportExcel', ['route' => route('monitoring.exportExcel')])
             Export Excel
         @endcomponent
-        @component('components.section.export', ['route' => route('monitoring.exportPdf')])
+        @component('components.section.exportPdf', ['route' => route('monitoring.exportPdf')])
             Export Pdf
         @endcomponent
+        </div>
     </div>
 
     {{-- Tabel Monitoring --}}
@@ -137,13 +139,12 @@
 
 
 
-
-
     @component('components.allert.modal')
         Data Monitoring
     @endcomponent
 
     @include('pages.monitoring.scatter-plot')
+    @include('pages.monitoring.pie-chart')
     <script>
         function toggleModal(modalID) {
             document.getElementById(modalID).classList.toggle('hidden');

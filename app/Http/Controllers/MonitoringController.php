@@ -13,13 +13,13 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class MonitoringController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $max_data = 8;
 
-        if (request('search')) {
-            $monitorings = Monitoring::whereHas('bts', function ($query) {
-                $query->where('nama', 'like', '%' . request('search') . '%');
+        if ($request->search) {
+            $monitorings = Monitoring::whereHas('bts', function ($query) use ($request) {
+                $query->where('nama', 'like', '%' . $request->search . '%');
             })
                 ->orderBy('tgl_generate', 'desc')
                 ->paginate($max_data);
@@ -42,9 +42,35 @@ class MonitoringController extends Controller
                 return $monthYearGroup->groupBy('id_kondisi_bts')->map->count();
             });
 
-        return view('pages.monitoring.index', compact('monitorings', 'scatterData', 'notMonitoredBts', 'notMonitoredBtsCurrentMonth'));
-    }
+        // Handle month and year filter
+        $selectedMonth = $request->input('month', now()->month);
+        $selectedYear = $request->input('year', now()->year);
 
+        $pieData = Monitoring::select('id_kondisi_bts', DB::raw('count(*) as count'))
+            ->whereYear('tgl_generate', $selectedYear)
+            ->whereMonth('tgl_generate', $selectedMonth)
+            ->groupBy('id_kondisi_bts')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->id_kondisi_bts => $item->count];
+            });
+
+        // Get available months and years from data
+        $availableMonths = Monitoring::selectRaw('DISTINCT MONTH(tgl_generate) as month')->orderBy('month')->pluck('month');
+        $availableYears = Monitoring::selectRaw('DISTINCT YEAR(tgl_generate) as year')->orderBy('year')->pluck('year');
+
+        return view('pages.monitoring.index', compact(
+            'monitorings',
+            'scatterData',
+            'notMonitoredBts',
+            'notMonitoredBtsCurrentMonth',
+            'pieData',
+            'selectedMonth',
+            'selectedYear',
+            'availableMonths',
+            'availableYears'
+        ));
+    }
 
     public function checkMonitoringGaps()
     {

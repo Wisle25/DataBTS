@@ -3,12 +3,14 @@
     <div class="flex">
         <p class="ml-4 mr-1 text-xl font-semibold">Jenis BTS</p>
         <x-button.btn-action-tambah :url="url('jenis_bts/create')" />
-        @component('components.section.export', ['route' => route('jenis_bts.exportExcel')])
-        Export Excel
-        @endcomponent
-        @component('components.section.export', ['route' => route('jenis_bts.exportPdf')])
-        Export Pdf
-        @endcomponent
+        <div class="ms-auto flex">
+            @component('components.section.exportExcel', ['route' => route('jenis_bts.exportExcel')])
+                Export Excel
+            @endcomponent
+            @component('components.section.exportPdf', ['route' => route('jenis_bts.exportPdf')])
+                Export Pdf
+            @endcomponent
+        </div>
     </div>
     @component('components.table.index', [
         'columns' => ['No', 'Nama'],

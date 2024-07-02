@@ -2,12 +2,14 @@
     <div class="flex">
         <p class="ml-4 mr-1 text-xl font-semibold">Kuesioner</p>
         <x-button.btn-action-tambah :url="url('kuesioner/create')" />
-        @component('components.section.export', ['route' => route('kuesioner.exportExcel')])
-        Export Excel
-        @endcomponent
-        @component('components.section.export', ['route' => route('kuesioner.exportPdf')])
-        Export Pdf
-        @endcomponent
+        <div class="ms-auto flex">
+            @component('components.section.exportExcel', ['route' => route('kuesioner.exportExcel')])
+                Export Excel
+            @endcomponent
+            @component('components.section.exportPdf', ['route' => route('kuesioner.exportPdf')])
+                Export Pdf
+            @endcomponent
+        </div>
     </div>
 
     @component('components.table.index', [
@@ -15,7 +17,8 @@
     ])
         @foreach ($kuesioner as $index => $k)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetailsK({{ json_encode($k) }})">
-                <td class="px-4 py-1 text-center">{{ ($kuesioner->currentPage() - 1) * $kuesioner->perPage() + $index + 1 }}</td>
+                <td class="px-4 py-1 text-center">{{ ($kuesioner->currentPage() - 1) * $kuesioner->perPage() + $index + 1 }}
+                </td>
                 <td class="px-4 py-1 text-center">{{ $k['pertanyaan'] }}</td>
                 <td class="px-4 py-1 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center">
