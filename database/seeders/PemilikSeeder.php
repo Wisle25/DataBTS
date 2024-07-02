@@ -48,6 +48,8 @@ class PemilikSeeder extends Seeder
                 'created_by' => 1,
                 'edited_by' => 1,
             ],
+
+
             [
                 'name' => 'Ali Akbar',
                 'alamat' => 'Jalan Suka No. 9, Palembang',
@@ -80,6 +82,22 @@ class PemilikSeeder extends Seeder
                 'name' => 'Bayu Kusuma',
                 'alamat' => 'Jalan Harmoni No. 4, Manado',
                 'telepon' => '081234567899',
+                'created_by' => 1,
+                'edited_by' => 1,
+            ],
+
+            
+            [
+                'name' => 'Johan Abidondifu',
+                'alamat' => 'Jalan Arfak No. 3, Manokwari',
+                'telepon' => '081290234653',
+                'created_by' => 1,
+                'edited_by' => 1,
+            ],
+            [
+                'name' => 'Rand Christabel',
+                'alamat' => 'Jalan Sunyi No. 1, Maluku',
+                'telepon' => '0856120987541',
                 'created_by' => 1,
                 'edited_by' => 1,
             ],
