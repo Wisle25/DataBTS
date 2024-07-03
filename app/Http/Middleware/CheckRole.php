@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckAdministrator
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -16,12 +16,12 @@ class CheckAdministrator
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, ...$peran)
     {
-        if (Auth::check() && Auth::user()->peran === 'Administrator') {
+        if (in_array($request->user()->peran, $peran)) {
             return $next($request);
         }
 
-        return redirect('/')->with('error', 'You do not have administrative access.');
+        return redirect('/');
     }
 }

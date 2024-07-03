@@ -10,9 +10,11 @@
                     </th>
                 @endforeach
                 <!-- Tambahkan kolom untuk aksi -->
-                <th class="px-4 py-2 text-center text-xs font-medium uppercase tracking-wider">
+                @auth
+                <th class="px-4 py-2 text-center text-xs font-medium tracking-wider">
                     Actions
                 </th>
+                @endauth
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 font-light text-xs">

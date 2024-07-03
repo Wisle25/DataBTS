@@ -22,6 +22,8 @@
             </a>
 
             {{-- SIDEBAR DASHBOARD --}}
+            @auth
+            @if (auth()->user()->peran=="Administrator" || auth()->user()->peran == "PIC" || auth()->user()->peran=="Surveyor")
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('dashboard') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/dashboard">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -29,6 +31,8 @@
                 </svg>
                 <span class="mx-3">Dashboard</span>
             </a>
+            @endif
+            @endauth
 
             {{-- SIDEBAR BTS --}}
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('bts') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/bts">
@@ -39,6 +43,8 @@
             </a>
 
             {{-- SIDEBAR WILAYAH --}}
+            @auth
+            @if(auth()->user()->peran=="Administrator" || auth()->user()->peran=="PIC" || auth()->user()->peran=="Surveyor")
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('wilayah') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/wilayah">
                 <svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" />
@@ -50,8 +56,12 @@
                 </svg>
                 <span class="mx-3">Wilayah</span>
             </a>
+            @endif
+            @endauth
 
             {{-- SIDEBAR MONITORING --}}
+            @auth
+            @if (auth()->user()->peran=="Administrator" || auth()->user()->peran=="PIC" || auth()->user()->peran=="Surveyor")
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('monitoring') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/monitoring">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
@@ -59,6 +69,8 @@
 
                 <span class="mx-3">Monitoring</span>
             </a>
+            @endif
+            @endauth
 
             {{-- SIDEBAR KUESIONER --}}
             @auth
@@ -71,7 +83,9 @@
             </a>
             @endauth
 
-            {{-- SIDEBAR MONITORING --}}
+            {{-- SIDEBAR USERS --}}
+            @auth
+            @if (auth()->user()->peran=="Administrator")
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('users') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/users">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
@@ -79,6 +93,8 @@
 
                 <span class="mx-3">Users</span>
             </a>
+            @endif
+            @endauth
         </nav>
     </div>
 </div>

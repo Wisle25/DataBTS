@@ -126,7 +126,6 @@ Route::controller(MonitoringController::class)->group(function () {
 });
 Route::get('/monitoring/pie-chart-data', [MonitoringController::class, 'pieChartData']);
 
-
 // Route::get('/wilayah', function () {
 //     return view('pages.wilayah.index');
 // });
