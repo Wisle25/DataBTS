@@ -17,4 +17,14 @@ class PilihanKuesioner extends Model
         'created_by',
         'edited_by',
     ];
+    
+    public function kuesioner()
+    {
+        return $this->belongsTo(Kuesioner::class, 'id_kuesioner');
+    }
+
+    public function jawaban()
+    {
+        return $this->belongsTo(KuesionerJawaban::class, 'id_kuesioner_jawaban');
+    }
 }
