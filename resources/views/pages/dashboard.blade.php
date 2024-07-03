@@ -49,10 +49,6 @@
             </div>
         </div> --}}
 
-        <div class="w-full px-6 sm:w-4/5 xl:w-1/2 mt-2">
-            @include('pages.kuesioner.index')
-        </div>
-
         <div class="w-full pl-4 sm:w-4/5 xl:w-1/2 mt-4">
             @include('pages.jenis_bts.index')
         </div>

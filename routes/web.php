@@ -7,7 +7,6 @@ use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\CheckAdministrator;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WilayahController;
 

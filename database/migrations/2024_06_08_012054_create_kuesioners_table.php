@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kuesioner', function (Blueprint $table) {
             $table->id()->primary();
+            $table->string('subjek');
             $table->text('pertanyaan');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();

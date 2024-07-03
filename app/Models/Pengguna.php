@@ -20,29 +20,10 @@ class Pengguna extends Authenticable
         'email',
         'peran',
         'status',
-        'created_by',
-        'edited_by',
     ];
 
     // Hidden attributes
     protected $hidden = [
         'password',
     ];
-
-    // Attribute casting
-    protected $casts = [
-        'created_by' => 'integer',
-        'edited_by' => 'integer',
-    ];
-
-    // Relationships
-    // public function creator()
-    // {
-    //     return $this->belongsTo(Pengguna::class, 'created_by');
-    // }
-
-    // public function editor()
-    // {
-    //     return $this->belongsTo(Pengguna::class, 'edited_by');
-    // }
 }

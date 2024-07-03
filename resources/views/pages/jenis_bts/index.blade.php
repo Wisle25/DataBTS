@@ -31,7 +31,7 @@
 
     <!-- Pagination links -->
     <div class="mt-1 mx-3 pb-2">
-        {{ $jenis_bts->appends(['pemilik_page' => $pemilik->currentPage(), 'kuesioner_page' => $kuesioner->currentPage()])->links() }}
+        {{ $jenis_bts->appends(['pemilik_page' => $pemilik->currentPage()])->links() }}
     </div>
 </div>
 

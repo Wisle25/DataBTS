@@ -20,7 +20,11 @@
             <form action='{{ route('kuesioner.update', $kuesioner->id) }}' method='POST'>
                 @csrf
                 @method('PUT')
-                <x-form.form-input id="pertanyaan" label="Pertanyaan" name="pertanyaan"  type="text" value="{{ old('pertanyaan', $kuesioner->pertanyaan) }}" />
+                <x-form.form-input id="subjek" label="Subjek" name="subjek" type="text" value="{{ old('subjek', $kuesioner->subjek) }}" required />
+                <div class="mb-4">
+                    <label for="pertanyaan" class="block text-gray-700 font-bold mb-2">Pertanyaan:</label>
+                    <textarea id="pertanyaan" name="pertanyaan" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>{{ old('pertanyaan', $kuesioner->pertanyaan) }}</textarea>
+                </div>
 
                 <button type="submit" name="submit"
                     class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>

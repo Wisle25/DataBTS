@@ -29,7 +29,7 @@
 
     <!-- Pagination links -->
     <div class="mt-1 mx-3 pb-2">
-        {{ $pemilik->appends(['jenis_bts_page' => $jenis_bts->currentPage(), 'kuesioner_page' => $kuesioner->currentPage()])->links() }}
+        {{ $pemilik->appends(['jenis_bts_page' => $jenis_bts->currentPage()])->links() }}
     </div>
 </div>
 
