@@ -65,7 +65,7 @@ Data BTS
         @endauth
 
         @auth
-        @if (auth()->user()->peran == "User")
+        @if (auth()->user()->peran == "User" || auth()->user()->peran == "")
         <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
             <div class="flex justify-center items-center space-x-2">
                 <a>None</a>

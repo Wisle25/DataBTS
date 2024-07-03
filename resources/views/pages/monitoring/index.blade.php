@@ -7,15 +7,22 @@
 
     @include('components.allert.success')
 
+    @auth
+    @if (auth()->user()->peran == "Administrator" || auth()->user()->peran == "Surveyor")
     <div class="flex">
         {{-- Tombol tambah data --}}
         @component('components.button.btn-tambah', ['url' => url('monitoring/create')])
         @endcomponent
     </div>
+    @endif
+    @endauth
 
     <div class="flex mt-3">
         @component('components.section.search', ['url' => url('monitoring'), 'placeholder' => 'Search Nama BTS'])
         @endcomponent
+
+        @auth
+        @if (auth()->user()->peran == "Administrator" || auth()->user()->peran == "Surveyor")
         <!-- Add a new button to open the new modal -->
         <button onclick="toggleModal('btsModalCurrentMonth')" class="bg-blue-500 hover:bg-blue-700 text-white font-medium px-4 rounded">
             See detail for current month
@@ -28,7 +35,10 @@
             Export Pdf
         @endcomponent
         </div>
+        @endif
+        @endauth
     </div>
+    
 
     {{-- Tabel Monitoring --}}
     @component('components.table.index', [

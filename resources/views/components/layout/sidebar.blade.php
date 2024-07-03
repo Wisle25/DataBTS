@@ -23,7 +23,7 @@
 
             {{-- SIDEBAR DASHBOARD --}}
             @auth
-            @if (auth()->user()->peran=="Administrator" || auth()->user()->peran == "PIC" || auth()->user()->peran=="Surveyor")
+            @if (auth()->user()->peran=="Administrator" || auth()->user()->peran == "PIC")
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('dashboard') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/dashboard">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -44,7 +44,7 @@
 
             {{-- SIDEBAR WILAYAH --}}
             @auth
-            @if(auth()->user()->peran=="Administrator" || auth()->user()->peran=="PIC" || auth()->user()->peran=="Surveyor")
+            @if(auth()->user()->peran=="Administrator" || auth()->user()->peran=="PIC")
             <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('wilayah') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/wilayah">
                 <svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" />

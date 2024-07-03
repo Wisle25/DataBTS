@@ -27,22 +27,22 @@
                         <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
                     @enderror
                     <input type="text" placeholder="Enter Username" name="username"
-                        class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("username") }}">
+                        class="w-full mt-5 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("username") }}">
                     @error('username')
                         <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
                     @enderror
                     <input type="email" placeholder="Enter Email" name="email"
-                        class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("email") }}">
+                        class="w-full mt-5 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("email") }}">
                     @error('email')
                         <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
                     @enderror
                     <input type="password" placeholder="Enter Password" name="password"
-                        class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
+                        class="w-full mt-5 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
                     @error('password')
                         <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
                     @enderror
                     <input type="password" placeholder="Enter Confirm Password" name="password_confirmation"
-                        class="w-full mt-3 mb-5 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
+                        class="w-full mt-5 mb-5 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500">
                     <input type="submit" class="text-center p-2 bg-violet-600 w-full rounded-lg text-white font-semibold hover:bg-violet-700" value="Register" />
                     </div>
             </form>
