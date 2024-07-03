@@ -1,6 +1,22 @@
 @extends('components.layout.index')
 
 @section('content')
+    <form method="GET" action="{{ route('kuesioner.index') }}" class="flex justify-center mb-4">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Search by subject" 
+            value="{{ request('search') }}" 
+            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-violet-300 w-1/3 mr-2"
+        >
+        <button 
+            type="submit" 
+            class="px-4 py-2 bg-violet-500 text-white rounded-md hover:bg-violet-600 focus:outline-none focus:ring focus:border-violet-300"
+        >
+            Search
+        </button>
+    </form>
+    
     <div class="items-center px-2 pt-3 bg-violet-200 rounded-md shadow-sm h-96 relative">
         <div class="flex">
             <p class="ml-4 mr-1 text-xl font-semibold">Kuesioner</p>
@@ -11,7 +27,7 @@
                 Export Pdf
             @endcomponent
         </div>
-
+        
         @if($kuesioners->isEmpty())
             <div class="py-6 w-full h-full relative">
                 <p class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-2xl">Anda belum mempunyai Kuesioner</p>
