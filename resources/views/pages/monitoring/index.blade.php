@@ -43,6 +43,7 @@
     {{-- Tabel Monitoring --}}
     @component('components.table.index', [
         'columns' => ['No', 'Nama BTS', 'Tgl Kunjungan', 'Tgl Generate', 'Kondisi'],
+        'actionLabel' => auth()->check() ? 'Actions' : null
     ])
         @foreach ($monitorings as $index => $monitoring)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($monitoring) }})">

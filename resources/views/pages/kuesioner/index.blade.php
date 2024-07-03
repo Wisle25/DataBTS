@@ -35,6 +35,7 @@
         @else
             @component('components.table.index', [
                 'columns' => ['No', 'Subjek', 'Pertanyaan'],
+                'actionLabel' => auth()->check() ? 'Actions' : null
             ])
                 @foreach ($kuesioners as $index => $k)
                     <tr class="hover:bg-gray-100 cursor-pointer" onclick="window.location='{{ route('kuesioner.show', $k['id']) }}'">

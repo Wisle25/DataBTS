@@ -14,6 +14,7 @@
     </div>
     @component('components.table.index', [
         'columns' => ['No', 'Nama'],
+        'actionLabel' => auth()->check() ? 'Actions' : null
     ])
         @foreach ($jenis_bts as $index => $jb)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetailsJB({{ json_encode($jb) }})">

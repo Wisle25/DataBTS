@@ -27,6 +27,7 @@
     </div>
     @component('components.table.index', [
         'columns' => ['No', 'Nama', 'Username', 'Peran'],
+        'actionLabel' => auth()->check() ? 'Actions' : null
     ])
         @foreach ($pengguna as $index => $p)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($p) }})">
