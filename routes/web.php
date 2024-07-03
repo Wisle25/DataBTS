@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BTSController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PemilikController;
+use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\JenisBTSController;
+use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\MonitoringController;
-use App\Http\Controllers\PemilikController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WilayahController;
 
 /* *
  * Main Pages 
@@ -126,6 +127,16 @@ Route::controller(MonitoringController::class)->group(function () {
 });
 Route::get('/monitoring/pie-chart-data', [MonitoringController::class, 'pieChartData']);
 
+// Pengguna
+Route::controller(PenggunaController::class)->group(function () {
+    Route::get("/pengguna", "index")->name('pengguna.index');
+    Route::get("/pengguna/create", "create")->name('pengguna.create');
+    Route::post("/pengguna", "store")->name('pengguna.store');
+    Route::delete("/pengguna/{pengguna}", "destroy")->name('pengguna.destroy');
+    Route::get("/pengguna/export/excel", "export_excel")->name('pengguna.exportExcel');
+    Route::get("/pengguna/export/pdf", "exportPdf")->name('pengguna.exportPdf');
+    Route::get('/pengguna/{id}', 'show')->name('pengguna.show');
+});
 // Route::get('/wilayah', function () {
 //     return view('pages.wilayah.index');
 // });
