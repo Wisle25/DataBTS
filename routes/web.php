@@ -117,7 +117,7 @@ Route::controller(MonitoringController::class)->group(function () {
     Route::get("/monitoring/export/excel", "export_excel")->name('monitoring.exportExcel');
     Route::get("/monitoring/export/pdf", "exportPdf")->name('monitoring.exportPdf');
 });
-
+Route::get('/monitoring/pie-chart-data', [MonitoringController::class, 'pieChartData']);
 
 
 // Route::get('/wilayah', function () {

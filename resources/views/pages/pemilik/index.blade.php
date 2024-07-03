@@ -2,14 +2,16 @@
     <div class="flex">
         <p class="ml-4 mr-1 text-xl font-semibold">Pemilik</p>
         <x-button.btn-action-tambah :url="url('pemilik/create')" />
-        @component('components.section.export', ['route' => route('pemilik.exportExcel')])
-        Export Excel
-        @endcomponent
-        @component('components.section.export', ['route' => route('pemilik.exportPdf')])
-        Export Pdf
-        @endcomponent
+        <div class="ms-auto flex">
+            @component('components.section.exportExcel', ['route' => route('pemilik.exportExcel')])
+                Export Excel
+            @endcomponent
+            @component('components.section.exportPdf', ['route' => route('pemilik.exportPdf')])
+                Export Pdf
+            @endcomponent
+        </div>
     </div>
-    @component('components.table.index',    [
+    @component('components.table.index', [
         'columns' => ['No', 'Nama'],
     ])
         @foreach ($pemilik as $index => $p)

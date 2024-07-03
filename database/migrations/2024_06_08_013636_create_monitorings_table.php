@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_bts');
             $table->text('tgl_generate');
             $table->text('tgl_kunjungan');
-            $table->text('kondisi_bts');
+            $table->unsignedBigInteger('id_kondisi_bts');
             $table->unsignedBigInteger('id_user_surveyor')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_bts')->references('id')->on('bts');
+            $table->foreign('id_kondisi_bts')->references('id')->on('kondisi_bts');
             // $table->foreign('id_user_surveyor')->references('id')->on('users');
         });
     }

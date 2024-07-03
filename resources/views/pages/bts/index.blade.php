@@ -16,12 +16,14 @@
     <div class="flex mt-3">
         @component('components.section.search', ['url' => url('bts'), 'placeholder' => 'Search Nama BTS'])
         @endcomponent
-        @component('components.section.export', ['route' => route('bts.exportExcel')])
+        <div class="ms-auto flex">
+            @component('components.section.exportExcel', ['route' => route('bts.exportExcel')])
             Export Excel
-        @endcomponent
-        @component('components.section.export', ['route' => route('bts.exportPdf')])
+            @endcomponent
+            @component('components.section.exportPdf', ['route' => route('bts.exportPdf')])
             Export Pdf
-        @endcomponent
+            @endcomponent
+        </div>
     </div>
 
     {{-- Tabel BTS --}}
@@ -58,10 +60,6 @@
     <div class="mt-4 mx-2">
         {{ $data->links() }}
     </div>
-    
-
-    {{-- @include('components.section.pagination') --}}
-    
 
     @component('components.allert.modal')
         Data BTS
@@ -73,7 +71,7 @@
         @component('components.section.title')
             Peta Persebaran BTS
         @endcomponent
-        <div id="peta"></div>
+        <div id="peta" style="height: 500px"></div>
     </div>
 
     <script>
@@ -149,7 +147,7 @@
                 pseudoFullscreen: false 
             },
             minZoom: 4
-        }).setView([0,120], 5);
+        }).setView([-1,121], 5);
     
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
