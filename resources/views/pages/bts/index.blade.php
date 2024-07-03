@@ -36,7 +36,8 @@ Data BTS
 
 {{-- Tabel BTS --}}
 @component('components.table.index', [
-'columns' => ['No', 'Nama', 'Alamat', 'Wilayah', 'Latitude', 'Lontitude', 'Tinggi Tower', 'Pemilik', 'Jenis'],
+    'columns' => ['No', 'Nama', 'Alamat', 'Wilayah', 'Latitude', 'Longitude', 'Tinggi Tower', 'Pemilik', 'Jenis'],
+    'actionLabel' => auth()->check() ? 'Actions' : null
 ])
     @foreach ($data as $index => $bts)
     <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($bts) }})">

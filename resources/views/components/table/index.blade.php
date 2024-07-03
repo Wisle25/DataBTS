@@ -10,11 +10,11 @@
                     </th>
                 @endforeach
                 <!-- Tambahkan kolom untuk aksi -->
-                @auth
-                <th class="px-4 py-2 text-center text-xs font-medium tracking-wider">
-                    Actions
-                </th>
-                @endauth
+                @if(isset($actionLabel))
+                    <th class="px-4 py-2 text-center text-xs font-medium tracking-wider">
+                        {{ $actionLabel }}
+                    </th>
+                @endif
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 font-light text-xs">
