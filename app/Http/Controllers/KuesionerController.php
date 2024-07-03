@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportKuesioner;
+use App\Models\KuesionerJawaban;
+use App\Models\PilihanKuesioner;
 use Auth;
 use App\Models\Kuesioner;
 use Illuminate\Http\Request;
@@ -36,6 +38,49 @@ class KuesionerController extends Controller
     public function create()
     {
         return view('pages.kuesioner.create');
+    }
+
+    public function show(Kuesioner $kuesioner)
+    {
+        $kuesioner->load('creator');
+        return view('pages.kuesioner.show', compact('kuesioner'));
+    }
+
+    public function storeAnswer(Request $request, Kuesioner $kuesioner)
+    {
+        $request->validate([
+            'jawaban' => 'required|string',
+        ]);
+    
+        KuesionerJawaban::create([
+            'id_kuesioner' => $kuesioner->id,
+            'jawaban' => $request->jawaban,
+            'created_by' => Auth::id(),
+        ]);
+    
+        return redirect()->route('kuesioner.show', $kuesioner->id)->with('success', 'Jawaban submitted successfully.');
+    }
+
+    public function updateAnswer(Request $request, KuesionerJawaban $kuesionerJawaban)
+    {
+        $request->validate([
+            'jawaban' => 'required|string',
+        ]);
+    
+        $kuesionerJawaban->update([
+            'jawaban' => $request->jawaban,
+            'edited_by' => Auth::id(),
+            'edited_at' => now()
+        ]);
+    
+        return redirect()->route('kuesioner.show', $kuesionerJawaban->id_kuesioner)->with('success', 'Jawaban updated successfully.');
+    }
+
+    public function destroyAnswer(KuesionerJawaban $kuesionerJawaban)
+    {
+        $kuesionerJawaban->delete();
+
+        return redirect()->route('kuesioner.show', $kuesionerJawaban->id_kuesioner)->with('success', 'Jawaban deleted successfully.');
     }
 
     /**
@@ -86,6 +131,34 @@ class KuesionerController extends Controller
 
         return redirect()->route('kuesioner.index')->with('success', 'Kuesioner updated successfully.');
     }
+
+    public function markAsBest($id)
+    {
+        $answer = KuesionerJawaban::find($id);
+    
+        if (!$answer) {
+            return redirect()->back()->with('error', 'Answer not found.');
+        }
+    
+        $kuesioner = $answer->kuesioner;
+    
+        if (Auth::user()->id != $kuesioner->created_by && Auth::user()->peran != 'Administrator') {
+            return redirect()->back()->with('error', 'You are not authorized to mark this answer as the best.');
+        }
+    
+        // Remove existing best answer if it exists
+        PilihanKuesioner::where('id_kuesioner', $kuesioner->id)->delete();
+    
+        // Mark this answer as the best
+        PilihanKuesioner::create([
+            'id_kuesioner' => $kuesioner->id,
+            'id_kuesioner_jawaban' => $answer->id,
+            'created_by' => Auth::id(),
+            'edited_by' => Auth::id(),
+        ]);
+    
+        return redirect()->route('kuesioner.show', $kuesioner->id)->with('success', 'Answer marked as the best successfully.');
+    }     
 
     /**
      * Remove the specified resource from storage.
