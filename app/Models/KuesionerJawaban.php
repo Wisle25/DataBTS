@@ -5,27 +5,33 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kuesioner extends Model
+class KuesionerJawaban extends Model
 {
     use HasFactory;
 
-    protected $table = 'kuesioner';
+    protected $table = 'kuesioner_jawaban';
 
     // Mass assignable attributes
     protected $fillable = [
-        'subjek',
-        'pertanyaan',
+        'id_kuesioner',
+        'jawaban',
         'created_by',
         'edited_by',
     ];
 
     // Attribute casting
     protected $casts = [
+        'id_kuesioner' => 'integer',
         'created_by' => 'integer',
         'edited_by' => 'integer',
     ];
 
-    // Relationships (if any)
+    // Relationships
+    public function kuesioner()
+    {
+        return $this->belongsTo(Kuesioner::class, 'id_kuesioner');
+    }
+
     public function creator()
     {
         return $this->belongsTo(Pengguna::class, 'created_by');
@@ -34,15 +40,5 @@ class Kuesioner extends Model
     public function editor()
     {
         return $this->belongsTo(Pengguna::class, 'edited_by');
-    }
-
-    public function answers()
-    {
-        return $this->hasMany(KuesionerJawaban::class, 'id_kuesioner');
-    }
-
-    public function bestAnswer()
-    {
-        return $this->hasOne(PilihanKuesioner::class, 'id_kuesioner');
     }
 }

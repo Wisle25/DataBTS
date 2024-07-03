@@ -24,7 +24,8 @@ class UserController extends Controller
         Pengguna::create([
             "username" => $request->username,
             "email" => $request->email,
-            "password" => Hash::make($request->password)
+            "password" => Hash::make($request->password),
+            "peran" => 'User'
         ]);
 
         return redirect()->route("login")->with("success", "Berhasil membuat akun!");

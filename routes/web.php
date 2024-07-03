@@ -40,6 +40,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get("/profile/edit", "editProfile")->name("profile.edit");
     Route::put("/profile/update","updateProfile")->name("profile.update");
     Route::delete("/profile","deleteProfile")->name("profile.delete");
+    Route::delete("/auth","logout")->name("auth.logout");
 });
 
 // BTS
@@ -99,10 +100,15 @@ Route::controller(JenisBTSController::class)->group(function () {
 Route::controller(KuesionerController::class)->group(function () {
     Route::get("/kuesioner", "index")->name("kuesioner.index");
     Route::get("/kuesioner/create", "create")->name("kuesioner.create");
+    Route::get('/kuesioner/{kuesioner}', 'show')->name('kuesioner.show');
     Route::post("/kuesioner", "store")->name("kuesioner.store");
+    Route::post('/kuesioner/{answer}/mark-as-best', 'markAsBest')->name('kuesioner.markAsBest');
+    Route::post('/kuesioner/{kuesioner}/answer', 'storeAnswer')->name('kuesioner.jawaban.store');
     Route::get("/kuesioner/{kuesioner}/edit", "edit")->name("kuesioner.edit");
     Route::put("/kuesioner/{kuesioner}", "update")->name('kuesioner.update');
     Route::delete("/kuesioner/{kuesioner}", "destroy")->name("kuesioner.destroy");
+    Route::put('/kuesioner/jawaban/{kuesionerJawaban}', 'updateAnswer')->name('kuesioner.jawaban.update');
+    Route::delete('/kuesioner/jawaban/{kuesionerJawaban}', 'destroyAnswer')->name('kuesioner.jawaban.destroy');
     Route::get("/kuesioner/export/excel", "export_excel")->name('kuesioner.exportExcel');
     Route::get("/kuesioner/export/pdf", "exportPdf")->name('kuesioner.exportPdf');
 });
