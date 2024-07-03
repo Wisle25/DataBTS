@@ -24,7 +24,8 @@ class UserController extends Controller
         Pengguna::create([
             "username" => $request->username,
             "email" => $request->email,
-            "password" => Hash::make($request->password)
+            "password" => Hash::make($request->password),
+            "peran" => 'User'
         ]);
 
         return redirect()->route("login")->with("success", "Berhasil membuat akun!");
@@ -46,12 +47,12 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        // $request->validate([
-        //     'nama' => 'required|string|max:255',
-        //     'username' => 'required|string|max:255|unique:pengguna,username,' . $user->id,
-        //     'email' => 'required|string|email|max:255|unique:pengguna,email,' . $user->id,
-        //     'password' => 'nullable|string|min:8|confirmed'
-        // ]);
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:pengguna,username,' . $user->id,
+            'email' => 'required|string|email|max:255|unique:pengguna,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed'
+        ]);
 
         $user->nama = $request->nama;
         $user->username = $request->username;
