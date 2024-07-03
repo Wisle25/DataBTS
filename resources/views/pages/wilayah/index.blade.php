@@ -29,6 +29,7 @@
     {{-- Tabel wilayah --}}
     @component('components.table.index', [
         'columns' => ['No', 'Nama', 'Level', 'ID Parent'],
+        'actionLabel' => auth()->user() && !in_array(auth()->user()->peran, ['User', 'Surveyor']) ? 'Actions' : null
     ])
         @foreach ($data as $index => $wilayah)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($wilayah) }})">

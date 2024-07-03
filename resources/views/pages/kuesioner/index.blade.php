@@ -61,7 +61,11 @@
         @endif
     </div>
 
+    @auth
+    @if (auth()->user()->peran == "User" || auth()->user()->peran == "PIC" || auth()->user()->peran == "Surveyor")
     <a href="{{ url('kuesioner/create') }}" class="w-full mx-auto p-2 bg-violet-200 hover:bg-violet-300 rounded-md mt-3 cursor-pointer text-center block font-bold">
         Tambahkan Kuesioner
     </a>
+    @endif
+    @endauth
 @endsection

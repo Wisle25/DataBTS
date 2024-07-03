@@ -43,7 +43,7 @@
     {{-- Tabel Monitoring --}}
     @component('components.table.index', [
         'columns' => ['No', 'Nama BTS', 'Tgl Kunjungan', 'Tgl Generate', 'Kondisi'],
-        'actionLabel' => auth()->check() ? 'Actions' : null
+        'actionLabel' => auth()->user() && !in_array(auth()->user()->peran, ['User', 'PIC']) ? 'Actions' : null
     ])
         @foreach ($monitorings as $index => $monitoring)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($monitoring) }})">
@@ -68,6 +68,9 @@
                         {{ $status }}
                     </div>
                 </td>
+
+                @auth
+                @if (auth()->user()->peran == "Surveyor" || auth()->user()->peran == "Administrator")
                 <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
                     <div class="flex justify-center items-center space-x-2">
                         <x-button.btn-action editUrl="{{ url('monitoring/' . $monitoring['id'] . '/edit') }}"
@@ -75,6 +78,8 @@
                             deleteMessage="Are you sure you want to delete this item?" />
                     </div>
                 </td>
+                @endif
+                @endauth
             </tr>
         @endforeach
     @endcomponent

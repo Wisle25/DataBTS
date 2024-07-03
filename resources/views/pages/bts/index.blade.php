@@ -37,7 +37,7 @@ Data BTS
 {{-- Tabel BTS --}}
 @component('components.table.index', [
     'columns' => ['No', 'Nama', 'Alamat', 'Wilayah', 'Latitude', 'Longitude', 'Tinggi Tower', 'Pemilik', 'Jenis'],
-    'actionLabel' => auth()->check() ? 'Actions' : null
+    'actionLabel' => auth()->user() && !in_array(auth()->user()->peran, ['User', 'Surveyor']) ? 'Actions' : null
 ])
     @foreach ($data as $index => $bts)
     <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($bts) }})">
@@ -65,15 +65,6 @@ Data BTS
         @endif
         @endauth
 
-        @auth
-        @if (auth()->user()->peran == "User" || auth()->user()->peran == "")
-        <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
-            <div class="flex justify-center items-center space-x-2">
-                <a>None</a>
-            </div>
-        </td>
-        @endif
-        @endauth
     </tr>
     @endforeach
 @endcomponent
