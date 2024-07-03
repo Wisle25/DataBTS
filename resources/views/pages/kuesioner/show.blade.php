@@ -25,15 +25,19 @@
         </div>
 
         <div class="mt-4">
+            @if($kuesioner->bestAnswer)
+                <h2 class="font-bold text-green-600">Best Answer:</h2>
+                <div class="bg-green-100 px-2 py-5 rounded my-2">
+                    <p>{{ $kuesioner->bestAnswer->jawaban}}</p>
+                </div>
+            @endif
+
             <h2 class="font-bold">Answers:</h2>
             @if($kuesioner->answers->isEmpty())
                 <p>No answer provided</p>
             @else
                 @foreach($kuesioner->answers as $answer)
-                    @php
-                        $isBest = $kuesioner->bestAnswer && $kuesioner->bestAnswer->id_kuesioner_jawaban == $answer->id;
-                    @endphp
-                    <div x-data="{ isEditing: false }" class="p-2 rounded my-2 flex justify-between items-center {{ $isBest ? 'bg-green-100 border border-green-500' : 'bg-gray-100' }}">
+                    <div x-data="{ isEditing: false }" class="bg-gray-100 p-2 rounded my-2 flex justify-between items-center">
                         <div class="flex-1">
                             <form action="{{ route('kuesioner.jawaban.update', $answer->id) }}" method="POST" class="w-full flex justify-between" x-show="isEditing">
                                 @csrf
@@ -42,13 +46,10 @@
                                 <button type="submit" class="text-blue-500 hover:text-blue-700 mx-2">Save</button>
                             </form>
                             <p x-show="!isEditing" x-text="`{{ $answer->jawaban }}`"></p>
-                            @if($isBest)
-                                <p class="text-sm font-bold text-green-700">Best Answer</p>
-                            @endif
                             <p class="text-xs text-gray-500">Answered by: {{ $answer->creator->username }}</p>
                         </div>
                         @if(Auth::user()->id == $answer->created_by)
-                            <div>
+                            <div class="flex items-center">
                                 <button class="text-blue-500 hover:text-blue-700 mr-2" @click="isEditing = !isEditing" x-show="!isEditing">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                         class="size-5">
@@ -68,16 +69,19 @@
                                         </svg>
                                     </button>
                                 </form>
+                                @if($answer->kuesioner->bestAnswer === null || $answer->kuesioner->bestAnswer->id_kuesioner_jawaban != $answer->id)
+                                    <form action="{{ route('kuesioner.markAsBest', $answer->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="text-green-500 hover:text-green-700 ml-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 2l2.09 6.26L20 10l-5 4 2 6-6-4-6 4 2-6-5-4 6-1.74L12 2z" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
-                        @endif
-                        @if(Auth::user()->peran == 'Administrator' || Auth::user()->id == $kuesioner->created_by)
-                            <form action="{{ route('kuesioner.markAsBest', $answer->id) }}" method="POST" class="inline">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="text-green-500 hover:text-green-700 ml-2">
-                                    Mark as Best
-                                </button>
-                            </form>
                         @endif
                     </div>
                 @endforeach

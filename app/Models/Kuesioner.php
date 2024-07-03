@@ -43,6 +43,13 @@ class Kuesioner extends Model
 
     public function bestAnswer()
     {
-        return $this->hasOne(PilihanKuesioner::class, 'id_kuesioner');
+        return $this->hasOneThrough(
+            KuesionerJawaban::class,
+            PilihanKuesioner::class,
+            'id_kuesioner', // Foreign key on PilihanKuesioner table
+            'id', // Foreign key on KuesionerJawaban table
+            'id', // Local key on Kuesioner table
+            'id_kuesioner_jawaban' // Local key on PilihanKuesioner table
+        );
     }
 }
