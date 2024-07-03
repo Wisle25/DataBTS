@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Mpdf\Mpdf;
 use App\Models\BTS;
 use App\Exports\ExportBTS;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Mpdf\Mpdf;
 
 class BTSController extends Controller
 {
@@ -28,21 +28,16 @@ class BTSController extends Controller
         return view("pages.bts.index", compact("data", "allBTSData"));
     }
 
-    public function export_excel(){
+    public function export_excel()
+    {
         return Excel::download(new ExportBTS, "BTS.xlsx");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.bts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -81,7 +76,7 @@ class BTSController extends Controller
             'id_pemilik' => $request->id_pemilik,
             'id_wilayah' => $request->id_wilayah,
             'id_jenis_bts' => $request->id_jenis_bts,
-            'path_foto'=>$foto_nama,
+            'path_foto' => $foto_nama,
             // 'created_by' => Auth::id(),
             // 'edited_by' => Auth::id(),
             'edited_at' => now()
@@ -90,17 +85,12 @@ class BTSController extends Controller
         return redirect()->route('bts.index')->with('success', 'BTS created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(BTS $bts)
     {
         return view('pages.bts.edit', compact('bts'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, BTS $bts)
     {
         $request->validate([
@@ -125,7 +115,7 @@ class BTSController extends Controller
             if ($bts->path_foto && file_exists(public_path('path_foto/' . $bts->path_foto))) {
                 unlink(public_path('path_foto/' . $bts->path_foto));
             }
-    
+
             $foto_file = $request->file('path_foto');
             $foto_ekstensi = $foto_file->extension();
             $foto_nama = date('ymdhis') . "." . $foto_ekstensi;
@@ -137,7 +127,7 @@ class BTSController extends Controller
         $bts->update([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'path_foto'=>$foto_nama,
+            'path_foto' => $foto_nama,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'tinggi_tower' => $request->tinggi_tower,
@@ -153,9 +143,6 @@ class BTSController extends Controller
         return redirect()->route('bts.index')->with('success', 'BTS updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(BTS $bts)
     {
         if ($bts->path_foto && file_exists(public_path('path_foto/' . $bts->path_foto))) {

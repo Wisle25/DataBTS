@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BTSController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JenisBTSController;
@@ -13,9 +14,9 @@ use App\Http\Controllers\WilayahController;
 /* *
  * Main Pages 
  * */
-Route::get("/", function () {
-    return view("pages.home");
-})->name("home");
+
+Route::get("/", [HomeController::class, "home"])->name('home');
+
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get("/dashboard", "index")->name("dashboard");
