@@ -16,17 +16,21 @@ class KuesionerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $max_data = 5; // Number of items per page
-        $kuesioners = Kuesioner::where('created_by', Auth::id())
-            ->orderBy('created_at', 'asc')
+        $query = Kuesioner::query();
+        
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('subjek', 'like', '%' . $request->search . '%');
+        }
+    
+        $kuesioners = $query->orderBy('created_at', 'asc')
             ->paginate($max_data)
             ->withQueryString();
             
         return view('pages.kuesioner.index', compact('kuesioners'));
     }
-
 
     public function export_excel(){
         return Excel::download(new ExportKuesioner, "Kuesioner.xlsx");
