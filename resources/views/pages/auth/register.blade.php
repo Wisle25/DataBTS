@@ -21,6 +21,11 @@
             <form action="user" method="POST">
                 @csrf
                 <div class="mb-4 mx-10 text-sm sm:text-base 2xl:mt-10">
+                    <input type="text" placeholder="Enter Name" name="nama"
+                        class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("nama") }}">
+                    @error('nama')
+                        <p class="text-red-500 mb-[1px] mt-0 text-left">{{ $message }}</p>
+                    @enderror
                     <input type="text" placeholder="Enter Username" name="username"
                         class="w-full mt-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500" value="{{ old("username") }}">
                     @error('username')
