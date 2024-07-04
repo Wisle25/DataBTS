@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-4">Pemilik: {{ $pemilik->name }}</h1>
-        <p>Alamat: {{ $pemilik->alamat }}</p>
+        <h1 class="text-2xl font-bold mb-4">Pemilik BTS: {{ $pemilik->name }}</h1>
 
         <!-- Menambahkan jumlah BTS yang dimiliki -->
         <p class="mt-2">Jumlah BTS yang dimiliki: {{ $pemilik->bts->count() }}</p>

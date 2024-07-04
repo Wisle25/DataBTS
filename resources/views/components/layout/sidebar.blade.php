@@ -42,23 +42,6 @@
                 <span class="mx-3">BTS</span>
             </a>
 
-            {{-- SIDEBAR WILAYAH --}}
-            @auth
-            @if(auth()->user()->peran=="Administrator" || auth()->user()->peran=="PIC")
-            <a class="flex items-center px-6 py-2 mt-4 {{ request()->is('wilayah') ? 'bg-opacity-25 text-violet-700 font-bold' : 'text-gray-700 hover:bg-violet-200 hover:bg-opacity-25 hover:text-violet-700 font-semibold' }}" href="/wilayah">
-                <svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" />
-                    <line x1="18" y1="6" x2="18" y2="6.01" />
-                    <path d="M18 13l-3.5 -5a4 4 0 1 1 7 0l-3.5 5" />
-                    <polyline points="10.5 4.75 9 4 3 7 3 20 9 17 15 20 21 17 21 15" />
-                    <line x1="9" y1="4" x2="9" y2="17" />
-                    <line x1="15" y1="15" x2="15" y2="20" />
-                </svg>
-                <span class="mx-3">Wilayah</span>
-            </a>
-            @endif
-            @endauth
-
             {{-- SIDEBAR MONITORING --}}
             @auth
             @if (auth()->user()->peran=="Administrator" || auth()->user()->peran=="PIC" || auth()->user()->peran=="Surveyor")

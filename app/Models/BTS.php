@@ -38,6 +38,16 @@ class BTS extends Model
         'ada_genset' => 'boolean',
         'ada_tembok_batas' => 'boolean',
     ];
+//     public function created_by_user()
+// {
+//     return $this->belongsTo(Pengguna::class, 'created_by_user_id');
+// }
+
+// public function edited_by_user()
+// {
+//     return $this->belongsTo(Pengguna::class, 'edited_by_user_id');
+// }
+
 
     // Define relationships
     public function jenisBts()

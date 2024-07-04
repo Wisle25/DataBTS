@@ -17,8 +17,7 @@
                 :class="dropdownOpen ? 'bg-violet-200 text-violet-600' :
                     'transition delay-150 hover:bg-violet-200 hover:text-violet-600'"
                 class="font-medium rounded-md text-sm md:text-base px-3 py-1 mx-1 sm:mx-6 transition delay-150">
-                <!-- Zasxy -->
-                {{ "Hello," . Auth::user()->username . "!" }}
+                {{ "Hello, " . Auth::user()->username . "!" }}
             </button>
 
             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full"

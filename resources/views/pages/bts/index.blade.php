@@ -48,6 +48,8 @@ Data BTS
         <td class="px-4 py-2 text-center">{{ $bts['latitude'] }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['longitude'] }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['tinggi_tower'] }}</td>
+        {{-- <td class="px-4 py-2 text-center">{{ $bts->created_by_user_id = auth()->user()->username }}</td>
+        <td class="px-4 py-2 text-center">{{ $bts->edited_by_user_id = auth()->user()->username }}</td> --}}
         <td class="px-4 py-2 text-center hover:underline hover:text-blue-700" onclick="event.stopPropagation();">
             <a href="{{ route('pemilik.show', $bts->pemilik->id) }}">{{ $bts->pemilik->name }}</a>
         </td>

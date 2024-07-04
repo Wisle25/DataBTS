@@ -12,13 +12,15 @@ class WilayahController extends Controller
 {
     public function index()
     {
-        $max_data = 8;
+        // $max_data = 8;
 
-        if (request('search')) {
-            $data = Wilayah::where('nama', 'like', '%' . request('search') . '%')->paginate($max_data);
-        } else {
-            $data = Wilayah::with('children')->orderBy('id_parent', 'asc')->paginate($max_data);
-        }
+        // if (request('search')) {
+        //     $data = Wilayah::where('nama', 'like', '%' . request('search') . '%')->paginate($max_data);
+        // } else {
+        //     $data = Wilayah::with('children')->orderBy('id_parent', 'asc')->paginate($max_data);
+        // }
+
+        $data = Wilayah::with('children')->orderBy('id_parent', 'asc')->get();
 
         return view('pages.wilayah.index', compact('data'));
     }

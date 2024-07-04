@@ -1,4 +1,4 @@
-<div class="items-center px-2 pt-3 bg-violet-200 rounded-md shadow-sm">
+<div class="ml-2 items-center px-2 pt-3 bg-violet-200 rounded-md shadow-sm">
 
     <div class="flex">
         <p class="ml-4 mr-1 text-xl font-semibold">Jenis BTS</p>
@@ -38,33 +38,3 @@
     </div>
 </div>
 
-<script>
-    function showDetailsJB(jb) {
-        const modal = document.getElementById('detailModal');
-        const modalContent = document.getElementById('modalContent');
-
-        modalContent.innerHTML = `
-        <table class="border-collapse">
-            <tr>
-                <td class="px-4 py-1">Nama</td>
-                <td class="px-4 py-3">${jb.nama}</td>
-            </tr>
-            <tr>
-                <td class="px-4 py-3">Created At</td>
-                <td class="px-4 py-3">${p.created_at}</td>
-                </tr>
-            <tr>
-                <td class="px-4 py-3">Edited At</td>
-                <td class="px-4 py-3">${p.edited_at}</td>
-                </tr>
-                </table>
-                `;
-
-        modal.classList.remove('hidden');
-    }
-
-    function closeModal() {
-        const modal = document.getElementById('detailModal');
-        modal.classList.add('hidden');
-    }
-</script>

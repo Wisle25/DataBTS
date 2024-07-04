@@ -13,7 +13,7 @@
 </head>
 
 <body class="flex justify-center items-center h-screen text-center">
-    <div class="form-auth w-4/5 md:w-2/3 lg:w-1/3  bg-white rounded-lg shadow-md h-2/3"> 
+    <div class="form-auth w-4/5 md:w-2/3 lg:w-1/3  bg-white rounded-lg shadow-md h-3/4"> 
         <div class="mb-4 text-center 2xl:mt-12">
             <h3 class="text-3xl font-bold mt-2  py-6 2xl:text-4xl">Register</h3> 
         </div>

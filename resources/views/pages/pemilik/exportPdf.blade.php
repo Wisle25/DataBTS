@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Export Pemilik</title>
+    <title>Export Pemilik BTS</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <h1>Data Pemilik</h1>
+    <h1>Data Pemilik BTS</h1>
     <table>
         <thead>
             <tr>
