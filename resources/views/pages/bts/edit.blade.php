@@ -35,7 +35,6 @@
                 <x-form.form-input id="path_foto" label="Foto" name="path_foto" type="file" onchange="previewImage(event)" />
                 <x-form.form-select id="ada_genset" label="Ada Genset" name="ada_genset" :options="[1 => 'Ya', 0 => 'Tidak']" />
                 <x-form.form-select id="ada_tembok_batas" label="Ada Tembok Batas" name="ada_tembok_batas" :options="[1 => 'Ya', 0 => 'Tidak']" />
-
                 <button type="submit" name="submit"
                     class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>
             </form>

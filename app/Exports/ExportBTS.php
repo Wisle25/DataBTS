@@ -115,7 +115,7 @@ class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles
                 }
 
                 // Set specific column width for Foto column
-                $sheet->getColumnDimension('L')->setWidth(20); 
+                $sheet->getColumnDimension('L')->setWidth(80); 
 
                 // Add images and adjust row height
                 foreach ($this->images as $image) {
@@ -128,7 +128,7 @@ class ExportBTS implements FromCollection, WithHeadings, WithMapping, WithStyles
                     $drawing->setOffsetY(10); 
                     $drawing->setWorksheet($sheet);
 
-                    // Adjust row height
+                    // Adjust row 
                     $sheet->getRowDimension($image['row'])->setRowHeight(55); 
                 }
 

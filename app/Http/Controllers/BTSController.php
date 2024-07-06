@@ -101,7 +101,6 @@ class BTSController extends Controller
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
             'path_foto' => 'nullable|mimes:png,jpg,jpeg|max:2048',
-            'id_jenis_bts' => 'nullable|integer',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
             'tinggi_tower' => 'required|integer',

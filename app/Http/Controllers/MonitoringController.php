@@ -17,7 +17,7 @@ class MonitoringController extends Controller
     public function index(Request $request)
     {
         if (Auth::check()) {
-            if (Auth::user()->peran == 'Administrator' || Auth::user()->peran =='Surveyor' ||Auth::user()->peran == 'PIC') {
+            if (Auth::user()->peran == 'Administrator' || Auth::user()->peran == 'Surveyor' || Auth::user()->peran == 'PIC') {
                 $max_data = 8;
 
                 if ($request->search) {
@@ -58,6 +58,46 @@ class MonitoringController extends Controller
                         return [$item->id_kondisi_bts => $item->count];
                     });
 
+                $normalBTSList = Monitoring::with('bts')
+                    ->where('id_kondisi_bts', 1)
+                    ->whereYear('tgl_generate', $selectedYear)
+                    ->whereMonth('tgl_generate', $selectedMonth)
+                    ->get()
+                    ->pluck('bts.nama')
+                    ->toArray();
+
+                $faultBTSList = Monitoring::with('bts')
+                    ->where('id_kondisi_bts', 2)
+                    ->whereYear('tgl_generate', $selectedYear)
+                    ->whereMonth('tgl_generate', $selectedMonth)
+                    ->get()
+                    ->pluck('bts.nama')
+                    ->toArray();
+
+                $maintenanceBTSList = Monitoring::with('bts')
+                    ->where('id_kondisi_bts', 3)
+                    ->whereYear('tgl_generate', $selectedYear)
+                    ->whereMonth('tgl_generate', $selectedMonth)
+                    ->get()
+                    ->pluck('bts.nama')
+                    ->toArray();
+
+                $offlineBTSList = Monitoring::with('bts')
+                    ->where('id_kondisi_bts', 4)
+                    ->whereYear('tgl_generate', $selectedYear)
+                    ->whereMonth('tgl_generate', $selectedMonth)
+                    ->get()
+                    ->pluck('bts.nama')
+                    ->toArray();
+
+                $btsData = [
+                    'normal' => $normalBTSList,  // Array berisi informasi detail BTS yang normal
+                    'fault' => $faultBTSList,    // Array berisi informasi detail BTS yang fault
+                    'maintenance' => $maintenanceBTSList,  // Array berisi informasi detail BTS yang maintenance
+                    'offline' => $offlineBTSList  // Array berisi informasi detail BTS yang offline
+                ];
+                // dd($btsData);
+
                 // Get available months and years from data
                 $availableMonths = Monitoring::selectRaw('DISTINCT MONTH(tgl_generate) as month')->orderBy('month')->pluck('month');
                 $availableYears = Monitoring::selectRaw('DISTINCT YEAR(tgl_generate) as year')->orderBy('year')->pluck('year');
@@ -71,7 +111,8 @@ class MonitoringController extends Controller
                     'selectedMonth',
                     'selectedYear',
                     'availableMonths',
-                    'availableYears'
+                    'availableYears',
+                    'btsData'
                 ));
             } else {
                 return redirect('/unauthorized')->with('error', 'Anda tidak memiliki hak akses untuk halaman ini.');

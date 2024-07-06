@@ -27,6 +27,8 @@
         <button onclick="toggleModal('btsModalCurrentMonth')" class="bg-blue-500 hover:bg-blue-700 text-white font-medium px-4 rounded">
             See detail for current month
         </button>
+        @endif
+        @endauth
         <div class="ms-auto flex">
         @component('components.section.exportExcel', ['route' => route('monitoring.exportExcel')])
             Export Excel
@@ -35,8 +37,6 @@
             Export Pdf
         @endcomponent
         </div>
-        @endif
-        @endauth
     </div>
     
 

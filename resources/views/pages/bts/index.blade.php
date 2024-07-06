@@ -20,8 +20,6 @@ Data BTS
 <div class="flex mt-3">
     @component('components.section.search', ['url' => url('bts'), 'placeholder' => 'Search Nama BTS'])
     @endcomponent
-    @auth
-    @if (auth()->user()->peran=="Administrator" || auth()->user()->peran=="PIC")
     <div class="ms-auto flex">
         @component('components.section.exportExcel', ['route' => route('bts.exportExcel')])
         Export Excel
@@ -30,13 +28,11 @@ Data BTS
         Export Pdf
         @endcomponent
     </div>
-    @endif
-    @endauth
 </div>
 
 {{-- Tabel BTS --}}
 @component('components.table.index', [
-    'columns' => ['No', 'Nama', 'Alamat', 'Wilayah', 'Latitude', 'Longitude', 'Pemilik', 'Jenis'],
+    'columns' => ['No', 'Nama', 'Alamat', 'Latitude', 'Longitude', 'Tinggi Tower', 'Pemilik', 'Jenis'],
     'actionLabel' => auth()->user() && !in_array(auth()->user()->peran, ['User', 'Surveyor']) ? 'Actions' : null
 ])
     @foreach ($data as $index => $bts)
@@ -44,9 +40,9 @@ Data BTS
         <td class="px-5 py-2 text-center">{{ ($data->currentPage() - 1) * $data->perPage() + $index + 1 }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['nama'] }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['alamat'] }}</td>
-        <td class="px-4 py-2 text-center">{{ $bts->wilayah->nama }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['latitude'] }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['longitude'] }}</td>
+        <td class="px-4 py-2 text-center">{{ $bts['tinggi_tower'] }}</td>
         <td class="px-4 py-2 text-center hover:underline hover:text-blue-700" onclick="event.stopPropagation();">
             <a href="{{ route('pemilik.show', $bts->pemilik->id) }}">{{ $bts->pemilik->name }}</a>
         </td>
@@ -99,7 +95,7 @@ Data BTS
             <table class="border-collapse w-full">
                 <tr class="text-center">
                     <td class="px-14 pb-10" colspan="4">
-                        <img src="{{ url('path_foto') }}/${data.path_foto}" style="max-width: 300px; height: auto; display: block; margin: 0 auto;">
+                        <img src="{{ url('path_foto') }}/${data.path_foto}" style="max-width: 220px; height: auto; display: block; margin: 0 auto;">
                     </td>
                 </tr>
                 <tr>
