@@ -42,15 +42,17 @@
 
     {{-- Tabel Monitoring --}}
     @component('components.table.index', [
-        'columns' => ['No', 'Nama BTS', 'Tgl Kunjungan', 'Tgl Generate', 'Kondisi'],
+        'columns' => ['No', 'Nama BTS', 'Tgl Kunjungan', 'Tgl Generate' , 'Created At', 'Updated At','Kondisi'],
         'actionLabel' => auth()->user() && !in_array(auth()->user()->peran, ['User', 'PIC']) ? 'Actions' : null
     ])
         @foreach ($monitorings as $index => $monitoring)
-            <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($monitoring) }})">
+            <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($monitoring->load('pengguna')) }})">
                 <td class="px-4 py-2 text-center">{{ ($monitorings->currentPage() - 1) * $monitorings->perPage() + $index + 1 }}</td>
                 <td class="px-4 py-2 text-center">{{ $monitoring->bts->nama }}</td>
                 <td class="px-4 py-2 text-center">{{ $monitoring->tgl_kunjungan }}</td>
                 <td class="px-4 py-2 text-center">{{ $monitoring->tgl_generate }}</td>
+                <td class="px-4 py-2 text-center">{{ $monitoring->created_at }}</td>
+                <td class="px-4 py-2 text-center">{{ $monitoring->updated_at }}</td>
                 <td class="px-4 py-2 text-center">
                     <div class="inline-block rounded border px-3 py-1
                         @php
@@ -171,26 +173,30 @@
             const modalContent = document.getElementById('modalContent');
 
             modalContent.innerHTML = `
-                <table class="border-collapse">
+                <table class="border-collapse w-full mx-10 text-lg">
                     <tr>
-                        <td class="px-6 py-1">ID BTS</td>
-                        <td class="px-14 py-1">${data.bts.nama}</td>
+                        <td class="py-2">Nama BTS</td>
+                        <td class="py-2">: ${data.bts.nama}</td>
+                        <td class="py-2">Kondisi</td>
+                        <td class="py-2">: ${data.kondisi_bts.nama}</td>
                     </tr>
                     <tr>
-                        <td class="px-6 py-1">Kondisi</td>
-                        <td class="px-14 py-1">${data.kondisi_bts.nama}</td>
+                        <td class="py-2">Tgl Generate</td>
+                        <td class="py-2">: ${data.tgl_generate}</td>
+                        <td class="py-2">Tgl kunjungan</td>
+                        <td class="py-2">: ${data.tgl_kunjungan}</td>
                     </tr>
                     <tr>
-                        <td class="px-6 py-1">Tahun</td>
-                        <td class="px-14 py-1">${data.tahun}</td>
+                        <td class="py-2">Tahun</td>
+                        <td class="py-2">: ${data.tahun}</td>
+                        <td class="py-2">Surveyor</td>
+                        <td class="py-2">: ${data.pengguna.username}</td>
                     </tr>
                     <tr>
-                        <td class="px-6 py-1">Tgl kunjungan</td>
-                        <td class="px-14 py-1">${data.tgl_kunjungan}</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-1">Tgl Generate</td>
-                        <td class="px-14 py-1">${data.tgl_generate}</td>
+                        <td class="py-2">Created By</td>
+                        <td class="py-2">: ${data.created_by}</td>
+                        <td class="py-2">Edited By</td>
+                        <td class="py-2">: ${data.edited_by}</td>
                     </tr>
                 </table>
             `;

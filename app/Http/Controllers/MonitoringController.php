@@ -9,67 +9,76 @@ use App\Models\Monitoring;
 use Illuminate\Http\Request;
 use App\Exports\ExportMonitoring;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MonitoringController extends Controller
 {
     public function index(Request $request)
     {
-        $max_data = 8;
+        if (Auth::check()) {
+            if (Auth::user()->peran == 'Administrator' || Auth::user()->peran =='Surveyor' ||Auth::user()->peran == 'PIC') {
+                $max_data = 8;
 
-        if ($request->search) {
-            $monitorings = Monitoring::whereHas('bts', function ($query) use ($request) {
-                $query->where('nama', 'like', '%' . $request->search . '%');
-            })
-                ->orderBy('tgl_generate', 'desc')
-                ->paginate($max_data);
+                if ($request->search) {
+                    $monitorings = Monitoring::whereHas('bts', function ($query) use ($request) {
+                        $query->where('nama', 'like', '%' . $request->search . '%');
+                    })
+                        ->orderBy('tgl_generate', 'desc')
+                        ->paginate($max_data);
+                } else {
+                    $monitorings = Monitoring::with('bts', 'kondisi_bts')
+                        ->orderBy('tgl_generate', 'desc')
+                        ->paginate($max_data);
+                }
+
+                $notMonitoredBts = $this->checkMonitoringGaps();
+                $notMonitoredBtsCurrentMonth = $this->checkMonitoringGapsCurrentMonth();
+
+                $scatterData = Monitoring::select('tgl_generate', 'id_kondisi_bts')
+                    ->with('kondisi_bts')
+                    ->get()
+                    ->groupBy(function ($date) {
+                        return Carbon::parse($date->tgl_generate)->format('Y-m'); // Group by year and month
+                    })
+                    ->map(function ($monthYearGroup) {
+                        return $monthYearGroup->groupBy('id_kondisi_bts')->map->count();
+                    });
+
+                // Handle month and year filter
+                $selectedMonth = $request->input('month', now()->month);
+                $selectedYear = $request->input('year', now()->year);
+
+                $pieData = Monitoring::select('id_kondisi_bts', DB::raw('count(*) as count'))
+                    ->whereYear('tgl_generate', $selectedYear)
+                    ->whereMonth('tgl_generate', $selectedMonth)
+                    ->groupBy('id_kondisi_bts')
+                    ->get()
+                    ->mapWithKeys(function ($item) {
+                        return [$item->id_kondisi_bts => $item->count];
+                    });
+
+                // Get available months and years from data
+                $availableMonths = Monitoring::selectRaw('DISTINCT MONTH(tgl_generate) as month')->orderBy('month')->pluck('month');
+                $availableYears = Monitoring::selectRaw('DISTINCT YEAR(tgl_generate) as year')->orderBy('year')->pluck('year');
+
+                return view('pages.monitoring.index', compact(
+                    'monitorings',
+                    'scatterData',
+                    'notMonitoredBts',
+                    'notMonitoredBtsCurrentMonth',
+                    'pieData',
+                    'selectedMonth',
+                    'selectedYear',
+                    'availableMonths',
+                    'availableYears'
+                ));
+            } else {
+                return redirect('/unauthorized')->with('error', 'Anda tidak memiliki hak akses untuk halaman ini.');
+            }
         } else {
-            $monitorings = Monitoring::with('bts', 'kondisi_bts')
-                ->orderBy('tgl_generate', 'desc')
-                ->paginate($max_data);
+            return redirect('/login');
         }
-
-        $notMonitoredBts = $this->checkMonitoringGaps();
-        $notMonitoredBtsCurrentMonth = $this->checkMonitoringGapsCurrentMonth();
-
-        $scatterData = Monitoring::select('tgl_generate', 'id_kondisi_bts')
-            ->with('kondisi_bts')
-            ->get()
-            ->groupBy(function ($date) {
-                return Carbon::parse($date->tgl_generate)->format('Y-m'); // Group by year and month
-            })
-            ->map(function ($monthYearGroup) {
-                return $monthYearGroup->groupBy('id_kondisi_bts')->map->count();
-            });
-
-        // Handle month and year filter
-        $selectedMonth = $request->input('month', now()->month);
-        $selectedYear = $request->input('year', now()->year);
-
-        $pieData = Monitoring::select('id_kondisi_bts', DB::raw('count(*) as count'))
-            ->whereYear('tgl_generate', $selectedYear)
-            ->whereMonth('tgl_generate', $selectedMonth)
-            ->groupBy('id_kondisi_bts')
-            ->get()
-            ->mapWithKeys(function ($item) {
-                return [$item->id_kondisi_bts => $item->count];
-            });
-
-        // Get available months and years from data
-        $availableMonths = Monitoring::selectRaw('DISTINCT MONTH(tgl_generate) as month')->orderBy('month')->pluck('month');
-        $availableYears = Monitoring::selectRaw('DISTINCT YEAR(tgl_generate) as year')->orderBy('year')->pluck('year');
-
-        return view('pages.monitoring.index', compact(
-            'monitorings',
-            'scatterData',
-            'notMonitoredBts',
-            'notMonitoredBtsCurrentMonth',
-            'pieData',
-            'selectedMonth',
-            'selectedYear',
-            'availableMonths',
-            'availableYears'
-        ));
     }
 
     public function checkMonitoringGaps()
@@ -120,8 +129,6 @@ class MonitoringController extends Controller
         return $notMonitoredBts;
     }
 
-
-
     public function export_excel()
     {
         return Excel::download(new ExportMonitoring, "Monitoring.xlsx");
@@ -139,10 +146,7 @@ class MonitoringController extends Controller
             'id_bts' => 'required|integer',
             'tgl_generate' => 'required|date',
             'tgl_kunjungan' => 'required|date',
-            'id_kondisi_bts' => 'required|exists:kondisi_bts,id',
-            'id_user_surveyor' => 'nullable|integer',
-            'created_by' => 'nullable|integer',
-            'edited_by' => 'nullable|integer',
+            'id_kondisi_bts' => 'required|exists:kondisi_bts,id'
         ]);
 
         Monitoring::create([
@@ -151,7 +155,10 @@ class MonitoringController extends Controller
             'tgl_generate' => $request->tgl_generate,
             'tgl_kunjungan' => $request->tgl_kunjungan,
             'id_kondisi_bts' => $request->id_kondisi_bts,
-            'edited_at' => now()
+            'id_user' => Auth::user()->id,
+            'created_by' => Auth::user()->username,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         return redirect()->route('monitoring.index')->with('success', 'Monitoring created successfully.');
@@ -170,7 +177,6 @@ class MonitoringController extends Controller
             'tgl_generate' => 'required|date',
             'tgl_kunjungan' => 'required|date',
             'id_kondisi_bts' => 'required|exists:kondisi_bts,id',
-            'id_user_surveyor' => 'nullable|exists:users,id',
         ]);
 
         $monitoring->update([
@@ -179,7 +185,8 @@ class MonitoringController extends Controller
             'tgl_generate' => $request->tgl_generate,
             'tgl_kunjungan' => $request->tgl_kunjungan,
             'id_kondisi_bts' => $request->id_kondisi_bts,
-            'edited_at' => now()
+            'edited_by' => Auth::user()->username,
+            'updated_at' => now()
         ]);
 
         return redirect()->route('monitoring.index')->with('success', 'Monitoring updated successfully.');

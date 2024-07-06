@@ -26,4 +26,12 @@ class Pengguna extends Authenticable
     protected $hidden = [
         'password',
     ];
+    public function monitoring()
+    {
+        return $this->hasMany(Monitoring::class, 'id_user');
+    }
+    public function bts()
+    {
+        return $this->hasMany(BTS::class, 'id_user');
+    }
 }

@@ -11,37 +11,51 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\MonitoringController;
+use Illuminate\Support\Facades\Auth;
 
 /* *
  * Main Pages 
  * */
-
 Route::get("/", [HomeController::class, "home"])->name('home');
 
-
-Route::controller(DashboardController::class)->group(function () {
-    Route::get("/dashboard", "index")->name("dashboard");
-});
 
 /* *
  * User
  * */
 Route::controller(UserController::class)->group(function () {
     Route::get("/login", function () {
-        return view("pages.auth.login");
+        if (!Auth::check()) {
+            return view("pages.auth.login");
+        } else {
+            return redirect('/');
+        };
     })->name("login");
-    
-    Route::get("/register", function () {
-        return view("pages.auth.register");
-    })->name("register");
 
+    Route::get("/register", function () {
+        if (!Auth::check()) {
+            return view("pages.auth.register");
+        } else {
+            return redirect('/');
+        };
+    })->name("register");
+    
     Route::post("/user", "register");
     Route::post("/auth", "login");
     Route::get("/profile", "profile")->middleware("auth")->name("profile");
     Route::get("/profile/edit", "editProfile")->name("profile.edit");
-    Route::put("/profile/update","updateProfile")->name("profile.update");
-    Route::delete("/profile","deleteProfile")->name("profile.delete");
-    Route::delete("/auth","logout")->name("auth.logout");
+    Route::put("/profile/update", "updateProfile")->name("profile.update");
+    Route::delete("/profile", "deleteProfile")->name("profile.delete");
+    Route::delete("/auth", "logout")->name("auth.logout");
+});
+
+Route::get('/unauthorized', function () {
+    return view('pages.unauthorized');
+})->name('unauthorized');
+
+
+//Dashboard
+Route::controller(DashboardController::class)->group(function () {
+    Route::get("/dashboard", "index")->name("dashboard");
 });
 
 // BTS
@@ -94,7 +108,6 @@ Route::controller(JenisBTSController::class)->group(function () {
     Route::get("/jenis_bts/export/excel", "export_excel")->name('jenis_bts.exportExcel');
     Route::get("/jenis_bts/export/pdf", "exportPdf")->name('jenis_bts.exportPdf');
     Route::get('/jenis_bts/{id}', 'show')->name('jenis_bts.show');
-
 });
 
 // Kuesioner
@@ -125,17 +138,18 @@ Route::controller(MonitoringController::class)->group(function () {
     Route::get("/monitoring/export/excel", "export_excel")->name('monitoring.exportExcel');
     Route::get("/monitoring/export/pdf", "exportPdf")->name('monitoring.exportPdf');
 });
-Route::get('/monitoring/pie-chart-data', [MonitoringController::class, 'pieChartData']);
 
 // Pengguna
 Route::controller(PenggunaController::class)->group(function () {
     Route::get("/pengguna", "index")->name('pengguna.index');
     Route::get("/pengguna/create", "create")->name('pengguna.create');
     Route::post("/pengguna", "store")->name('pengguna.store');
+    Route::get("/pengguna/{pengguna}/edit", "edit")->name("pengguna.edit");
+    Route::put("/pengguna/{pengguna}", "update")->name('pengguna.update');
     Route::delete("/pengguna/{pengguna}", "destroy")->name('pengguna.destroy');
     Route::get("/pengguna/export/excel", "export_excel")->name('pengguna.exportExcel');
     Route::get("/pengguna/export/pdf", "exportPdf")->name('pengguna.exportPdf');
-    Route::get('/pengguna/{id}', 'show')->name('pengguna.show');
+    Route::get('/pengguna/{id}/log' ,'log')->name('pengguna.log');
 });
 // Route::get('/wilayah', function () {
 //     return view('pages.wilayah.index');

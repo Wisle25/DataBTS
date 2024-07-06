@@ -13,7 +13,7 @@
     </div>
     @component('components.table.index', [
         'columns' => ['No', 'Nama', 'Level', 'ID Parent'],
-        'actionLabel' => auth()->check() ? 'Actions' : null
+        'actionLabel' => auth()->check() ? 'Actions' : null,
     ])
         @foreach ($data as $index => $wilayah)
             <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($wilayah) }})">
@@ -22,10 +22,9 @@
                 <td class="px-4 py-1 text-center">{{ $wilayah['level'] }}</td>
                 <td class="px-4 py-1 text-center">{{ $wilayah['id_parent'] }}</td>
                 <td class="px-4 py-1 text-center" onclick="event.stopPropagation();">
-                        <x-button.btn-action editUrl="{{ url('wilayah/' . $wilayah->id . '/edit') }}"
-                            deleteUrl="{{ url('wilayah/' . $wilayah->id) }}"
-                            deleteMessage="Are you sure you want to delete this item?" />
-                    </div>
+                    <x-button.btn-action editUrl="{{ url('wilayah/' . $wilayah->id . '/edit') }}"
+                        deleteUrl="{{ url('wilayah/' . $wilayah->id) }}"
+                        deleteMessage="Are you sure you want to delete this item?" />
                 </td>
             </tr>
         @endforeach
@@ -36,7 +35,3 @@
         {{ $data->appends(['jenis_bts_page' => $jenis_bts->currentPage()])->links() }}
     </div>
 </div>
-
-
-
-

@@ -31,14 +31,21 @@
                     class="inline-flex items-center mt-3 px-4 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Filter</button>
             </div>
         </form>
-        <div class="w-1/2 mx-auto text-center">
-            <canvas id="pieChart"></canvas>
+        <div class="flex justify-center">
+            <div class="w-1/2 text-center">
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="ml-6">
+                <ul >
+                    <li><span class="bg-teal-300 text-black text-xs px-2 py-1 inline-block rounded border mr-2 my-1">Normal</span>: <span id="normalCount"></span></li>
+                    <li><span class="bg-red-500 text-white text-xs px-2 py-1 inline-block rounded border mr-2 my-1">Fault</span>: <span id="faultCount"></span></li>
+                    <li><span class="bg-yellow-300 text-black text-xs px-2 py-1 inline-block rounded border mr-2 my-1">Maintenance</span>: <span id="maintenanceCount"></span></li>
+                    <li><span class="bg-gray-300 text-black text-xs px-2 py-1 inline-block rounded border mr-2 my-1">Offline</span>: <span id="offlineCount"></span></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
-
-
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -74,5 +81,10 @@
                 }
             }
         });
+
+        document.getElementById('normalCount').textContent = pieData[1] || 0;
+        document.getElementById('faultCount').textContent = pieData[2] || 0;
+        document.getElementById('maintenanceCount').textContent = pieData[3] || 0;
+        document.getElementById('offlineCount').textContent = pieData[4] || 0;
     });
 </script>

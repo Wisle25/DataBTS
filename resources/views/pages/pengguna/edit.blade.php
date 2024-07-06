@@ -15,16 +15,12 @@
 <body class="bg-gray-100 py-10">
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-1/2 p-6 bg-white rounded-lg shadow-lg">
-            <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Data pengguna</h1>
+            <h1 class="text-2xl font-semibold text-center text-gray-900 mt-3 mb-3">Edit Role Pengguna</h1>
             @include('components.allert.danger')
             <form action='{{ route("pengguna.update", $pengguna->id) }}' method="POST">
                 @csrf
                 @method("PUT")
-                <x-form.form-input id="nama" label="Nama" name="nama" value="{{ old('nama', $pengguna->nama) }}" />
-                <x-form.form-input id="username" label="Username" name="username" value="{{ old('username', $pengguna->username) }}" />
-                <x-form.form-input id="email" label="Email" name="email" type="email" value="{{ old('email', $pengguna->email) }}" />
-                <x-form.form-input id="password" label="Password" name="password" type="password" value="{{ old('password') }}" />
-                <x-form.form-select id="peran" label="Peran" name="peran" :options="['Administrator' => 'Administrator', 'PIC' => 'PIC', 'Surveyor' => 'Surveyor']" value="{{ $errors->has('peran') ? '' : old('peran') }}"/>
+                <x-form.form-select id="peran" label="Peran" name="peran" :options="['User' => 'User', 'Administrator' => 'Administrator', 'PIC' => 'PIC', 'Surveyor' => 'Surveyor']" value="{{ $errors->has('peran') ? '' : old('peran') }}"/>
                 <button type="submit" class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">
                     Simpan
                 </button>

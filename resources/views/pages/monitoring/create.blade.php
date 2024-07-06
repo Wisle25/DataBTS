@@ -24,8 +24,7 @@
                 <x-form.form-input id="tgl_kunjungan" label="Tanggal Kunjungan" name="tgl_kunjungan" type="date" value="{{ $errors->has('tgl_kunjungan') ? '' : old('tgl_kunjungan') }}" />
                 <x-form.form-input id="tgl_generate" label="Tanggal Generate" name="tgl_generate" type="date" value="{{ $errors->has('tgl_generate') ? '' : old('tgl_generate') }}" />
                 <x-form.form-select id="id_kondisi_bts" label="Kondisi BTS" name="id_kondisi_bts" :options="[1 => 'Normal', 2 => 'Fault', 3 => 'Maintance', 4 => 'Offline']" value="{{ $errors->has('id_kondisi_bts') ? '' : old('id_kondisi_bts') }}" />
-                <button type="submit" name="submit"
-                    class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>
+                <button type="submit" name="submit" class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-700 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2">Simpan</button>
             </form>
         </div>
     </div>

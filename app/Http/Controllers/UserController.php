@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengguna;
 use Auth;
+use App\Models\UserLog;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +23,7 @@ class UserController extends Controller
         }
 
         Pengguna::create([
+            "nama" => $request->nama,
             "username" => $request->username,
             "email" => $request->email,
             "password" => Hash::make($request->password),
@@ -94,6 +96,12 @@ class UserController extends Controller
 
         // Attempt to log in with the provided credentials
         if (auth()->attempt($credentials)) {
+            UserLog::create([
+                'id_user' => auth()->user()->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->header('User-Agent'),
+                'login_at' => now()->timezone('Asia/Jakarta'), 
+            ]);
             return redirect()->intended('/');
         }
 

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Monitoring extends Model
 {
@@ -18,25 +20,17 @@ class Monitoring extends Model
         'tgl_generate',
         'tgl_kunjungan',
         'id_kondisi_bts',
-        'id_user_surveyor',
+        'id_user',
         'created_by',
         'edited_by',
         'created_at',
         'edited_at'
     ];
 
-    // Hidden attributes
-    protected $hidden = [
-        'created_by',
-        'edited_by'
-    ];
-
     // Attribute casting
     protected $casts = [
         'id_bts' => 'integer',
-        'id_user_surveyor' => 'integer',
-        'created_by' => 'integer',
-        'edited_by' => 'integer',
+        'id_user' => 'integer',
         'created_at' => 'datetime',
         'edited_at' => 'datetime',
     ];
@@ -49,5 +43,29 @@ class Monitoring extends Model
     public function kondisi_bts()
     {
         return $this->belongsTo(KondisiBts::class, 'id_kondisi_bts');
+    }
+    public function pengguna()
+    {
+        return $this->belongsTo(Pengguna::class, 'id_user');
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (Auth::check()) {
+                $model->created_by = Auth::user()->username;
+                $model->edited_by = Auth::user()->username;
+                $model->created_at = Carbon::now()->setTimezone('Asia/Jakarta');
+                $model->updated_at = Carbon::now()->setTimezone('Asia/Jakarta');
+            }
+        });
+
+        static::updating(function ($model) {
+            if (Auth::check()) {
+                $model->edited_by = Auth::user()->username;
+                $model->updated_at = Carbon::now()->setTimezone('Asia/Jakarta');
+            }
+        });
     }
 }

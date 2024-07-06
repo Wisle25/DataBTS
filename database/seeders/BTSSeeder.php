@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\BTS;
+use App\Models\Pengguna;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class BTSSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run() : void
+    public function run(): void
     {
-        // Data contoh untuk tabel bts
         $btsData = [
             [
                 'nama' => 'BTS Merdeka',
@@ -25,11 +26,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 1,
+                'id_user' => 2,
                 'id_pemilik' => 1,
                 'id_wilayah' => 8,
-                'created_by' => 1,
-                'edited_by' => 1,
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Sejahtera',
@@ -42,11 +43,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 45,
                 'ada_genset' => false,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 2,
+                'id_user' => 2,
                 'id_pemilik' => 1,
                 'id_wilayah' => 8,
-                'created_by' => 2,
-                'edited_by' => 2,
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Mawar',
@@ -59,11 +60,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 55,
                 'ada_genset' => true,
                 'ada_tembok_batas' => false,
-                'id_user_pic' => 3,
+                'id_user' => 2,
                 'id_pemilik' => 3,
                 'id_wilayah' => 9,
-                'created_by' => 3,
-                'edited_by' => 3,
+                'created_by' => 'PIC 2',
+                'edited_by' => 'PIC 2',
             ],
             [
                 'nama' => 'BTS Nusantara',
@@ -76,11 +77,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 60,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 4,
+                'id_user' => 2,
                 'id_pemilik' => 2,
                 'id_wilayah' => 12,
-                'created_by' => 4,
-                'edited_by' => 4,
+                'created_by' => 'PIC 2',
+                'edited_by' => 'PIC 2',
             ],
             [
                 'nama' => 'BTS Jaya',
@@ -93,11 +94,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 65,
                 'ada_genset' => false,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 5,
+                'id_user' => 2,
                 'id_pemilik' => 5,
                 'id_wilayah' => 4,
-                'created_by' => 5,
-                'edited_by' => 5,
+                'created_by' => 'PIC 2',
+                'edited_by' => 'PIC 2',
             ],
             [
                 'nama' => 'BTS Pelita',
@@ -110,11 +111,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 70,
                 'ada_genset' => true,
                 'ada_tembok_batas' => false,
-                'id_user_pic' => 6,
+                'id_user' => 2,
                 'id_pemilik' => 7,
                 'id_wilayah' => 21,
-                'created_by' => 6,
-                'edited_by' => 6,
+                'created_by' => 'PIC 2',
+                'edited_by' => 'PIC 2',
             ],
             [
                 'nama' => 'BTS Gemilang',
@@ -127,11 +128,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 75,
                 'ada_genset' => false,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 7,
+                'id_user' => 2,
                 'id_pemilik' => 3,
                 'id_wilayah' => 7,
-                'created_by' => 7,
-                'edited_by' => 7,
+                'created_by' => 'PIC 2',
+                'edited_by' => 'PIC 2',
             ],
             [
                 'nama' => 'BTS Harapan',
@@ -144,11 +145,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 80,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 8,
+                'id_user' => 2,
                 'id_pemilik' => 1,
                 'id_wilayah' => 8,
-                'created_by' => 8,
-                'edited_by' => 8,
+                'created_by' => 'PIC 2',
+                'edited_by' => 'PIC 2',
             ],
             [
                 'nama' => 'BTS Makmur',
@@ -161,11 +162,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 85,
                 'ada_genset' => false,
                 'ada_tembok_batas' => false,
-                'id_user_pic' => 9,
+                'id_user' => 3,
                 'id_pemilik' => 9,
                 'id_wilayah' => 23,
-                'created_by' => 9,
-                'edited_by' => 9,
+                'created_by' => 'PIC 2',
+                'edited_by' => 'PIC 2',
             ],
             [
                 'nama' => 'BTS Intan',
@@ -178,11 +179,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 90,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 10,
+                'id_user' => 3,
                 'id_pemilik' => 10,
                 'id_wilayah' => 14,
-                'created_by' => 10,
-                'edited_by' => 10,
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
 
 
@@ -199,11 +200,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => false,
-                'id_user_pic' => 11,
+                'id_user' => 3,
                 'id_pemilik' => 11,
                 'id_wilayah' => 28,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Tangguh',
@@ -216,11 +217,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 12,
+                'id_user' => 3,
                 'id_pemilik' => 9,
                 'id_wilayah' => 25,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Cahaya',
@@ -233,11 +234,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 45,
                 'ada_genset' => false,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 13,
+                'id_user' => 3,
                 'id_pemilik' => 7,
                 'id_wilayah' => 16,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Pertiwi',
@@ -250,11 +251,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 14,
+                'id_user' => 3,
                 'id_pemilik' => 9,
                 'id_wilayah' => 23,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Musi',
@@ -267,11 +268,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 15,
+                'id_user' => 3,
                 'id_pemilik' => 6,
                 'id_wilayah' => 9,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Abadi',
@@ -284,11 +285,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 65,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 16,
+                'id_user' => 3,
                 'id_pemilik' => 7,
                 'id_wilayah' => 21,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Sukses',
@@ -301,11 +302,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 40,
                 'ada_genset' => true,
                 'ada_tembok_batas' => false,
-                'id_user_pic' => 17,
+                'id_user' => 4,
                 'id_pemilik' => 4,
                 'id_wilayah' => 10,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Inspirasi',
@@ -318,11 +319,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 18,
+                'id_user' => 4,
                 'id_pemilik' => 12,
                 'id_wilayah' => 26,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 1',
+                'edited_by' => 'PIC 1',
             ],
             [
                 'nama' => 'BTS Lestari',
@@ -335,11 +336,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => false,
-                'id_user_pic' => 19,
+                'id_user' => 4,
                 'id_pemilik' => 12,
                 'id_wilayah' => 27,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 3',
+                'edited_by' => 'PIC 3',
             ],
             [
                 'nama' => 'BTS Sentosa',
@@ -352,11 +353,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 20,
+                'id_user' => 4,
                 'id_pemilik' => 11,
                 'id_wilayah' => 29,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 3',
+                'edited_by' => 'PIC 3',
             ],
             [
                 'nama' => 'BTS Wijaya',
@@ -369,11 +370,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 50,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 21,
+                'id_user' => 4,
                 'id_pemilik' => 9,
                 'id_wilayah' => 25,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 3',
+                'edited_by' => 'PIC 3',
             ],
             [
                 'nama' => 'BTS Persada',
@@ -386,11 +387,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 40,
                 'ada_genset' => true,
                 'ada_tembok_batas' => false,
-                'id_user_pic' => 22,
+                'id_user' => 4,
                 'id_pemilik' => 8,
                 'id_wilayah' => 17,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 3',
+                'edited_by' => 'PIC 3',
             ],
             [
                 'nama' => 'BTS Pesona',
@@ -403,11 +404,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 60,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 23,
+                'id_user' => 4,
                 'id_pemilik' => 6,
                 'id_wilayah' => 3,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 3',
+                'edited_by' => 'PIC 3',
             ],
             [
                 'nama' => 'BTS Elok',
@@ -420,11 +421,11 @@ class BTSSeeder extends Seeder
                 'lebar_tanah' => 40,
                 'ada_genset' => true,
                 'ada_tembok_batas' => true,
-                'id_user_pic' => 24,
+                'id_user' => 4,
                 'id_pemilik' => 5,
                 'id_wilayah' => 13,
-                'created_by' => 1,
-                'edited_by' => 1
+                'created_by' => 'PIC 3',
+                'edited_by' => 'PIC 3',
             ],
             // Tambahkan data lainnya sesuai kebutuhan
         ];

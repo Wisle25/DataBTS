@@ -18,15 +18,14 @@ return new class extends Migration
             $table->text('tgl_generate');
             $table->text('tgl_kunjungan');
             $table->unsignedBigInteger('id_kondisi_bts');
-            $table->unsignedBigInteger('id_user_surveyor')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('edited_by')->nullable();
-            $table->timestamp('edited_at')->useCurrent()->nullable();
+            $table->unsignedBigInteger('id_user');
+            $table->string('created_by')->nullable(); 
+            $table->string('edited_by')->nullable(); 
             $table->timestamps();
 
             $table->foreign('id_bts')->references('id')->on('bts');
             $table->foreign('id_kondisi_bts')->references('id')->on('kondisi_bts');
-            // $table->foreign('id_user_surveyor')->references('id')->on('users');
+            $table->foreign('id_user')->references('id')->on('pengguna')->after('id_user');
         });
     }
 

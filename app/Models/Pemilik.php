@@ -30,14 +30,4 @@ class Pemilik extends Model
     {
         return $this->hasMany(BTS::class, 'id_pemilik');
     }
-    // // Relationships
-    // public function creator()
-    // {
-    //     return $this->belongsTo(Pengguna::class, 'created_by');
-    // }
-
-    // public function editor()
-    // {
-    //     return $this->belongsTo(Pengguna::class, 'edited_by');
-    // }
 }

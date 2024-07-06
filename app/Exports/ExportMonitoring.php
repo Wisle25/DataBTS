@@ -40,6 +40,10 @@ class ExportMonitoring implements FromCollection, WithHeadings, WithMapping, Wit
             $monitoring->tgl_generate,
             $monitoring->tgl_kunjungan,
             $monitoring->kondisi_bts->nama,
+            $monitoring->created_at,
+            $monitoring->updated_at,
+            $monitoring->created_by,
+            $monitoring->edited_by ? $monitoring->edited_by : 'Tidak ada',
         ];
     }
 
@@ -52,6 +56,10 @@ class ExportMonitoring implements FromCollection, WithHeadings, WithMapping, Wit
             'Tanggal Generate',
             'Tanggal Kunjungan',
             'Kondisi BTS',
+            'Created At',
+            'Updated At',
+            'Created By',
+            'Updated At',
         ];
     }
 

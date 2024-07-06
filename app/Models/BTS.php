@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BTS extends Model
 {
@@ -23,7 +25,7 @@ class BTS extends Model
         'lebar_tanah',
         'ada_genset',
         'ada_tembok_batas',
-        'id_user_pic',
+        'id_user',
         'id_pemilik',
         'id_wilayah',
         'path_foto',
@@ -38,18 +40,7 @@ class BTS extends Model
         'ada_genset' => 'boolean',
         'ada_tembok_batas' => 'boolean',
     ];
-//     public function created_by_user()
-// {
-//     return $this->belongsTo(Pengguna::class, 'created_by_user_id');
-// }
 
-// public function edited_by_user()
-// {
-//     return $this->belongsTo(Pengguna::class, 'edited_by_user_id');
-// }
-
-
-    // Define relationships
     public function jenisBts()
     {
         return $this->belongsTo(JenisBts::class, 'id_jenis_bts');
@@ -68,5 +59,29 @@ class BTS extends Model
     public function monitoring()
     {
         return $this->hasMany(Monitoring::class, 'id_bts');
+    }
+    public function pengguna()
+    {
+        return $this->belongsTo(Pengguna::class, 'id_user');
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (Auth::check()) {
+                $model->created_by = Auth::user()->username;
+                $model->edited_by = Auth::user()->username;
+                $model->created_at = Carbon::now()->setTimezone('Asia/Jakarta');
+                $model->updated_at = Carbon::now()->setTimezone('Asia/Jakarta');
+            }
+        });
+
+        static::updating(function ($model) {
+            if (Auth::check()) {
+                $model->edited_by = Auth::user()->username;
+                $model->updated_at = Carbon::now()->setTimezone('Asia/Jakarta');
+            }
+        });
     }
 }

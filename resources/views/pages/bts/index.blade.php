@@ -36,27 +36,23 @@ Data BTS
 
 {{-- Tabel BTS --}}
 @component('components.table.index', [
-    'columns' => ['No', 'Nama', 'Alamat', 'Wilayah', 'Latitude', 'Longitude', 'Tinggi Tower', 'Pemilik', 'Jenis'],
+    'columns' => ['No', 'Nama', 'Alamat', 'Wilayah', 'Latitude', 'Longitude', 'Pemilik', 'Jenis'],
     'actionLabel' => auth()->user() && !in_array(auth()->user()->peran, ['User', 'Surveyor']) ? 'Actions' : null
 ])
     @foreach ($data as $index => $bts)
-    <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($bts) }})">
+    <tr class="hover:bg-gray-100 cursor-pointer" onclick="showDetails({{ json_encode($bts->load('wilayah', 'pemilik','pengguna')) }})">
         <td class="px-5 py-2 text-center">{{ ($data->currentPage() - 1) * $data->perPage() + $index + 1 }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['nama'] }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['alamat'] }}</td>
         <td class="px-4 py-2 text-center">{{ $bts->wilayah->nama }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['latitude'] }}</td>
         <td class="px-4 py-2 text-center">{{ $bts['longitude'] }}</td>
-        <td class="px-4 py-2 text-center">{{ $bts['tinggi_tower'] }}</td>
-        {{-- <td class="px-4 py-2 text-center">{{ $bts->created_by_user_id = auth()->user()->username }}</td>
-        <td class="px-4 py-2 text-center">{{ $bts->edited_by_user_id = auth()->user()->username }}</td> --}}
         <td class="px-4 py-2 text-center hover:underline hover:text-blue-700" onclick="event.stopPropagation();">
             <a href="{{ route('pemilik.show', $bts->pemilik->id) }}">{{ $bts->pemilik->name }}</a>
         </td>
         <td class="px-4 py-2 text-center hover:underline hover:text-blue-700" onclick="event.stopPropagation();">
             <a href="{{ route('jenis_bts.show', $bts->jenisBTS->id) }}">{{ $bts->jenisBTS->nama }}</a>
         </td>
-
         @auth
         @if (auth()->user()->peran == "Administrator" || auth()->user()->peran == "PIC")
         <td class="px-4 py-2 text-center" onclick="event.stopPropagation();">
@@ -81,6 +77,9 @@ Data BTS
 @endcomponent
 
 
+
+
+
 {{-- Maps --}}
 <div id="peta-container" class="my-10 mx-3 z-0">
     @component('components.section.title')
@@ -95,48 +94,55 @@ Data BTS
         const modal = document.getElementById('detailModal');
         const modalContent = document.getElementById('modalContent');
 
+
         modalContent.innerHTML = `
-            <table class="border-collapse">
+            <table class="border-collapse w-full">
                 <tr class="text-center">
-                    <td class="px-14 py-1" colspan="2">
+                    <td class="px-14 pb-10" colspan="4">
                         <img src="{{ url('path_foto') }}/${data.path_foto}" style="max-width: 300px; height: auto; display: block; margin: 0 auto;">
                     </td>
                 </tr>
                 <tr>
                     <td class="px-6 py-1">Nama</td>
-                    <td class="px-14 py-1">${data.nama}</td>
-                </tr>
-                <tr>
+                    <td class="py-1">: ${data.nama}</td>
                     <td class="px-6 py-1">Alamat</td>
-                    <td class="px-14 py-1">${data.alamat}</td>
+                    <td class=" py-1">: ${data.alamat}</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-1">Latitude</td>
-                    <td class="px-14 py-1">${data.latitude}</td>
-                </tr>
-                <tr>
+                    <td class=" py-1">: ${data.latitude}</td>
                     <td class="px-6 py-1">Longitude</td>
-                    <td class="px-14 py-1">${data.longitude}</td>
+                    <td class=" py-1">: ${data.longitude}</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-1">Tinggi Tower</td>
-                    <td class="px-14 py-1">${data.tinggi_tower}</td>
-                </tr>
-                <tr>
+                    <td class=" py-1">: ${data.tinggi_tower}</td>
                     <td class="px-6 py-1">Panjang Tanah</td>
-                    <td class="px-14 py-1">${data.panjang_tanah}</td>
+                    <td class=" py-1">: ${data.panjang_tanah}</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-1">Lebar Tanah</td>
-                    <td class="px-14 py-1">${data.lebar_tanah}</td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-1">Genset</td>
-                    <td class="px-14 py-1">${data.ada_genset}</td>
+                    <td class=" py-1">: ${data.lebar_tanah}</td>
+                    <td class="px-6 py-1">Wilayah</td>
+                    <td class=" py-1">: ${data.wilayah.nama}</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-1">Tembok Batas</td>
-                    <td class="px-14 py-1">${data.ada_tembok_batas}</td>
+                    <td class=" py-1">: ${data.ada_tembok_batas}</td>
+                    <td class="px-6 py-1">Genset</td>
+                    <td class=" py-1">: ${data.ada_genset}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-1">Pemilik</td>
+                    <td class=" py-1">: ${data.pemilik.name}</td>
+                    <td class="px-6 py-1">Penangung Jawab</td>
+                    <td class=" py-1">: ${data.pengguna.username}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-1">Created by</td>
+                    <td class=" py-1">: ${data.created_by}</td>
+                    <td class="px-6 py-1">Edited by</td>
+                    <td class=" py-1">: ${data.edited_by}</td>
                 </tr>
             </table>
                     `;

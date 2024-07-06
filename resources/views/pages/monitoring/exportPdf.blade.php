@@ -35,6 +35,10 @@
                 <th>Tanggal Generate</th>
                 <th>Tanggal Kunjungan</th>
                 <th>Kondisi BTS</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Created By</th>
+                <th>Edited By</th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +50,10 @@
                     <td>{{ $monitoring->tgl_generate }}</td>
                     <td>{{ $monitoring->tgl_kunjungan }}</td>
                     <td>{{ $monitoring->kondisi_bts->nama }}</td>
+                    <td>{{ $monitoring->created_at }}</td>
+                    <td>{{ $monitoring->updated_at }}</td>
+                    <td>{{ $monitoring->created_by }}</td>
+                    <td>{{ $monitoring->edited_by ? $monitoring->edited_by : 'Tidak ada' }}</td>
                 </tr>
             @endforeach
         </tbody>

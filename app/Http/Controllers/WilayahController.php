@@ -12,13 +12,6 @@ class WilayahController extends Controller
 {
     public function index()
     {
-        // $max_data = 8;
-
-        // if (request('search')) {
-        //     $data = Wilayah::where('nama', 'like', '%' . request('search') . '%')->paginate($max_data);
-        // } else {
-        //     $data = Wilayah::with('children')->orderBy('id_parent', 'asc')->paginate($max_data);
-        // }
 
         $data = Wilayah::with('children')->orderBy('id_parent', 'asc')->get();
 
@@ -51,7 +44,7 @@ class WilayahController extends Controller
             'level' => $request->level,
         ]);
 
-        return redirect()->route('wilayah.index')->with('success', 'Wilayah berhasil dibuat.');
+        return redirect()->route('dashboard')->with('success', 'Wilayah berhasil dibuat.');
     }
 
     // Tampilkan form untuk mengedit wilayah
@@ -76,7 +69,7 @@ class WilayahController extends Controller
             'level' => $request->level,
         ]);
 
-        return redirect()->route('wilayah.index')->with('success', 'Wilayah berhasil diupdate.');
+        return redirect()->route('dashboard')->with('success', 'Wilayah berhasil diupdate.');
     }
 
     // Hapus wilayah
@@ -84,7 +77,7 @@ class WilayahController extends Controller
     {
         $wilayah->delete();
 
-        return redirect()->route('wilayah.index')->with('success', 'Wilayah berhasil dihapus.');
+        return redirect()->route('dashboard')->with('success', 'Wilayah berhasil dihapus.');
     }
 
     public function exportPdf()
